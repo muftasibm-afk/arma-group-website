@@ -250,7 +250,7 @@ nav.hidden{transform:translateY(-100%)}
 .sectors .eyebrow{color:var(--gold)}
 .sectors-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,6vw,80px);color:var(--white);letter-spacing:1px;line-height:1;margin-bottom:64px}
 .sectors-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:320px 320px;gap:3px}
-.sector-panel{position:relative;overflow:hidden;cursor:none;clip-path:inset(100% 0 0 0);transition:clip-path 0s}
+.sector-panel{position:relative;overflow:hidden;cursor:none;display:block;clip-path:inset(100% 0 0 0);transition:clip-path 0s}
 .sector-panel.revealed{clip-path:inset(0% 0 0 0);transition:clip-path .8s cubic-bezier(.4,0,.2,1)}
 .sector-panel:nth-child(1){grid-row:1/3}
 .sector-panel img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.4,0,.2,1);display:block}
@@ -345,4 +345,635 @@ nav.hidden{transform:translateY(-100%)}
 .contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:72px;margin-top:64px;align-items:start}
 .contact-info p{font-size:15px;color:rgba(255,255,255,.55);line-height:1.85;margin-bottom:36px}
 .c-detail{display:flex;align-items:flex-start;gap:14px;margin-bottom:22px;transition:transform .25s}
-.c-detail:h
+.c-detail:hover{transform:translateX(6px)}
+.c-icon{width:36px;height:36px;background:rgba(255,255,255,.06);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.c-icon svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.c-detail strong{display:block;font-size:13px;color:var(--white);font-weight:500;margin-bottom:2px}
+.c-detail span{font-size:12px;color:rgba(255,255,255,.4)}
+.c-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:40px}
+.f-row{margin-bottom:20px}
+.f-row label{display:block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.f-row input,.f-row select,.f-row textarea{
+  width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:2px;padding:12px 14px;font-family:'Inter',sans-serif;font-size:14px;color:var(--white);
+  outline:none;transition:border-color .25s,background .25s;appearance:none;cursor:none;
+}
+.f-row input::placeholder,.f-row textarea::placeholder{color:rgba(255,255,255,.25)}
+.f-row input:focus,.f-row select:focus,.f-row textarea:focus{border-color:rgba(201,168,76,.6);background:rgba(255,255,255,.09)}
+.f-row textarea{resize:vertical;min-height:100px}
+.f-row select option{background:#004d00}
+.f-2col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* ── FOOTER ── */
+footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168,76,.12)}
+.footer-top{display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-brand strong{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--white);display:block;margin-bottom:10px}
+.f-brand p{font-size:13px;color:rgba(255,255,255,.35);line-height:1.75;max-width:260px}
+.f-col h4{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.f-col ul{list-style:none}
+.f-col li{margin-bottom:10px}
+.f-col a{font-size:13px;color:rgba(255,255,255,.4);transition:color .2s,padding-left .2s}
+.f-col a:hover{color:rgba(255,255,255,.85);padding-left:6px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,.25)}
+.iso-badge{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:5px 12px;border-radius:100px}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  body{cursor:auto}
+  #cur-outer,#cur-inner{display:none}
+  .sectors-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .sector-panel:nth-child(1){grid-row:auto;grid-column:1/-1}
+  .about-split,.chairman-inner,.contact-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+  .f-brand{grid-column:1/-1}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(0,77,0,.97);padding:24px 5%;gap:18px;border-bottom:1px solid rgba(201,168,76,.15)}
+  .hamburger{display:flex}
+  .statbar{grid-template-columns:1fr 1fr}
+  .sectors-grid{grid-template-columns:1fr}
+  .sector-panel:nth-child(1){grid-column:auto}
+  .pillar-row{flex-direction:column;gap:20px}
+  .pillar{padding:0;border-right:none;border-bottom:1px solid var(--border);padding-bottom:20px}
+  .pillar:last-child{border-bottom:none;padding-left:0}
+  .f-2col{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cur-outer"></div>
+<div id="cur-inner"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div id="loader-logo">ARMA<span>.</span></div>
+  <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+  <div id="loader-pct">0%</div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-sq">A</div>
+    <div class="nav-logo-words">
+      <strong>ARMA GROUP</strong>
+      <small>of Companies</small>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#sectors">Our Concerns</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#chairman">Leadership</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      <span>ISO 9001:2015 · Bangladesh · Est. 1985</span>
+    </div>
+    <div class="hero-headline">
+      <span class="hl-line"><span class="hl-word" id="hw1">BUILDING</span></span>
+      <span class="hl-line"><span class="hl-word outline" id="hw2">THE</span></span>
+      <span class="hl-line"><span class="hl-word gold" id="hw3">NATION.</span></span>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-desc" id="heroDesc">Seven companies. Five sectors. Forty years of infrastructure, power, real estate, agriculture, and education — shaping Bangladesh.</p>
+      <div class="hero-actions" id="heroActions">
+        <a href="#sectors" class="btn-gold">Our Companies</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <!-- doubled for seamless loop -->
+    <div class="marquee-item">Power &amp; Energy<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Real Estate<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Agriculture<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Infrastructure<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Education<span class="marquee-dot"></span></div>
+    <div class="marquee-item">ISO 9001:2015<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Est. 1985<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Dhaka, Bangladesh<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Power &amp; Energy<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Real Estate<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Agriculture<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Infrastructure<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Education<span class="marquee-dot"></span></div>
+    <div class="marquee-item">ISO 9001:2015<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Est. 1985<span class="marquee-dot"></span></div>
+    <div class="marquee-item">Dhaka, Bangladesh<span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<!-- STAT BAR -->
+<div class="statbar">
+  <div class="statbar-item"><div class="statbar-num" id="s1">—</div><div class="statbar-label">Year Founded</div></div>
+  <div class="statbar-item"><div class="statbar-num" id="s2">—</div><div class="statbar-label">Sister Concerns</div></div>
+  <div class="statbar-item"><div class="statbar-num" id="s3">—</div><div class="statbar-label">Years Operating</div></div>
+  <div class="statbar-item"><div class="statbar-num" id="s4">—</div><div class="statbar-label">Industry Sectors</div></div>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="tl-header">
+    <span class="eyebrow">Our Journey</span>
+    <div class="big-title">FOUR DECADES<br>OF GROWTH</div>
+    <p style="font-size:13px;color:var(--muted);margin-top:10px;letter-spacing:.5px">← Drag to explore →</p>
+  </div>
+  <div class="tl-track" id="tlTrack">
+    <div class="tl-item passed"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">1985</div><div class="tl-event"><strong>ARMA Electric Company</strong>Founded as an electrical construction enterprise serving Bangladesh's power sector.</div></div>
+    <div class="tl-item"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">1990s</div><div class="tl-event"><strong>Power Sector Growth</strong>Substation construction under BPDB and DPDC. Distribution lines laid across the country.</div></div>
+    <div class="tl-item"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">2000</div><div class="tl-event"><strong>230KV Milestone</strong>Constructed 230KV transmission line and control room building under PGCB.</div></div>
+    <div class="tl-item"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">2005</div><div class="tl-event"><strong>ARMA Agriculture</strong>Launched agro-industrial venture in Rangpur — 40 acres of value-added production.</div></div>
+    <div class="tl-item"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">2006</div><div class="tl-event"><strong>ARMA Line Hardware</strong>Established to supply quality power hardware and accessories across Bangladesh.</div></div>
+    <div class="tl-item"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">2008</div><div class="tl-event"><strong>Abdur Razzaque School</strong>Education division launched in Banasree, Dhaka — now 550+ students strong.</div></div>
+    <div class="tl-item"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">2010</div><div class="tl-event"><strong>ESHA Holdings</strong>Real estate arm established — integrated large-scale development begins.</div></div>
+    <div class="tl-item"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">2018</div><div class="tl-event"><strong>ISO 9001:2015</strong>ARMA Electric achieves international quality management certification.</div></div>
+    <div class="tl-item passed"><div class="tl-line-fill"></div><div class="tl-dot"></div><div class="tl-year">Today</div><div class="tl-event"><strong>Seven Companies Strong</strong>A leading conglomerate spanning power, real estate, agriculture, and education.</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-split">
+    <div class="about-img" id="aboutImg">
+      <div class="about-img-inner" id="aboutImgInner"></div>
+      <div class="about-img-overlay"></div>
+      <div class="about-img-badge" id="aboutBadge">
+        <strong>40+</strong>
+        <span>Years building<br>Bangladesh</span>
+      </div>
+    </div>
+    <div class="about-body">
+      <span class="eyebrow">Who We Are</span>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);letter-spacing:1px;color:var(--ink);line-height:1;margin-bottom:28px">A CONGLOMERATE<br>BUILT ON PRINCIPLE</h2>
+      <p>ARMA Group began in 1985 as a single electrical construction firm. Over four decades, through deliberate and patient growth, we have become one of Bangladesh's most trusted multi-sector conglomerates — without ever compromising the founding values of fairness, honesty, and genuine care.</p>
+      <p>Today, seven sister concerns operate under the ARMA umbrella. Each serves the development of Bangladesh. Together, they form a group that has earned the trust of the country's most important institutions.</p>
+      <div class="pillar-row">
+        <div class="pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h4>Integrity</h4>
+          <p>Every decision rooted in fairness and honesty since day one.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+          <h4>Quality</h4>
+          <p>ISO 9001:2015 certified. International standards, local dedication.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section class="sectors" id="sectors">
+  <span class="eyebrow">Our Sister Concerns</span>
+  <div class="sectors-title">SIX COMPANIES.<br>ONE VISION.</div>
+  <div class="sectors-grid" id="sectorsGrid">
+    <a href="arma-electric.html" class="sector-panel"><img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=900&auto=format&fit=crop&q=80" alt="Power" loading="lazy"><div class="sector-overlay"></div><div class="sector-body"><div class="sector-cat">Flagship · Est. 1985 · ISO Certified</div><div class="sector-name">ARMA Electric Company</div><div class="sector-desc">Civil and electrical construction across Bangladesh's power sector — trusted by BPDB, DPDC, and PGCB.</div><div class="sector-arrow">View company <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></a></div>
+    <a href="arma-line-hardware.html" class="sector-panel"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop&q=80" alt="Hardware" loading="lazy"><div class="sector-overlay"></div><div class="sector-body"><div class="sector-cat">Power Equipment · Est. 2006</div><div class="sector-name">ARMA Line Hardware</div><div class="sector-desc">Quality insulators, transformers, and accessories for Bangladesh's power grid.</div><div class="sector-arrow">View company <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></a></div>
+    <a href="arma-real-estate.html" class="sector-panel"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&auto=format&fit=crop&q=80" alt="Real Estate" loading="lazy"><div class="sector-overlay"></div><div class="sector-body"><div class="sector-cat">Real Estate</div><div class="sector-name">ARMA Real Estate</div><div class="sector-desc">Residential and commercial developments across Dhaka.</div><div class="sector-arrow">View company <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></a></div>
+    <a href="arma-agriculture.html" class="sector-panel"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&auto=format&fit=crop&q=80" alt="Agriculture" loading="lazy"><div class="sector-overlay"></div><div class="sector-body"><div class="sector-cat">Agriculture · Est. 2005</div><div class="sector-name">ARMA Agriculture</div><div class="sector-desc">40-acre agro-industrial operation in Rangpur for local and export markets.</div><div class="sector-arrow">View company <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></a></div>
+    <a href="esha-holdings.html" class="sector-panel"><img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600&auto=format&fit=crop&q=80" alt="Holdings" loading="lazy"><div class="sector-overlay"></div><div class="sector-body"><div class="sector-cat">Holdings · Est. 2010</div><div class="sector-name">ESHA Holdings</div><div class="sector-desc">Integrated large-scale real estate development with strong engineering heritage.</div><div class="sector-arrow">View company <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></a></div>
+    <a href="arsc-school.html" class="sector-panel"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&auto=format&fit=crop&q=80" alt="Education" loading="lazy"><div class="sector-overlay"></div><div class="sector-body"><div class="sector-cat">Education · Est. 2008</div><div class="sector-name">Abdur Razzaque School</div><div class="sector-desc">Nurturing 550+ students in Banasree, Dhaka.</div><div class="sector-arrow">View company <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></a></div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients-section" id="clients">
+  <div class="clients-label"><span class="eyebrow" style="margin:0">Trusted Clients</span></div>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);letter-spacing:1px;color:var(--ink);line-height:1;margin-bottom:40px">GOVERNMENT &amp; INSTITUTIONAL<br>PARTNERS</h2>
+  <div class="clients-scroll" id="clientsScroll">
+    <div class="client-pill"><span class="client-pill-dot"></span>Bangladesh Power Dev. Board (BPDB)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>Dhaka Power Distribution Co. (DPDC)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>Power Grid Co. of Bangladesh (PGCB)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>Dhaka Electric Supply Co. (DESCO)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>Ashuganj Power Station (APSCL)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>Electricity Generation Co. (EGCB)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>Rural Electrification Board (REB)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>West Zone Power Distribution (WZPDCL)</div>
+    <div class="client-pill"><span class="client-pill-dot"></span>Northern Electric Supply Co. (NESCO)</div>
+  </div>
+</section>
+
+<!-- CHAIRMAN -->
+<section class="chairman-section" id="chairman">
+  <div class="chairman-inner">
+    <div class="chairman-photo">
+      <div class="chairman-photo-frame">
+        <div class="chairman-photo-inner" id="chairmanImg"></div>
+      </div>
+      <div class="chairman-accent"></div>
+    </div>
+    <div class="chairman-text">
+      <span class="eyebrow">Leadership</span>
+      <p class="chairman-q">Bangladesh is on the stage of take-off. We at ARMA Group are determined to play a defining role in the development of our nation. Professionalism is the key to success — and we will never compromise on it.</p>
+      <div class="chairman-sig">
+        <strong>Abdur Razzaque</strong>
+        <span>Founder &amp; Chairman, ARMA Group of Companies</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section class="certs-section" id="certifications">
+  <span class="eyebrow">Standards &amp; Credentials</span>
+  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);letter-spacing:1px;color:var(--ink);line-height:1">RECOGNISED FOR<br>QUALITY</h2>
+  <div class="certs-row" id="certsRow">
+    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><strong>ISO 9001:2015</strong><span>Quality Management System</span></div></div>
+    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg></div><div><strong>DCCI Member</strong><span>Dhaka Chamber of Commerce &amp; Industry</span></div></div>
+    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div><div><strong>Test Certified</strong><span>Product &amp; Equipment Test Reports</span></div></div>
+    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div><strong>BPDB Registered</strong><span>Approved Contractor</span></div></div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section class="career-banner" id="career">
+  <div class="career-inner">
+    <div>
+      <span class="eyebrow">Join the Group</span>
+      <div class="career-h">BUILD YOUR<br>CAREER WITH US</div>
+      <p class="career-p">We are always looking for skilled professionals across engineering, construction, real estate, and education.</p>
+    </div>
+    <a href="#contact" class="btn-gold" style="flex-shrink:0;font-size:14px;padding:16px 32px">Send Your CV</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <span class="eyebrow">Get in Touch</span>
+  <div class="big-title" style="color:var(--white)">CONTACT<br>ARMA GROUP</div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>Whether you are a client, a partner, or a professional looking to join our team — we would be glad to hear from you.</p>
+      <div class="c-detail"><div class="c-icon"><svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div><strong>Head Office</strong><span>House #1/B, Rd #NS-1, Khilgaon, Dhaka 1219, Bangladesh</span></div></div>
+      <div class="c-detail"><div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div><strong>Email</strong><span>info@armagroup.com.bd</span></div></div>
+      <div class="c-detail"><div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div><div><strong>Phone</strong><span>+880 2-XXXX-XXXX</span></div></div>
+    </div>
+    <form class="c-form" action="https://formspree.io/f/mykabdyk" method="POST" onsubmit="submitForm(event)">
+      <div class="f-2col">
+        <div class="f-row"><label>Name</label><input type="text" placeholder="Full name" required></div>
+        <div class="f-row"><label>Email</label><input type="email" placeholder="you@company.com" required></div>
+      </div>
+      <div class="f-row"><label>Enquiry</label><select><option value="">Select a topic</option><option>Business Partnership</option><option>Project / Tender</option><option>Real Estate</option><option>Career / CV</option><option>General</option></select></div>
+      <div class="f-row"><label>Message</label><textarea placeholder="How can we help you?"></textarea></div>
+      <button type="submit" class="btn-gold" style="width:100%;font-size:14px;padding:14px" id="submitBtn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="f-brand"><strong>ARMA GROUP</strong><p>A leading conglomerate of Bangladesh — building the nation across Power, Real Estate, Agriculture, Infrastructure, and Education since 1985.</p></div>
+    <div class="f-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#chairman">Leadership</a></li><li><a href="#certifications">Certifications</a></li><li><a href="#career">Career</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="f-col"><h4>Concerns</h4><ul><li><a href="#sectors">ARMA Electric Co.</a></li><li><a href="#sectors">ARMA Real Estate</a></li><li><a href="#sectors">ARMA Line Hardware</a></li><li><a href="#sectors">ARMA Agriculture</a></li><li><a href="#sectors">ESHA Holdings</a></li><li><a href="#sectors">ARSC School</a></li></ul></div>
+    <div class="f-col"><h4>Sectors</h4><ul><li><a href="#">Power &amp; Energy</a></li><li><a href="#">Real Estate</a></li><li><a href="#">Agriculture</a></li><li><a href="#">Infrastructure</a></li><li><a href="#">Education</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ARMA Group of Companies. All rights reserved. Dhaka, Bangladesh.</p>
+    <div class="iso-badge">ISO 9001:2015 Certified</div>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ══ LOADER ══ */
+const loaderEl = document.getElementById('loader');
+const loaderLogo = document.getElementById('loader-logo');
+const loaderBar = document.getElementById('loader-bar');
+const loaderPct = document.getElementById('loader-pct');
+
+// Animate logo in
+gsap.to(loaderLogo, {opacity:1, duration:.6, ease:'power2.out', delay:.1});
+
+let pct = 0;
+const loadInterval = setInterval(() => {
+  pct += Math.random() * 18 + 4;
+  if (pct > 100) pct = 100;
+  loaderBar.style.width = pct + '%';
+  loaderPct.textContent = Math.round(pct) + '%';
+  if (pct >= 100) {
+    clearInterval(loadInterval);
+    setTimeout(() => {
+      gsap.to(loaderEl, {
+        yPercent: -100, duration: .9, ease:'power3.inOut',
+        onComplete: () => { loaderEl.style.display='none'; startHeroAnimation(); }
+      });
+    }, 300);
+  }
+}, 60);
+
+/* ══ HERO PARTICLE CANVAS ══ */
+const canvas = document.getElementById('hero-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 1.5 + .3;
+    this.speedX = (Math.random() - .5) * .4;
+    this.speedY = (Math.random() - .5) * .4;
+    this.opacity = Math.random() * .4 + .05;
+    this.color = Math.random() > .5 ? '201,168,76' : '255,255,255';
+  }
+  update() {
+    this.x += this.speedX; this.y += this.speedY;
+    if (this.x<0||this.x>canvas.width||this.y<0||this.y>canvas.height) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(${this.color},${this.opacity})`;
+    ctx.fill();
+  }
+}
+for (let i=0; i<100; i++) particles.push(new Particle());
+function animParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  // Draw connecting lines
+  particles.forEach((a,i) => {
+    particles.slice(i+1).forEach(b => {
+      const d = Math.hypot(a.x-b.x, a.y-b.y);
+      if (d < 80) {
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle = `rgba(201,168,76,${.08*(1-d/80)})`;
+        ctx.lineWidth = .5; ctx.stroke();
+      }
+    });
+  });
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+/* ══ HERO ENTRANCE ANIMATION ══ */
+function startHeroAnimation() {
+  const tl = gsap.timeline();
+  tl.to('#hw1', {y:'0%', duration:.8, ease:'power4.out'}, 0)
+    .to('#hw2', {y:'0%', duration:.8, ease:'power4.out'}, .12)
+    .to('#hw3', {y:'0%', duration:.8, ease:'power4.out'}, .24)
+    .to('#heroDesc', {color:'rgba(255,255,255,0.6)', duration:.8, ease:'power2.out'}, .5)
+    .to('#heroActions', {opacity:1, duration:.6, ease:'power2.out'}, .65);
+}
+
+/* ══ MAGNETIC CURSOR ══ */
+const curOuter = document.getElementById('cur-outer');
+const curInner = document.getElementById('cur-inner');
+let mx=0, my=0, ox=0, oy=0;
+
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+function animCursor() {
+  ox += (mx - ox) * .14;
+  oy += (my - oy) * .14;
+  curOuter.style.left = ox+'px';
+  curOuter.style.top = oy+'px';
+  curInner.style.left = mx+'px';
+  curInner.style.top = my+'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+document.querySelectorAll('a,button,.sector-panel,.statbar-item,.pillar,.cert,.client-pill').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+document.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
+
+/* ══ NAV HIDE ON SCROLL DOWN ══ */
+let lastY = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  const y = window.scrollY;
+  nav.classList.toggle('scrolled', y > 40);
+  nav.classList.toggle('hidden', y > lastY + 10 && y > 200);
+  if (y < lastY - 10) nav.classList.remove('hidden');
+  lastY = y;
+});
+
+/* ══ GSAP SCROLL ANIMATIONS ══ */
+
+// Stat counters
+function animCount(el, target, dur, suffix='') {
+  gsap.to({v:0}, {
+    v: target, duration: dur, ease:'power2.out',
+    onUpdate: function() { el.textContent = Math.round(this.targets()[0].v) + suffix; }
+  });
+}
+ScrollTrigger.create({
+  trigger: '.statbar', start:'top 80%', once:true,
+  onEnter: () => {
+    animCount(document.getElementById('s1'), 1985, 1.8);
+    animCount(document.getElementById('s2'), 7, 1.0);
+    animCount(document.getElementById('s3'), 40, 1.4, '+');
+    animCount(document.getElementById('s4'), 5, 0.8);
+  }
+});
+
+// Parallax on about image
+gsap.to('#aboutImgInner', {
+  yPercent: 20,
+  ease:'none',
+  scrollTrigger: { trigger:'#aboutImg', start:'top bottom', end:'bottom top', scrub:true }
+});
+
+// Parallax on chairman image
+gsap.to('#chairmanImg', {
+  yPercent: 15,
+  ease:'none',
+  scrollTrigger: { trigger:'.chairman-section', start:'top bottom', end:'bottom top', scrub:true }
+});
+
+// About badge
+ScrollTrigger.create({
+  trigger:'#aboutImg', start:'top 70%', once:true,
+  onEnter: () => document.getElementById('aboutBadge').classList.add('visible')
+});
+
+// Section titles stagger
+document.querySelectorAll('.big-title').forEach(el => {
+  gsap.fromTo(el,
+    {opacity:0, y:40},
+    {opacity:1, y:0, duration:.9, ease:'power3.out',
+     scrollTrigger:{trigger:el, start:'top 85%', once:true}}
+  );
+});
+document.querySelectorAll('.eyebrow').forEach(el => {
+  gsap.fromTo(el,
+    {opacity:0, x:-20},
+    {opacity:1, x:0, duration:.6, ease:'power2.out',
+     scrollTrigger:{trigger:el, start:'top 90%', once:true}}
+  );
+});
+
+// Sectors: staggered clip-path reveal
+const sectorPanels = document.querySelectorAll('.sector-panel');
+ScrollTrigger.create({
+  trigger:'#sectorsGrid', start:'top 75%', once:true,
+  onEnter: () => {
+    sectorPanels.forEach((p,i) => {
+      setTimeout(() => p.classList.add('revealed'), i * 120);
+    });
+  }
+});
+
+// Client pills stagger
+const pills = document.querySelectorAll('.client-pill');
+ScrollTrigger.create({
+  trigger:'#clientsScroll', start:'top 80%', once:true,
+  onEnter: () => {
+    pills.forEach((p,i) => setTimeout(() => p.classList.add('visible'), i*80));
+  }
+});
+
+// Cert cards slide in
+const certs = document.querySelectorAll('.cert');
+ScrollTrigger.create({
+  trigger:'#certsRow', start:'top 80%', once:true,
+  onEnter: () => {
+    certs.forEach((c,i) => setTimeout(() => c.classList.add('visible'), i*120));
+  }
+});
+
+// Chairman quote word-by-word
+const qEl = document.querySelector('.chairman-q');
+if (qEl) {
+  const words = qEl.textContent.trim().split(' ');
+  qEl.innerHTML = words.map(w => `<span style="opacity:0;display:inline-block;margin-right:.25em">${w}</span>`).join('');
+  ScrollTrigger.create({
+    trigger:qEl, start:'top 75%', once:true,
+    onEnter: () => {
+      qEl.querySelectorAll('span').forEach((s,i) => {
+        gsap.to(s, {opacity:1, y:0, duration:.4, ease:'power2.out', delay:i*.04});
+      });
+    }
+  });
+}
+
+// Career section parallax + scale
+gsap.fromTo('.career-banner',
+  {backgroundPositionY:'0%'},
+  {backgroundPositionY:'30%', ease:'none',
+   scrollTrigger:{trigger:'.career-banner', start:'top bottom', end:'bottom top', scrub:true}}
+);
+
+/* ══ HERO PARALLAX ══ */
+gsap.to('.hero-bg', {
+  yPercent: 30, ease:'none',
+  scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+});
+
+/* ══ TIMELINE DRAG ══ */
+const track = document.getElementById('tlTrack');
+let isDown=false, startX, scrollLeft;
+track.addEventListener('mousedown', e=>{isDown=true;startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft;});
+track.addEventListener('mouseleave',()=>isDown=false);
+track.addEventListener('mouseup',()=>isDown=false);
+track.addEventListener('mousemove',e=>{
+  if(!isDown)return; e.preventDefault();
+  track.scrollLeft=scrollLeft-(e.pageX-track.offsetLeft-startX);
+  // Animate dots as they scroll into view
+  track.querySelectorAll('.tl-item').forEach(item => {
+    const r = item.getBoundingClientRect();
+    if(r.left < window.innerWidth*.6) item.classList.add('passed');
+  });
+});
+// Touch support
+track.addEventListener('touchstart',e=>{isDown=true;startX=e.touches[0].pageX-track.offsetLeft;scrollLeft=track.scrollLeft;},{passive:true});
+track.addEventListener('touchend',()=>isDown=false);
+track.addEventListener('touchmove',e=>{
+  if(!isDown)return;
+  track.scrollLeft=scrollLeft-(e.touches[0].pageX-track.offsetLeft-startX);
+},{passive:true});
+
+/* ══ MOBILE NAV ══ */
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+/* ══ CONTACT FORM ══ */
+async function submitForm(e){
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn');
+  const form=e.target;
+  btn.textContent='Sending...';
+  btn.disabled=true;
+  btn.style.opacity='.7';
+  try {
+    const res = await fetch(form.action,{
+      method:'POST',
+      body:new FormData(form),
+      headers:{Accept:'application/json'}
+    });
+    if(res.ok){
+      gsap.to(btn,{scale:.96,duration:.1,yoyo:true,repeat:1});
+      btn.textContent='Message Sent ✓';
+      btn.style.background='var(--green-mid)';
+      btn.style.color='var(--white)';
+      btn.style.opacity='1';
+      form.reset();
+      setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';btn.style.color='';btn.disabled=false;},4000);
+    } else {
+      btn.textContent='Error — Try Again';
+      btn.style.background='#c0392b';
+      btn.style.color='var(--white)';
+      btn.style.opacity='1';
+      btn.disabled=false;
+      setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';btn.style.color='';},3000);
+    }
+  } catch(err){
+    btn.textContent='Error — Try Again';
+    btn.style.opacity='1';
+    btn.disabled=false;
+  }
+}
+
+/* ══ CURSOR INTERACTION ON SECTOR PANELS ══ */
+document.querySelectorAll('.sector-panel').forEach(panel => {
+  panel.addEventListener('mousemove', e => {
+    const r = panel.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - .5;
+    const y = (e.clientY - r.top) / r.height - .5;
+    gsap.to(panel.querySelector('img'), {x:x*12, y:y*12, duration:.6, ease:'power2.out'});
+  });
+  panel.addEventListener('mouseleave', () => {
+    gsap.to(panel.querySelector('img'), {x:0, y:0, duration:.6, ease:'power2.out'});
+  });
+});
+</script>
+</body>
+</html>
