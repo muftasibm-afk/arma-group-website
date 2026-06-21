@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <style>
-.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#001a00;opacity:0;pointer-events:none;transition:opacity .42s ease}
+html{background:#FAF6EE}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FAF6EE;opacity:0;pointer-events:none;transition:opacity .38s ease}
 .page-transition-overlay.active{opacity:1;pointer-events:all}
-body.page-loaded{animation:none!important}
 body{opacity:0}
-body.page-loaded{opacity:1;transition:opacity .5s ease}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
 </style>
 
 <meta charset="UTF-8">
@@ -35,7 +35,7 @@ body.ch #cur{width:50px;height:50px;border-color:var(--harvest2)}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(250,246,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
 nav.scrolled{border-color:var(--border)}
 .nav-logo{display:flex;align-items:center;gap:12px}
-.nav-logo-img{height:40px;width:auto;display:block;}
+.nav-logo-img{height:40px;width:auto;display:block;mix-blend-mode:multiply;}
 
 .nav-logo-mark{width:38px;height:38px;background:var(--harvest);border-radius:50% 50% 50% 0;display:flex;align-items:center;justify-content:center;transform:rotate(-45deg)}
 .nav-logo-mark svg{width:18px;height:18px;stroke:var(--white);fill:none;stroke-width:2;transform:rotate(45deg)}
@@ -295,10 +295,16 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
   const overlay=document.createElement('div');
   overlay.className='page-transition-overlay';
   document.documentElement.appendChild(overlay);
-  function revealPage(){document.body.classList.add('page-loaded');}
+  function revealPage(){
+    overlay.classList.remove('active');
+    document.body.classList.add('page-loaded');
+  }
+  // pageshow fires on normal load AND on back/forward cache navigation
+  window.addEventListener('pageshow',function(e){
+    revealPage();
+  });
   if(document.readyState==='complete'||document.readyState==='interactive'){revealPage();}
   else{document.addEventListener('DOMContentLoaded',revealPage);}
-  window.addEventListener('pageshow',revealPage);
   document.addEventListener('click',function(e){
     const link=e.target.closest('a');
     if(!link) return;

@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <style>
-.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#001a00;opacity:0;pointer-events:none;transition:opacity .42s ease}
+html{background:#FFFBF0}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FFFBF0;opacity:0;pointer-events:none;transition:opacity .38s ease}
 .page-transition-overlay.active{opacity:1;pointer-events:all}
-body.page-loaded{animation:none!important}
 body{opacity:0}
-body.page-loaded{opacity:1;transition:opacity .5s ease}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
 </style>
 
 <meta charset="UTF-8">
@@ -31,7 +31,7 @@ a{color:inherit;text-decoration:none}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:500;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:var(--white);box-shadow:0 2px 16px rgba(27,58,107,.06);border-bottom:3px solid var(--sun)}
 .nav-logo{display:flex;align-items:center;gap:12px}
-.nav-logo-img{height:40px;width:auto;display:block;}
+.nav-logo-img{height:40px;width:auto;display:block;mix-blend-mode:multiply;}
 
 .nav-logo-circle{width:44px;height:44px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--sun)}
 .nav-logo-circle svg{width:22px;height:22px;stroke:var(--sun);fill:none;stroke-width:2}
@@ -322,10 +322,16 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
   const overlay=document.createElement('div');
   overlay.className='page-transition-overlay';
   document.documentElement.appendChild(overlay);
-  function revealPage(){document.body.classList.add('page-loaded');}
+  function revealPage(){
+    overlay.classList.remove('active');
+    document.body.classList.add('page-loaded');
+  }
+  // pageshow fires on normal load AND on back/forward cache navigation
+  window.addEventListener('pageshow',function(e){
+    revealPage();
+  });
   if(document.readyState==='complete'||document.readyState==='interactive'){revealPage();}
   else{document.addEventListener('DOMContentLoaded',revealPage);}
-  window.addEventListener('pageshow',revealPage);
   document.addEventListener('click',function(e){
     const link=e.target.closest('a');
     if(!link) return;

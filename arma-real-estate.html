@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <style>
-.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#001a00;opacity:0;pointer-events:none;transition:opacity .42s ease}
+html{background:#FAF7F2}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FAF7F2;opacity:0;pointer-events:none;transition:opacity .38s ease}
 .page-transition-overlay.active{opacity:1;pointer-events:all}
-body.page-loaded{animation:none!important}
 body{opacity:0}
-body.page-loaded{opacity:1;transition:opacity .5s ease}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
 </style>
 
 <meta charset="UTF-8">
@@ -45,7 +45,7 @@ body.ch #cur-inner{opacity:0}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;transition:background .5s,border-color .5s;border-bottom:1px solid transparent}
 nav.scrolled{background:rgba(250,247,242,.97);border-color:var(--border);backdrop-filter:blur(12px)}
 .nav-logo{display:flex;align-items:center;gap:14px}
-.nav-logo-img{height:40px;width:auto;display:block;filter:drop-shadow(0 1px 4px rgba(0,0,0,.25));}
+.nav-logo-img{height:40px;width:auto;display:block;filter:drop-shadow(0 0 3px rgba(255,255,255,.5)) drop-shadow(0 0 1px rgba(255,255,255,.8));}
 
 .nav-logo-mark{width:36px;height:36px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center}
 .nav-logo-mark svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.5}
@@ -401,10 +401,16 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
   const overlay=document.createElement('div');
   overlay.className='page-transition-overlay';
   document.documentElement.appendChild(overlay);
-  function revealPage(){document.body.classList.add('page-loaded');}
+  function revealPage(){
+    overlay.classList.remove('active');
+    document.body.classList.add('page-loaded');
+  }
+  // pageshow fires on normal load AND on back/forward cache navigation
+  window.addEventListener('pageshow',function(e){
+    revealPage();
+  });
   if(document.readyState==='complete'||document.readyState==='interactive'){revealPage();}
   else{document.addEventListener('DOMContentLoaded',revealPage);}
-  window.addEventListener('pageshow',revealPage);
   document.addEventListener('click',function(e){
     const link=e.target.closest('a');
     if(!link) return;
