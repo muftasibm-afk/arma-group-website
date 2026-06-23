@@ -335,11 +335,12 @@ nav.hidden{transform:translateY(-100%)}
 
 /* ── CERTS ── */
 .certs-section{background:var(--white);padding:80px 5%}
-.certs-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:48px}
+.certs-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:48px;align-items:stretch}
 .cert{
   display:flex;align-items:center;gap:14px;border:1px solid var(--border);
   border-radius:2px;padding:16px 22px;background:var(--off);
   transition:all .3s;transform:translateX(-20px);opacity:0;cursor:none;
+  flex:1;min-width:200px;
 }
 .cert.visible{transform:translateX(0);opacity:1}
 .cert:hover{border-color:var(--green);box-shadow:0 4px 24px rgba(0,128,0,.12);transform:translateX(4px) !important}
