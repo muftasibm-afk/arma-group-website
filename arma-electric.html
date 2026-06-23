@@ -39,13 +39,13 @@ a{color:inherit;text-decoration:none}
 .int-partners-header{padding:0 5%;margin-bottom:48px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
 .int-partners-header h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,44px);letter-spacing:3px;color:var(--white);margin:0}
 .int-partners-header p{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;text-align:right;max-width:240px;line-height:1.8}
-.marquee-track-wrap{position:relative}
+.marquee-track-wrap{position:relative;height:120px}
 .marquee-track-wrap::before,.marquee-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
 .marquee-track-wrap::before{left:0;background:linear-gradient(to right,var(--steel),transparent)}
 .marquee-track-wrap::after{right:0;background:linear-gradient(to left,var(--steel),transparent)}
 .marquee-track{display:flex;align-items:center;gap:0;width:max-content;animation:marquee-scroll 32s linear infinite}
 .marquee-track:hover{animation-play-state:paused}
-.marquee-item{display:flex;align-items:center;justify-content:center;padding:0 52px;height:90px;border-right:1px solid var(--border);flex-shrink:0}
+.marquee-item{display:flex;align-items:center;justify-content:center;padding:0 52px;height:120px;border-right:1px solid var(--border);flex-shrink:0;overflow:hidden}
 .marquee-item img{...;filter:opacity(0.65);transition:filter .3s}
 .marquee-item:hover img{filter:opacity(1)}
 @keyframes marquee-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
