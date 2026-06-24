@@ -410,7 +410,11 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
   .about-split,.chairman-inner,.contact-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr 1fr;gap:32px}
   .f-brand{grid-column:1/-1}
-  .hero-actions{justify-content:center}
+  /* Added width:100% to force the container to span the screen and center the buttons */
+  .hero-actions {
+    width: 100%; 
+    justify-content: center;
+  }
 }
 @media(max-width:640px){
   .nav-links{display:none}
