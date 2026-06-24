@@ -410,7 +410,6 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
   .about-split,.chairman-inner,.contact-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr 1fr;gap:32px}
   .f-brand{grid-column:1/-1}
-  .hero-actions{justify-content:center}
 }
 @media(max-width:640px){
   .nav-links{display:none}
@@ -424,6 +423,16 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
   .pillar:last-child{border-bottom:none;padding-left:0}
   .f-2col{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr}
+  
+  /* Add these lines below to stack the buttons symmetrically */
+  .hero-actions {
+    flex-direction: column;
+  }
+  .hero-actions a {
+    width: 100%;
+    text-align: center;
+  }
+}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
