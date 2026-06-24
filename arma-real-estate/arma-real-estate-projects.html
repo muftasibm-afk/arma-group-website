@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+html{background:#FAF7F2}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FAF7F2;opacity:0;pointer-events:none;transition:opacity .38s ease}
+.page-transition-overlay.active{opacity:1;pointer-events:all}
+body{opacity:0}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — ARMA Real Estate Ltd.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF7F2;
+  --warm:#F0EAE0;
+  --charcoal:#1C1C1C;
+  --charcoal2:#2A2A2A;
+  --gold:#B8963E;
+  --gold2:#D4AF6A;
+  --gold-pale:#F5EDD8;
+  --muted:#888880;
+  --border:#E0D8CC;
+  --white:#FFFFFF;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden;line-height:1.6;cursor:none}
+a{color:inherit;text-decoration:none}
+
+/* ── CURSOR ── */
+#cur-outer{position:fixed;width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .4s cubic-bezier(.4,0,.2,1),height .4s,border-color .3s,background .3s;mix-blend-mode:multiply}
+#cur-inner{position:fixed;width:5px;height:5px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+body.ch #cur-outer{width:64px;height:64px;background:rgba(184,150,62,.06);border-color:var(--gold2)}
+body.ch #cur-inner{opacity:0}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;transition:background .5s,border-color .5s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(250,247,242,.97);border-color:var(--border);backdrop-filter:blur(12px)}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-img{height:40px;width:auto;display:block;filter:drop-shadow(0 0 3px rgba(255,255,255,.5)) drop-shadow(0 0 1px rgba(255,255,255,.8))}
+.nav-logo-words{line-height:1.2}
+.nav-logo-words strong{display:block;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;letter-spacing:2px;color:var(--white)}
+nav.scrolled .nav-logo-words strong{color:var(--charcoal)}
+.nav-logo-words small{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:11px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);transition:color .3s;position:relative}
+nav.scrolled .nav-links a{color:var(--muted)}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-cta-btn{border:1px solid rgba(184,150,62,.6)!important;color:var(--gold)!important;padding:8px 20px;font-size:10px!important;letter-spacing:2px!important}
+.nav-cta-btn:hover{background:var(--gold)!important;color:var(--white)!important}
+.nav-cta-btn::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:background .3s}
+nav.scrolled .hamburger span{background:var(--charcoal)}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:140px 6% 72px;background:var(--charcoal);position:relative;overflow:hidden}
+.page-header::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&auto=format&fit=crop&q=60') center/cover;opacity:.12}
+.page-header-inner{position:relative;z-index:2;max-width:680px}
+.ph-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.ph-eyebrow-line{width:32px;height:1px;background:var(--gold)}
+.ph-eyebrow-text{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold)}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6vw,80px);font-weight:300;line-height:1;color:var(--white);margin-bottom:20px}
+.ph-title em{font-style:italic;color:var(--gold2)}
+.ph-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.9;max-width:440px}
+
+/* ── FILTER BAR ── */
+.filter-bar{background:var(--warm);border-bottom:1px solid var(--border);padding:18px 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.filter-count{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.filter-count span{color:var(--charcoal);font-weight:500}
+
+/* ── PROJECTS GRID ── */
+/*
+  ═══════════════════════════════════════════════════
+  HOW TO ADD A NEW PROJECT
+  ───────────────────────────────────────────────────
+  1. Copy one entire <article class="proj-card"> block
+  2. Paste it anywhere inside <div class="proj-grid">
+  3. Update these data attributes on the <article>:
+       data-name        → project name
+       data-address     → full address
+       data-land        → land area (e.g. "5 Katha")
+       data-type        → unit type (e.g. "Single Unit")
+       data-location    → short location label
+  4. Replace PLACEHOLDER_IMAGE_... with your image URL
+  5. Update the alt text and displayed text in the card body
+  The grid auto-fills — no CSS changes needed.
+  ═══════════════════════════════════════════════════
+*/
+.proj-section{padding:60px 6% 100px;background:var(--cream)}
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:3px;
+}
+
+/* ── PROJECT CARD ── */
+.proj-card{position:relative;overflow:hidden;cursor:none;display:block;aspect-ratio:3/4}
+.proj-card-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.proj-card:hover .proj-card-img{transform:scale(1.05)}
+.proj-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,28,28,.88) 0%,rgba(28,28,28,.25) 55%,transparent 100%);transition:background .4s}
+.proj-card:hover .proj-card-overlay{background:linear-gradient(to top,rgba(28,28,28,.95) 0%,rgba(28,28,28,.5) 60%,rgba(28,28,28,.15) 100%)}
+.proj-card-body{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 32px;z-index:3}
+.proj-card-loc{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:8px}
+.proj-card-name{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.5vw,30px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:14px}
+.proj-card-meta{display:flex;gap:16px;margin-bottom:20px}
+.proj-card-tag{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.proj-card-tag strong{color:rgba(255,255,255,.8);font-weight:400}
+.proj-card-cta{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
+.proj-card-cta svg{width:14px;height:14px;stroke:var(--gold2);fill:none;stroke-width:1.5;transition:transform .3s}
+.proj-card:hover .proj-card-cta{opacity:1;transform:translateY(0)}
+.proj-card:hover .proj-card-cta svg{transform:translateX(4px)}
+
+/* ── MODAL ── */
+.modal-backdrop{position:fixed;inset:0;z-index:8000;background:rgba(15,12,8,.92);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s ease;display:flex;align-items:center;justify-content:center;padding:24px}
+.modal-backdrop.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--cream);width:100%;max-width:900px;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(24px);transition:transform .4s cubic-bezier(.4,0,.2,1);display:grid;grid-template-columns:1fr 1fr}
+.modal-backdrop.open .modal-box{transform:translateY(0)}
+.modal-img-wrap{position:relative;overflow:hidden;min-height:480px}
+.modal-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-img-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(28,28,28,.35) 0%,transparent 60%)}
+.modal-details{padding:52px 44px;display:flex;flex-direction:column;justify-content:center;background:var(--cream)}
+.modal-eyebrow{font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,42px);font-weight:400;line-height:1.1;color:var(--charcoal);margin-bottom:28px}
+.modal-rule{width:40px;height:1px;background:var(--gold);margin-bottom:28px}
+.modal-row{margin-bottom:22px}
+.modal-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.modal-value{font-size:14px;font-weight:300;color:var(--charcoal);line-height:1.65}
+.modal-close{position:absolute;top:20px;right:20px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(28,28,28,.6);border:none;cursor:none;color:var(--white);font-size:18px;font-weight:300;z-index:10;backdrop-filter:blur(4px);transition:background .2s}
+.modal-close:hover{background:rgba(28,28,28,.9)}
+
+/* ── FOOTER ── */
+.proj-footer{background:var(--charcoal);padding:40px 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.proj-footer-left{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.4)}
+.proj-footer-right{display:flex;gap:28px}
+.proj-footer-right a{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);transition:color .3s}
+.proj-footer-right a:hover{color:var(--gold)}
+
+/* ── MEDIA QUERIES ── */
+@media(max-width:900px){
+  body{cursor:auto}
+  #cur-outer,#cur-inner{display:none}
+  .modal-box{grid-template-columns:1fr}
+  .modal-img-wrap{min-height:280px}
+  .modal-details{padding:36px 28px}
+  .proj-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;background:rgba(250,247,242,.98);padding:24px 6%;gap:18px;border-bottom:1px solid var(--border)}
+  nav.scrolled .nav-links.open a,.nav-links.open a{color:var(--charcoal)!important}
+  .hamburger{display:flex}
+  .proj-grid{grid-template-columns:1fr}
+  .proj-card{aspect-ratio:4/3}
+  .modal-box{max-height:95vh}
+  .filter-bar{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div id="cur-outer"></div>
+<div id="cur-inner"></div>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="arma-real-estate.html" class="nav-logo">
+    <!--
+      LOGO: Copy the <img> tag (with the base64 src) from arma-real-estate.html
+      and paste it here, replacing this comment.
+      It starts with: <img src="data:image/png;base64,..." class="nav-logo-img">
+    -->
+    <div class="nav-logo-words">
+      <strong>ARMA Real Estate</strong>
+      <small>Ltd.</small>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="arma-real-estate.html#philosophy">About</a></li>
+    <li><a href="arma-real-estate.html#contact" class="nav-cta-btn">Book Consultation</a></li>
+    <li><a href="arma-real-estate.html" style="color:var(--gold2)!important;font-size:10px!important">← Real Estate</a></li>
+    <li><a href="index.html" style="color:rgba(255,255,255,.4)!important;font-size:10px!important">Group</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ── PAGE HEADER ── -->
+<section class="page-header">
+  <div class="page-header-inner">
+    <div class="ph-eyebrow">
+      <span class="ph-eyebrow-line"></span>
+      <span class="ph-eyebrow-text">ARMA Real Estate Ltd. — Portfolio</span>
+    </div>
+    <h1 class="ph-title">Our <em>Projects</em></h1>
+    <p class="ph-sub">Residential developments across Dhaka — each site selected for location, each building crafted to endure.</p>
+  </div>
+</section>
+
+<!-- ── FILTER BAR ── -->
+<div class="filter-bar">
+  <p class="filter-count"><span id="projCount">3</span> Projects</p>
+  <p class="filter-count">Banasree · Rampura · Dhaka</p>
+</div>
+
+<!-- ── PROJECTS GRID ── -->
+<section class="proj-section">
+  <div class="proj-grid" id="projGrid">
+
+    <!-- ════════════════════════════════════════════════
+         PROJECT 1 — ARMA BINTI KUTHIR
+         To update image: replace PLACEHOLDER_IMAGE_BINTI_KUTHIR
+         ════════════════════════════════════════════════ -->
+    <article class="proj-card"
+             data-name="ARMA BINTI KUTHIR"
+             data-address="Plot# 2/4, 20' N.S Road, Block - A, Banasree, Dhaka-1219"
+             data-land="3.5 Katha"
+             data-type="Single Unit"
+             data-location="Banasree, Dhaka">
+      <img class="proj-card-img" src="PLACEHOLDER_IMAGE_BINTI_KUTHIR" alt="ARMA Binti Kuthir">
+      <div class="proj-card-overlay"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-loc">Banasree, Dhaka</div>
+        <div class="proj-card-name">ARMA Binti Kuthir</div>
+        <div class="proj-card-meta">
+          <div class="proj-card-tag">Land <strong>3.5 Katha</strong></div>
+          <div class="proj-card-tag">Type <strong>Single Unit</strong></div>
+        </div>
+        <div class="proj-card-cta">
+          View Details
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </article>
+
+    <!-- ════════════════════════════════════════════════
+         PROJECT 2 — ARMA KUNJE KIRON
+         To update image: replace PLACEHOLDER_IMAGE_KUNJE_KIRON
+         ════════════════════════════════════════════════ -->
+    <article class="proj-card"
+             data-name="ARMA KUNJE KIRON"
+             data-address="House # 7, Road # 02, Block-A, Banasree, Rampura, Dhaka-1219"
+             data-land="3.5 Katha"
+             data-type="Single Unit"
+             data-location="Rampura, Dhaka">
+      <img class="proj-card-img" src="PLACEHOLDER_IMAGE_KUNJE_KIRON" alt="ARMA Kunje Kiron">
+      <div class="proj-card-overlay"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-loc">Rampura, Dhaka</div>
+        <div class="proj-card-name">ARMA Kunje Kiron</div>
+        <div class="proj-card-meta">
+          <div class="proj-card-tag">Land <strong>3.5 Katha</strong></div>
+          <div class="proj-card-tag">Type <strong>Single Unit</strong></div>
+        </div>
+        <div class="proj-card-cta">
+          View Details
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </article>
+
+    <!-- ════════════════════════════════════════════════
+         PROJECT 3 — ARMA ANGAN
+         To update image: replace PLACEHOLDER_IMAGE_ANGAN
+         ════════════════════════════════════════════════ -->
+    <article class="proj-card"
+             data-name="ARMA ANGAN"
+             data-address="House # 35, Road # 01, Block-A, Banasree, Rampura, Dhaka-1219"
+             data-land="5 Katha"
+             data-type="Single Unit"
+             data-location="Rampura, Dhaka">
+      <img class="proj-card-img" src="PLACEHOLDER_IMAGE_ANGAN" alt="ARMA Angan">
+      <div class="proj-card-overlay"></div>
+      <div class="proj-card-body">
+        <div class="proj-card-loc">Rampura, Dhaka</div>
+        <div class="proj-card-name">ARMA Angan</div>
+        <div class="proj-card-meta">
+          <div class="proj-card-tag">Land <strong>5 Katha</strong></div>
+          <div class="proj-card-tag">Type <strong>Single Unit</strong></div>
+        </div>
+        <div class="proj-card-cta">
+          View Details
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </article>
+
+    <!-- ════════════════════════════════════════════════
+         ADD MORE PROJECTS BELOW THIS LINE
+         Copy one <article class="proj-card"> block above,
+         paste it here, and update all data-* attributes
+         and the PLACEHOLDER_IMAGE_... src.
+         ════════════════════════════════════════════════ -->
+
+  </div>
+</section>
+
+<!-- ── MODAL ── -->
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div class="modal-img-wrap">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-img-overlay"></div>
+    </div>
+    <div class="modal-details">
+      <div class="modal-eyebrow">ARMA Real Estate Ltd.</div>
+      <h2 class="modal-name" id="modalName"></h2>
+      <div class="modal-rule"></div>
+      <div class="modal-row">
+        <div class="modal-label">Address</div>
+        <div class="modal-value" id="modalAddress"></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-label">Land Area</div>
+        <div class="modal-value" id="modalLand"></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-label">Unit Type</div>
+        <div class="modal-value" id="modalType"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="proj-footer">
+  <p class="proj-footer-left">ARMA Real Estate Ltd. — Premium Residences Since 1985</p>
+  <nav class="proj-footer-right">
+    <a href="arma-real-estate.html">← Real Estate Home</a>
+    <a href="arma-real-estate.html#contact">Book Consultation</a>
+    <a href="index.html">Group</a>
+  </nav>
+</footer>
+
+<script>
+// ── CURSOR ──
+(function(){
+  const o=document.getElementById('cur-outer'),i=document.getElementById('cur-inner');
+  let mx=0,my=0,ox=0,oy=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;i.style.left=mx+'px';i.style.top=my+'px';});
+  function animCursor(){ox+=(mx-ox)*.15;oy+=(my-oy)*.15;o.style.left=ox+'px';o.style.top=oy+'px';requestAnimationFrame(animCursor);}
+  animCursor();
+  document.querySelectorAll('a,button,.proj-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+  });
+})();
+
+// ── NAV SCROLL ──
+(function(){
+  const nav=document.getElementById('nav');
+  function updateNav(){nav.classList.toggle('scrolled',window.scrollY>40);}
+  window.addEventListener('scroll',updateNav,{passive:true});
+  updateNav();
+})();
+
+// ── NAV TOGGLE ──
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open');}
+
+// ── MODAL ──
+(function(){
+  const backdrop=document.getElementById('modal');
+  const closeBtn=document.getElementById('modalClose');
+  const modalImg=document.getElementById('modalImg');
+  const modalName=document.getElementById('modalName');
+  const modalAddress=document.getElementById('modalAddress');
+  const modalLand=document.getElementById('modalLand');
+  const modalType=document.getElementById('modalType');
+
+  function openModal(card){
+    modalImg.src=card.querySelector('.proj-card-img').src;
+    modalImg.alt=card.querySelector('.proj-card-img').alt;
+    modalName.textContent=card.dataset.name;
+    modalAddress.textContent=card.dataset.address;
+    modalLand.textContent=card.dataset.land;
+    modalType.textContent=card.dataset.type;
+    backdrop.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+
+  function closeModal(){
+    backdrop.classList.remove('open');
+    document.body.style.overflow='';
+  }
+
+  document.querySelectorAll('.proj-card').forEach(card=>{
+    card.addEventListener('click',()=>openModal(card));
+  });
+
+  closeBtn.addEventListener('click',closeModal);
+
+  backdrop.addEventListener('click',e=>{
+    if(e.target===backdrop) closeModal();
+  });
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape') closeModal();
+  });
+
+  // update project count automatically
+  document.getElementById('projCount').textContent=
+    document.querySelectorAll('.proj-card').length;
+})();
+
+// ── PAGE TRANSITION ──
+(function(){
+  const overlay=document.createElement('div');
+  overlay.className='page-transition-overlay';
+  document.documentElement.appendChild(overlay);
+  function revealPage(){overlay.classList.remove('active');document.body.classList.add('page-loaded');}
+  window.addEventListener('pageshow',revealPage);
+  if(document.readyState==='complete'||document.readyState==='interactive'){revealPage();}
+  else{document.addEventListener('DOMContentLoaded',revealPage);}
+  document.addEventListener('click',function(e){
+    const link=e.target.closest('a');
+    if(!link) return;
+    const href=link.getAttribute('href');
+    if(!href||href.startsWith('#')||href.startsWith('http')||href.startsWith('mailto')||link.target==='_blank') return;
+    if(href.endsWith('.html')||href.includes('.html#')){
+      e.preventDefault();
+      overlay.classList.add('active');
+      setTimeout(function(){window.location.href=href;},380);
+    }
+  });
+})();
+</script>
+</body>
+</html>
