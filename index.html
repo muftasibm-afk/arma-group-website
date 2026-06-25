@@ -720,17 +720,42 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
       <div class="c-detail"><div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div><strong>Email</strong><span>info@armagroup.com.bd</span></div></div>
       <div class="c-detail"><div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div><div><strong>Phone</strong><span>+8802-2440-6189</span></div></div>
     </div>
+    
     <form class="c-form" action="https://formspree.io/f/mykabdyk" method="POST" onsubmit="submitForm(event)">
-      <div class="f-2col">
-        <div class="f-row"><label>Name</label><input type="text" placeholder="Full name" required></div>
-        <div class="f-row"><label>Email</label><input type="email" placeholder="you@company.com" required></div>
-      </div>
-      <div class="f-row"><label>Enquiry</label><select><option value="">Select a topic</option><option>Business Partnership</option><option>Project / Tender</option><option>Real Estate</option><option>Career / CV</option><option>General</option></select></div>
-      <div class="f-row"><label>Message</label><textarea placeholder="How can we help you?"></textarea></div>
-      <button type="submit" class="btn-gold" style="width:100%;font-size:14px;padding:14px" id="submitBtn">Send Message</button>
-    </form>
+  <div class="f-2col">
+    <div class="f-row">
+      <label>Name</label>
+      <input type="text" name="name" placeholder="Full name" required>
+    </div>
+    <div class="f-row">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="you@company.com" required>
+    </div>
+  </div>
+  
+  <div class="f-row">
+    <label>Enquiry</label>
+    <select name="enquiry" required>
+      <option value="">Select a topic</option>
+      <option value="Business Partnership">Business Partnership</option>
+      <option value="Project / Tender">Project / Tender</option>
+      <option value="Real Estate">Real Estate</option>
+      <option value="Career / CV">Career / CV</option>
+      <option value="General">General</option>
+    </select>
+  </div>
+  
+  <div class="f-row">
+    <label>Message</label>
+    <textarea name="message" placeholder="How can we help you?" required></textarea>
+  </div>
+  
+  <button type="submit" class="btn-gold" style="width:100%;font-size:14px;padding:14px" id="submitBtn">Send Message</button>
+</form>
   </div>
 </section>
+
+
 
 <!-- FOOTER -->
 <footer>
