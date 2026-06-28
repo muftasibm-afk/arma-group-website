@@ -351,6 +351,22 @@ nav.hidden{transform:translateY(-100%)}
 .cert strong{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
 .cert span{font-size:11px;color:var(--muted)}
 
+/* ── CLIENT MARQUEE ── */
+.client-marquee{background:var(--ink);padding:48px 0;overflow:hidden;border-top:2px solid var(--gold);position:relative}
+.client-marquee-header{padding:0 5%;margin-bottom:36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.client-marquee-header h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,2.5vw,32px);letter-spacing:3px;color:var(--white);margin:0}
+.client-marquee-header p{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase}
+.cm-track-wrap{position:relative;height:260px}
+.cm-track-wrap::before,.cm-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none}
+.cm-track-wrap::before{left:0;background:linear-gradient(to right,var(--ink),transparent)}
+.cm-track-wrap::after{right:0;background:linear-gradient(to left,var(--ink),transparent)}
+.cm-track{display:flex;align-items:center;width:max-content;animation:cm-scroll 34s linear infinite}
+.cm-track:hover{animation-play-state:paused}
+.cm-item{display:flex;align-items:center;justify-content:center;padding:0 48px;height:260px;border-right:1px solid rgba(201,168,76,.18);flex-shrink:0;overflow:hidden}
+.cm-item img{height:auto;width:auto;max-height:180px;max-width:380px;object-fit:contain;mix-blend-mode:screen;opacity:1;transition:opacity .3s}
+.cm-item:hover img{opacity:0.8}
+@keyframes cm-scroll{from{transform:translateX(0)}to{transform:translateX(-35%)}}
+
 /* ── CAREER ── */
 .career-banner{
   background:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&auto=format&fit=crop&q=80') center/cover no-repeat;
@@ -694,6 +710,43 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
     <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg></div><div><strong>DCCI Member</strong><span>Dhaka Chamber of Commerce &amp; Industry</span></div></div>
     <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div><div><strong>Test Certified</strong><span>Product &amp; Equipment Test Reports</span></div></div>
     <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div><strong>BPDB Registered</strong><span>Approved Contractor</span></div></div>
+  </div>
+</section>
+
+<!-- ── CLIENT / PARTNER MARQUEE ── -->
+<section class="client-marquee">
+  <div class="client-marquee-header">
+    <h3>Trusted By</h3>
+    <p>Clients &amp; institutional partners across Bangladesh</p>
+  </div>
+  <div class="cm-track-wrap">
+    <div class="cm-track">
+
+      <!-- First pass (10 logos) -->
+      <div class="cm-item"><img src="https://github.com/muftasibm-afk/arma-group-website/blob/main/images/our_customers_main/Dhaka-Electric-Supply-Company-Limited.jpg?raw=true" alt="Client 1"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/apscl.jpg" alt="Client 2"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/bangladesh-power-development-board.jpg" alt="Client 3"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/brebp.jpg" alt="Client 4"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/dpdc.jpg" alt="Client 5"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/egcb.jpg" alt="Client 6"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/nesco.jpg" alt="Client 7"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/pgcb-1.jpg" alt="Client 8"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/rpcl.jpg" alt="Client 9"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/wzpdcl.jpg" alt="Client 10"></div>
+
+      <!-- Duplicate pass — keeps the loop seamless -->
+      <div class="cm-item"><img src="https://github.com/muftasibm-afk/arma-group-website/blob/main/images/our_customers_main/Dhaka-Electric-Supply-Company-Limited.jpg?raw=true" alt="Client 1"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/apscl.jpg" alt="Client 2"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/bangladesh-power-development-board.jpg" alt="Client 3"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/brebp.jpg" alt="Client 4"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/dpdc.jpg" alt="Client 5"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/egcb.jpg" alt="Client 6"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/nesco.jpg" alt="Client 7"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/pgcb-1.jpg" alt="Client 8"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/rpcl.jpg" alt="Client 9"></div>
+      <div class="cm-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/our_customers_main/wzpdcl.jpg" alt="Client 10"></div>
+
+    </div>
   </div>
 </section>
 
