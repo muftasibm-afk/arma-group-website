@@ -923,8 +923,8 @@ let mx=0, my=0, ox=0, oy=0;
 
 document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
 function animCursor() {
-  ox += (mx - ox) * .14;
-  oy += (my - oy) * .14;
+  ox += (mx - ox) * .21;
+  oy += (my - oy) * .21;
   curOuter.style.left = ox+'px';
   curOuter.style.top = oy+'px';
   curInner.style.left = mx+'px';
