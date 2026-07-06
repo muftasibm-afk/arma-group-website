@@ -446,16 +446,17 @@ html[data-theme="night"][data-site="group"] .certs-section{
   background:#004d00;
   color:#fff;
 }
-html[data-theme="night"][data-site="group"] .client-pill{
+html[data-theme="night"][data-site="group"] .client-ticket{
   background:#003800;
   border-color:rgba(255,255,255,.18);
   color:rgba(255,255,255,.85);
 }
-html[data-theme="night"][data-site="group"] .client-pill:hover{
+html[data-theme="night"][data-site="group"] .client-ticket:hover{
   background:#005a00;
   border-color:rgba(201,168,76,.45);
   color:#fff;
 }
+html[data-theme="night"][data-site="group"] .client-ticket-id{color:var(--gold)}
 html[data-theme="night"][data-site="group"] .cert{
   background:#003800;
   border-color:rgba(255,255,255,.12);
@@ -559,7 +560,8 @@ html[data-theme="night"][data-site="esha-holdings"] .developments,
 html[data-theme="night"][data-site="esha-holdings"] .contact,
 html[data-theme="night"][data-site="esha-holdings"] footer{background:var(--surface-dark)!important;color:var(--on-dark)}
 html[data-theme="night"][data-site="esha-holdings"] .hero h1,
-html[data-theme="night"][data-site="esha-holdings"] .hero-tagline,
+html[data-theme="night"][data-site="esha-holdings"] .hero-index,
+html[data-theme="night"][data-site="esha-holdings"] .hero-index-text,
 html[data-theme="night"][data-site="esha-holdings"] .nav-links a{color:var(--on-dark)}
 html[data-theme="night"][data-site="esha-holdings"] .statement,
 html[data-theme="night"][data-site="esha-holdings"] .numbers,

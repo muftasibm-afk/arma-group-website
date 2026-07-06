@@ -54,7 +54,13 @@ nav.nav-scrolled{background:rgba(8,8,8,0.82);-webkit-backdrop-filter:blur(22px) 
 .hero h1{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(64px,11vw,160px);line-height:.95;color:var(--white);letter-spacing:2px;transform:translateY(110%);padding-bottom:0.18em}
 .hero h1 em{font-style:italic;color:var(--gold2);font-weight:400}
 .hero-rule{width:1px;height:60px;background:var(--gold);margin:32px auto;transform:scaleY(0)}
-.hero-tagline{font-size:13px;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase;opacity:0}
+.hero-index{display:flex;align-items:stretch;gap:14px;margin-bottom:8px;opacity:0}
+.hero-index-no{
+  font-size:10px;letter-spacing:3px;color:var(--gold2);writing-mode:vertical-rl;
+  text-orientation:mixed;border-right:1px solid rgba(194,165,103,.35);padding-right:12px;
+  display:flex;align-items:center;justify-content:center;
+}
+.hero-index-text{font-size:13px;letter-spacing:2px;color:rgba(255,255,255,.5);text-transform:uppercase;display:flex;align-items:center}
 
 /* scroll cue */
 .scroll-cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px}
@@ -80,7 +86,8 @@ nav.nav-scrolled{background:rgba(8,8,8,0.82);-webkit-backdrop-filter:blur(22px) 
 .about-img{position:relative;overflow:hidden}
 .about-img img{width:100%;height:600px;object-fit:cover;display:block;filter:grayscale(15%)}
 .about-text{padding:80px 0 80px 72px;display:flex;flex-direction:column;justify-content:center}
-.about-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+.about-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.about-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold2)}
 .about-text h2{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(32px,4vw,52px);line-height:1.15;color:var(--black);margin-bottom:32px}
 .about-text h2 em{font-style:italic;color:var(--gold)}
 .about-text p{font-size:14px;color:#555;line-height:1.95;margin-bottom:20px;max-width:480px;font-weight:300}
@@ -88,7 +95,7 @@ nav.nav-scrolled{background:rgba(8,8,8,0.82);-webkit-backdrop-filter:blur(22px) 
 /* DEVELOPMENTS — full-bleed gallery */
 .developments{padding:140px 0;background:var(--black)}
 .dev-header{padding:0 6%;margin-bottom:80px;text-align:center}
-.dev-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold2);margin-bottom:24px;display:block}
+.dev-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold2);margin-bottom:24px;display:block;padding-left:14px;border-left:2px solid var(--gold2)}
 .dev-title{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(36px,4.5vw,64px);color:var(--white);line-height:1.1}
 .dev-title em{font-style:italic;color:var(--gold2)}
 .dev-row{display:grid;grid-template-columns:repeat(3,1fr)}
@@ -104,6 +111,7 @@ nav.nav-scrolled{background:rgba(8,8,8,0.82);-webkit-backdrop-filter:blur(22px) 
 .strengths{padding:140px 6%;background:var(--offwhite)}
 .str-header{text-align:center;margin-bottom:80px}
 .str-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block}
+.str-eyebrow::after{content:'';display:block;width:32px;height:1px;background:var(--gold);margin-top:8px;opacity:.45}
 .str-title{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(34px,4.2vw,58px);color:var(--black);line-height:1.1}
 .str-title em{font-style:italic;color:var(--gold)}
 .str-list{max-width:760px;margin:0 auto}
@@ -117,6 +125,7 @@ nav.nav-scrolled{background:rgba(8,8,8,0.82);-webkit-backdrop-filter:blur(22px) 
 .contact{padding:140px 6%;background:var(--black)}
 .contact-header{text-align:center;margin-bottom:72px}
 .contact-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold2);margin-bottom:24px;display:block}
+.contact-eyebrow::before,.contact-eyebrow::after{content:'—';margin:0 10px;opacity:.35}
 .contact-title{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(36px,5vw,64px);color:var(--white)}
 .contact-title em{font-style:italic;color:var(--gold2)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1100px;margin:0 auto}
@@ -176,7 +185,7 @@ footer{background:var(--black);padding:48px 6% 28px;border-top:1px solid var(--b
     <div class="hero-title-line"><h1 id="h1">ESHA</h1></div>
     <div class="hero-title-line"><h1 id="h2"><em>Holdings</em></h1></div>
     <div class="hero-rule" id="heroRule"></div>
-    <div class="hero-tagline" id="heroTag">Large-Scale Real Estate · Engineering Heritage</div>
+    <div class="hero-index" id="heroTag"><span class="hero-index-no">01</span><span class="hero-index-text">Large-Scale Real Estate · Engineering Heritage</span></div>
   </div>
   <div class="scroll-cue"><span class="scroll-cue-text"></span><div class="scroll-cue-line"></div></div>
 </section>

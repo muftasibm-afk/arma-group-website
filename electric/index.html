@@ -92,9 +92,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .hero h1 .dim{opacity:.2}
 .hero-rule{width:80px;height:2px;background:var(--electric);margin:24px 0;transform:scaleX(0);transform-origin:left}
 .hero-sub{font-size:14px;color:var(--muted);max-width:480px;line-height:1.8;letter-spacing:.3px;opacity:0}
-.hero-badges{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;opacity:0}
-.hero-badge{border:1px solid rgba(245,196,0,.3);padding:6px 14px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--electric)}
-.hero-badge.active{background:var(--electric);color:var(--black)}
+.hero-readout{display:flex;flex-wrap:wrap;margin-top:28px;opacity:0;border:1px solid rgba(245,196,0,.25);background:rgba(0,0,0,.45)}
+.hero-readout-item{
+  font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(245,196,0,.65);
+  padding:8px 14px;border-right:1px solid rgba(245,196,0,.15);
+}
+.hero-readout-item:last-child{border-right:none}
+.hero-readout-item.active{color:var(--black);background:var(--electric);box-shadow:inset 0 0 12px rgba(255,255,255,.15)}
 .hero-ctas{display:flex;gap:14px;margin-top:24px;opacity:0;flex-wrap:wrap}
 .btn-elec{background:var(--electric);color:var(--black);padding:12px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:none;transition:all .2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
 .btn-elec:hover{background:var(--electric2);transform:translateY(-2px)}
@@ -271,11 +276,11 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
     <div class="hero-title-wrap"><h1 id="h1c">CO.</h1></div>
     <div class="hero-rule" id="heroRule"></div>
     <p class="hero-sub" id="heroSub">Bangladesh's trusted civil and electrical construction company — building the nation's power infrastructure for over 40 years. ISO 9001:2015 Certified.</p>
-    <div class="hero-badges" id="heroBadges">
-      <div class="hero-badge active">ISO 9001:2015</div>
-      <div class="hero-badge">BPDB APPROVED</div>
-      <div class="hero-badge">EST. 1985</div>
-      <div class="hero-badge">230KV CAPABLE</div>
+    <div class="hero-readout" id="heroBadges">
+      <span class="hero-readout-item active">ISO 9001:2015</span>
+      <span class="hero-readout-item">BPDB APPROVED</span>
+      <span class="hero-readout-item">EST. 1985</span>
+      <span class="hero-readout-item">230KV CAPABLE</span>
     </div>
     <div class="hero-ctas" id="heroCtas">
       <a href="#services" class="btn-elec">Our Services</a>

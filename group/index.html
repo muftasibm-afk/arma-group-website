@@ -125,10 +125,21 @@ nav.hidden{transform:translateY(-100%)}
   position:relative;z-index:3;
   padding:0 5% 80px;max-width:960px;
 }
-.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;overflow:hidden}
-.hero-tag-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 2.5s infinite}
 @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
-.hero-tag span{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold)}
+.hero-stamp{
+  display:inline-flex;align-items:stretch;margin-bottom:28px;overflow:hidden;
+  border:1px solid rgba(201,168,76,.45);background:rgba(201,168,76,.06);
+}
+.hero-stamp-mark{
+  display:flex;align-items:center;padding:8px 12px;
+  background:rgba(201,168,76,.2);border-right:1px solid rgba(201,168,76,.35);
+  font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--gold);
+}
+.hero-stamp-body{
+  display:flex;align-items:center;gap:10px;padding:8px 14px;
+  font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);
+}
+.hero-stamp-pulse{width:6px;height:6px;background:var(--gold);animation:blink 2.5s infinite;flex-shrink:0}
 
 /* Split-text headline — each word is a div we animate */
 .hero-headline{
@@ -297,15 +308,20 @@ nav.hidden{transform:translateY(-100%)}
 .clients-label span{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 .clients-label::after{content:'';flex:1;height:1px;background:var(--border)}
 .clients-scroll{display:flex;gap:12px;flex-wrap:wrap}
-.client-pill{
-  display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);
-  border-radius:100px;padding:10px 18px;font-size:12px;font-weight:500;color:var(--muted);
+.client-ticket{
+  display:flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--border);
+  border-left:3px solid var(--green);padding:10px 16px 10px 12px;
+  font-size:12px;font-weight:500;color:var(--muted);
   transition:all .25s;white-space:nowrap;cursor:none;
   transform:translateY(20px);opacity:0;
 }
-.client-pill.visible{transform:translateY(0);opacity:1}
-.client-pill:hover{border-color:var(--green);color:var(--green);background:var(--green-pale);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,128,0,.12)}
-.client-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+.client-ticket.visible{transform:translateY(0);opacity:1}
+.client-ticket:hover{border-color:var(--green);color:var(--green);background:var(--green-pale);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,128,0,.12)}
+.client-ticket-id{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--green);letter-spacing:1px;
+  min-width:26px;line-height:1;
+}
+.client-ticket-name{flex:1}
 
 /* ── CHAIRMAN ── */
 .chairman-section{background:var(--ink2);padding:100px 5%}
@@ -417,8 +433,6 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
 .f-col a:hover{color:rgba(255,255,255,.85);padding-left:6px}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .footer-bottom p{font-size:11px;color:rgba(255,255,255,.25)}
-.iso-badge{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:5px 12px;border-radius:100px}
-
 /* ── SLASH NAV ── */
 .il-slash{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);transition:color .3s}
 .il-slash:hover{color:rgba(255,255,255,.5)}
@@ -497,9 +511,9 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
   <div class="hero-bg" id="heroBg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <div class="hero-tag">
-      <div class="hero-tag-dot"></div>
-      <span>ISO 9001:2015 · Bangladesh · Est. 1985</span>
+    <div class="hero-stamp">
+      <span class="hero-stamp-mark">ARMA</span>
+      <span class="hero-stamp-body"><span class="hero-stamp-pulse"></span>ISO 9001:2015 · Bangladesh · Est. 1985</span>
     </div>
     <div class="hero-headline">
       <span class="hl-line"><span class="hl-word" id="hw1">BUILDING</span></span>
@@ -679,15 +693,15 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
   <div class="clients-label"><span class="eyebrow" style="margin:0">Trusted Clients</span></div>
   <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);letter-spacing:1px;color:var(--ink);line-height:1;margin-bottom:40px">GOVERNMENT &amp; INSTITUTIONAL<br>PARTNERS</h2>
   <div class="clients-scroll" id="clientsScroll">
-    <div class="client-pill"><span class="client-pill-dot"></span>Bangladesh Power Dev. Board (BPDB)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>Dhaka Power Distribution Co. (DPDC)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>Power Grid Co. of Bangladesh (PGCB)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>Dhaka Electric Supply Co. (DESCO)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>Ashuganj Power Station (APSCL)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>Electricity Generation Co. (EGCB)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>Rural Electrification Board (REB)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>West Zone Power Distribution (WZPDCL)</div>
-    <div class="client-pill"><span class="client-pill-dot"></span>Northern Electric Supply Co. (NESCO)</div>
+    <div class="client-ticket"><span class="client-ticket-id">01</span><span class="client-ticket-name">Bangladesh Power Dev. Board (BPDB)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">02</span><span class="client-ticket-name">Dhaka Power Distribution Co. (DPDC)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">03</span><span class="client-ticket-name">Power Grid Co. of Bangladesh (PGCB)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">04</span><span class="client-ticket-name">Dhaka Electric Supply Co. (DESCO)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">05</span><span class="client-ticket-name">Ashuganj Power Station (APSCL)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">06</span><span class="client-ticket-name">Electricity Generation Co. (EGCB)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">07</span><span class="client-ticket-name">Rural Electrification Board (REB)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">08</span><span class="client-ticket-name">West Zone Power Distribution (WZPDCL)</span></div>
+    <div class="client-ticket"><span class="client-ticket-id">09</span><span class="client-ticket-name">Northern Electric Supply Co. (NESCO)</span></div>
   </div>
 </section>
 
@@ -947,7 +961,7 @@ function animCursor() {
 }
 animCursor();
 
-document.querySelectorAll('a,button,.sector-panel,.statbar-item,.pillar,.cert,.client-pill').forEach(el => {
+document.querySelectorAll('a,button,.sector-panel,.statbar-item,.pillar,.cert,.client-ticket').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
@@ -1031,8 +1045,8 @@ ScrollTrigger.create({
   }
 });
 
-// Client pills stagger
-const pills = document.querySelectorAll('.client-pill');
+// Client tickets stagger
+const pills = document.querySelectorAll('.client-ticket');
 ScrollTrigger.create({
   trigger:'#clientsScroll', start:'top 80%', once:true,
   onEnter: () => {

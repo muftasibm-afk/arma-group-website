@@ -55,9 +55,16 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .hero{min-height:88vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:80px 5% 60px;gap:60px;background:var(--off);position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:0;right:0;width:40%;height:100%;background:linear-gradient(135deg,var(--amber-pale),var(--light));z-index:0}
 .hero-text{position:relative;z-index:1}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--amber-pale);border:1px solid rgba(232,130,12,.2);border-radius:100px;padding:5px 14px 5px 8px;margin-bottom:24px}
-.hero-tag-dot{width:8px;height:8px;background:var(--amber);border-radius:50%}
-.hero-tag span{font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);font-weight:500;letter-spacing:.5px}
+.hero-spec{display:inline-flex;align-items:stretch;margin-bottom:24px;border:1px solid rgba(232,130,12,.35);background:rgba(232,130,12,.06)}
+.hero-spec-ref{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1px;
+  padding:7px 10px;background:var(--amber);color:var(--white);
+  border-right:1px solid rgba(232,130,12,.4);display:flex;align-items:center;
+}
+.hero-spec-val{
+  font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);
+  padding:7px 14px;letter-spacing:.5px;display:flex;align-items:center;
+}
 .hero h1{font-family:'Bebas Neue';font-size:clamp(52px,6vw,80px);line-height:.95;letter-spacing:1px;color:var(--ink);margin-bottom:20px}
 .hero h1 span{color:var(--amber)}
 .hero-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:420px;margin-bottom:32px;font-weight:300}
@@ -98,7 +105,18 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .about-img{position:relative;border-radius:12px;overflow:hidden}
 .about-img img{width:100%;height:480px;object-fit:cover;display:block}
-.about-badge{position:absolute;top:24px;left:24px;background:var(--amber);color:var(--white);padding:8px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.5px}
+.about-plate{
+  position:absolute;top:24px;left:24px;display:flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--amber) 0%,var(--amber2) 100%);
+  color:var(--white);padding:10px 16px;
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:1px;
+  box-shadow:0 4px 14px rgba(232,130,12,.35);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+}
+.about-plate::before,.about-plate::after{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.55);
+}
 .about-text .eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:block}
 .about-text h2{font-family:'Bebas Neue';font-size:clamp(36px,4vw,54px);line-height:1;letter-spacing:1px;color:var(--ink);margin-bottom:20px}
 .about-text p{font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px;font-weight:300}
@@ -115,8 +133,12 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .cat-title-area .eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:2px;margin-bottom:12px;display:block}
 .cat-title-area h2{font-family:'Bebas Neue';font-size:clamp(36px,4vw,54px);letter-spacing:1px;color:var(--ink);line-height:1}
 .cat-filter{display:flex;gap:8px;flex-wrap:wrap}
-.cat-tag{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:500;border:1.5px solid var(--border);color:var(--muted);cursor:none;transition:all .2s}
-.cat-tag:hover,.cat-tag.active{border-color:var(--amber);color:var(--amber);background:var(--amber-pale)}
+.cat-chip{
+  padding:6px 14px 6px 11px;font-size:11px;font-weight:500;
+  border:1.5px solid var(--border);border-left:3px solid var(--border);
+  color:var(--muted);cursor:none;transition:all .2s;font-family:'DM Mono',monospace;
+}
+.cat-chip:hover,.cat-chip.active{border-color:var(--amber);border-left-color:var(--amber);color:var(--amber);background:var(--amber-pale)}
 .catalogue-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .cat-card{background:var(--off);border:1.5px solid var(--border);border-radius:10px;padding:24px;transition:all .3s;position:relative;overflow:hidden}
 .cat-card:hover{border-color:var(--amber);box-shadow:0 8px 32px rgba(232,130,12,.1);transform:translateY(-3px);background:var(--white)}
@@ -188,7 +210,7 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
 
 <section class="hero" id="home">
   <div class="hero-text">
-    <div class="hero-tag"><div class="hero-tag-dot"></div><span>Est. 2006 · Dhaka & Munshiganj</span></div>
+    <div class="hero-spec"><span class="hero-spec-ref">REF</span><span class="hero-spec-val">Est. 2006 · Dhaka &amp; Munshiganj</span></div>
     <h1>LINE<br>HARD<span>WARE</span><br>& ACCS.</h1>
     <p class="hero-sub">Supplying quality line hardware, insulators, transformers, and power accessories to Bangladesh's growing power sector — since 2006.</p>
     <div class="hero-actions">
@@ -236,7 +258,7 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
   <div class="about-grid">
     <div class="about-img">
       <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&auto=format&fit=crop&q=80" alt="Power infrastructure" id="aboutImg">
-      <div class="about-badge">Est. 2006</div>
+      <div class="about-plate">Est. 2006</div>
     </div>
     <div class="about-text">
       <span class="eyebrow">About the Company</span>
@@ -255,10 +277,10 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
   <div class="cat-header">
     <div class="cat-title-area"><span class="eyebrow">Product Catalogue</span><h2>What We Supply</h2></div>
     <div class="cat-filter">
-      <div class="cat-tag active">All Products</div>
-      <div class="cat-tag">HT/LT Lines</div>
-      <div class="cat-tag">Protection</div>
-      <div class="cat-tag">Distribution</div>
+      <div class="cat-chip active">All Products</div>
+      <div class="cat-chip">HT/LT Lines</div>
+      <div class="cat-chip">Protection</div>
+      <div class="cat-chip">Distribution</div>
     </div>
   </div>
   <div class="catalogue-grid">
@@ -307,7 +329,7 @@ let mx=0,my=0,ox=0,oy=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curd.style.left=mx+'px';curd.style.top=my+'px';});
 function animC(){ox+=(mx-ox)*.12;oy+=(my-oy)*.12;cur.style.left=ox+'px';cur.style.top=oy+'px';requestAnimationFrame(animC);}
 animC();
-document.querySelectorAll('a,button,.cat-card,.loc-chip,.cat-tag').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));});
+document.querySelectorAll('a,button,.cat-card,.loc-chip,.cat-chip').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));});
 window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);});
 gsap.to('#aboutImg',{yPercent:15,ease:'none',scrollTrigger:{trigger:'.about',start:'top bottom',end:'bottom top',scrub:true}});
 function cnt(el,t,d,s=''){gsap.to({v:0},{v:t,duration:d,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(this.targets()[0].v)+s;}});}
@@ -315,7 +337,7 @@ ScrollTrigger.create({trigger:'.stats-row',start:'top 80%',once:true,onEnter:()=
 gsap.to({v:0},{v:8,duration:1.5,delay:.5,ease:'power2.out',onUpdate:function(){const el=document.getElementById('hscNum');if(el)el.textContent=Math.round(this.targets()[0].v);}});
 document.querySelectorAll('.cat-card').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.5,delay:(i%4)*.08,scrollTrigger:{trigger:el,start:'top 88%',once:true}});});
 document.querySelectorAll('h2,.eyebrow').forEach(el=>{gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.7,scrollTrigger:{trigger:el,start:'top 86%',once:true}});});
-document.querySelectorAll('.cat-tag').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.cat-tag').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
+document.querySelectorAll('.cat-chip').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.cat-chip').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
 function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
 async function submitForm(e){e.preventDefault();const btn=document.getElementById('submitBtn');btn.textContent='Sending...';btn.disabled=true;try{const r=await fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{Accept:'application/json'}});if(r.ok){btn.textContent='Enquiry Sent ✓';btn.style.background='#008000';e.target.reset();setTimeout(()=>{btn.textContent='Submit Enquiry';btn.style.background='';btn.disabled=false;},4000);}else{btn.textContent='Error — Try Again';btn.disabled=false;}}catch{btn.textContent='Error — Try Again';btn.disabled=false;}}
 </script>
