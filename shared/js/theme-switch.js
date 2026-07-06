@@ -27,6 +27,8 @@
     'arsc-school': 'arma-arsc-theme'
   };
 
+  const SWITCH_MS = 620;
+
   function applyTheme(theme, btn) {
     document.documentElement.setAttribute('data-theme', theme === 'night' ? 'night' : 'day');
     if (btn) {
@@ -44,12 +46,23 @@
     }
   }
 
-  function buildWidget(placement) {
+  function playSwitchAnim(btn) {
+    btn.classList.remove('is-switching');
+    void btn.offsetWidth;
+    btn.classList.add('is-switching');
+    window.clearTimeout(btn._switchTimer);
+    btn._switchTimer = window.setTimeout(() => {
+      btn.classList.remove('is-switching');
+    }, SWITCH_MS);
+  }
+
+  function buildWidget(site, placement) {
     const hang = placement === 'hang';
     return `
-      <div class="theme-switch${hang ? ' theme-switch--hang' : ' theme-switch--inline'}" id="themeSwitch">
+      <div class="theme-switch theme-switch--${site}${hang ? ' theme-switch--hang' : ' theme-switch--inline'}" id="themeSwitch">
         ${hang ? '<div class="theme-switch-cord" aria-hidden="true"></div>' : ''}
         <button type="button" class="theme-switch-btn" id="themeToggle" aria-label="Switch to night mode" aria-pressed="false">
+          <span class="theme-switch-decor" aria-hidden="true"></span>
           <span class="theme-switch-sky theme-switch-sky--day" aria-hidden="true"></span>
           <span class="theme-switch-sky theme-switch-sky--night" aria-hidden="true"></span>
           <span class="theme-switch-stars" aria-hidden="true"></span>
@@ -67,7 +80,7 @@
     document.documentElement.setAttribute('data-site', site);
 
     if (!document.getElementById('themeSwitch')) {
-      const html = buildWidget(placement);
+      const html = buildWidget(site, placement);
       const mount = document.querySelector(mountSel);
       if (mount) {
         mount.innerHTML = html;
@@ -85,18 +98,21 @@
 
     btn.addEventListener('click', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'night' ? 'day' : 'night';
+      playSwitchAnim(btn);
       try { localStorage.setItem(storageKey, next); } catch (e) { /* ignore */ }
       applyTheme(next, btn);
     });
 
     document.querySelectorAll('.theme-switch-btn').forEach((el) => {
+      const hoverOn = site === 'group' ? 'cursor-hover' : 'ch';
       el.addEventListener('mouseenter', () => {
         if (getComputedStyle(document.body).cursor === 'none') {
-          document.body.classList.add('ch', 'cursor-hover');
+          document.body.classList.add(hoverOn);
+          if (site === 'group') document.body.classList.add('ch');
         }
       });
       el.addEventListener('mouseleave', () => {
-        document.body.classList.remove('ch', 'cursor-hover');
+        document.body.classList.remove(hoverOn, 'ch', 'cursor-hover');
       });
     });
   }
