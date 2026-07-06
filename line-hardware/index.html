@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('arma-line-hardware-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','line-hardware');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
 <style>
 html{background:#FFFFFF}
 .page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FFFFFF;opacity:0;pointer-events:none;transition:opacity .38s ease}
@@ -13,6 +14,7 @@ body.page-loaded{opacity:1;transition:opacity .45s ease}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARMA Line Hardware & Accessories Ltd.</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/css/theme-switch.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -180,6 +182,7 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
     <li><a href="#contact" class="nav-enquire">Get a Quote</a></li>
     <li><a href="../group/index.html" style="color:var(--amber)!important;font-size:11px">← Group</a></li>
   </ul>
+  <div id="themeSwitchMount" class="nav-theme-slot"></div>
   <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
 </nav>
 
@@ -345,5 +348,7 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
   });
 })();
 </script>
+<script src="../shared/js/theme-switch.js"></script>
+<script>ARMATheme.init({ site: 'line-hardware', placement: 'inline' });</script>
 </body>
 </html>

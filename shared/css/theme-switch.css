@@ -1,0 +1,261 @@
+/* ── ARMA Group — Shared day/night theme switch ── */
+
+/* Base widget */
+.theme-switch{
+  display:flex;flex-direction:column;align-items:center;
+  pointer-events:none;flex-shrink:0;
+}
+.theme-switch--inline{align-self:center}
+.theme-switch--hang{
+  position:fixed;z-index:9200;
+  top:76px;right:5%;left:auto;
+  transform:none;
+}
+.theme-switch-cord{
+  width:1.5px;height:14px;border-radius:2px;
+  background:linear-gradient(to bottom,rgba(160,160,160,0),rgba(160,160,160,.5));
+  opacity:0;animation:themeCordIn .45s ease .85s forwards;
+}
+.theme-switch-btn{
+  pointer-events:auto;position:relative;
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.25);
+  cursor:pointer;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.18);
+  transition:transform .25s ease,box-shadow .35s ease,border-color .35s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.theme-switch--hang .theme-switch-btn{
+  animation:themeDropIn .95s cubic-bezier(.34,1.35,.64,1) forwards,
+             themeHang 6s ease-in-out .95s infinite;
+  transform:translateY(-80px);opacity:0;
+}
+.theme-switch--inline .theme-switch-btn{opacity:1;transform:none}
+.theme-switch-btn:hover{transform:scale(1.06);box-shadow:0 8px 24px rgba(0,0,0,.24)}
+.theme-switch--hang .theme-switch-btn:hover{animation-play-state:paused}
+
+.theme-switch-sky{position:absolute;inset:0;z-index:0;transition:opacity .5s ease}
+html[data-theme="day"] .theme-switch-sky--day,
+html:not([data-theme="night"]) .theme-switch-sky--day{opacity:1}
+html[data-theme="day"] .theme-switch-sky--night,
+html:not([data-theme="night"]) .theme-switch-sky--night{opacity:0}
+html[data-theme="night"] .theme-switch-sky--day{opacity:0}
+html[data-theme="night"] .theme-switch-sky--night{opacity:1}
+
+.theme-switch-stars{
+  position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  transition:opacity .45s ease;
+  background:
+    radial-gradient(circle at 22% 28%,rgba(255,255,255,.9) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 68% 20%,rgba(255,255,255,.7) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 44% 72%,rgba(255,255,255,.55) 0 1px,transparent 1.5px);
+}
+html[data-theme="night"] .theme-switch-stars{opacity:1}
+
+.theme-icon{
+  position:relative;z-index:2;width:18px;height:18px;
+  transition:opacity .35s ease,transform .45s cubic-bezier(.34,1.35,.64,1);
+}
+.theme-icon-sun{opacity:1;transform:scale(1) rotate(0deg)}
+.theme-icon-moon{position:absolute;opacity:0;transform:scale(.35) rotate(-30deg)}
+html[data-theme="night"] .theme-icon-sun{opacity:0;transform:scale(.35) rotate(30deg)}
+html[data-theme="night"] .theme-icon-moon{opacity:1;transform:scale(1) rotate(-10deg)}
+
+.nav-theme-slot{display:flex;align-items:center;margin-right:4px;margin-left:8px}
+nav .nav-theme-slot{flex-shrink:0}
+
+@keyframes themeDropIn{
+  0%{transform:translateY(-80px);opacity:0}
+  70%{transform:translateY(4px);opacity:1}
+  100%{transform:translateY(0);opacity:1}
+}
+@keyframes themeHang{
+  0%,100%{transform:translateY(0) rotate(-4deg)}
+  50%{transform:translateY(2px) rotate(4deg)}
+}
+@keyframes themeCordIn{to{opacity:1}}
+
+/* ── Per-site sky gradients & button styling ── */
+
+/* Real Estate — warm luxury gold */
+html[data-site="real-estate"] .theme-switch-sky--day{
+  background:linear-gradient(160deg,#87CEEB 0%,#FFD89B 45%,#FFB347 100%);
+}
+html[data-site="real-estate"] .theme-switch-sky--night{
+  background:linear-gradient(160deg,#05070f 0%,#141a2e 50%,#243056 100%);
+}
+html[data-site="real-estate"] .theme-switch-btn{
+  border-color:rgba(184,150,62,.45);
+  box-shadow:0 6px 20px rgba(0,0,0,.2),0 0 0 1px rgba(184,150,62,.12);
+}
+html[data-site="real-estate"] .theme-icon-sun{color:#fff7e6;filter:drop-shadow(0 0 4px rgba(255,200,80,.5))}
+html[data-site="real-estate"] .theme-icon-moon{color:#eef2ff;filter:drop-shadow(0 0 6px rgba(180,200,255,.4))}
+html[data-site="real-estate"].theme-switch--hang,
+html[data-site="real-estate"] .theme-switch--hang{top:76px}
+
+/* Group — forest emerald */
+html[data-site="group"] .theme-switch-sky--day{
+  background:linear-gradient(160deg,#a8d5a2 0%,#4a9e4a 55%,#004d00 100%);
+}
+html[data-site="group"] .theme-switch-sky--night{
+  background:linear-gradient(160deg,#020804 0%,#0a1a0c 50%,#142818 100%);
+}
+html[data-site="group"] .theme-switch-btn{border-color:rgba(201,168,76,.5)}
+html[data-site="group"] .theme-icon-sun{color:#F7EDD4;filter:drop-shadow(0 0 4px rgba(201,168,76,.55))}
+html[data-site="group"] .theme-icon-moon{color:#e8f0e8;filter:drop-shadow(0 0 6px rgba(201,168,76,.35))}
+
+/* Electric — industrial steel + yellow */
+html[data-site="electric"] .theme-switch-btn{
+  border-radius:4px;width:34px;height:34px;
+  clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));
+  border-color:rgba(245,196,0,.45);
+}
+html[data-site="electric"] .theme-switch-sky--day{
+  background:linear-gradient(160deg,#1A1F26 0%,#242B33 40%,#F5C400 100%);
+}
+html[data-site="electric"] .theme-switch-sky--night{
+  background:linear-gradient(160deg,#030304 0%,#0A0C10 50%,#141820 100%);
+}
+html[data-site="electric"] .theme-icon-sun{color:#FFD740;filter:drop-shadow(0 0 5px rgba(245,196,0,.6))}
+html[data-site="electric"] .theme-icon-moon{color:#8A95A0;filter:drop-shadow(0 0 4px rgba(245,196,0,.25))}
+
+/* Agriculture — harvest organic */
+html[data-site="agriculture"] .theme-switch-btn{
+  border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+  border-color:rgba(212,168,86,.45);
+}
+html[data-site="agriculture"] .theme-switch-sky,
+html[data-site="agriculture"] .theme-switch-stars,
+html[data-site="agriculture"] .theme-icon{transform:rotate(45deg)}
+html[data-site="agriculture"] .theme-switch-sky--day{
+  background:linear-gradient(160deg,#E8C77E 0%,#9BC158 50%,#7A9B3F 100%);
+}
+html[data-site="agriculture"] .theme-switch-sky--night{
+  background:linear-gradient(160deg,#1a1008 0%,#2A1B0F 50%,#3D2817 100%);
+}
+html[data-site="agriculture"] .theme-icon-sun{color:#fff8e8}
+html[data-site="agriculture"] .theme-icon-moon{color:#E8C77E}
+
+/* Line Hardware — catalogue amber */
+html[data-site="line-hardware"] .theme-switch-btn{
+  border-radius:8px;border-color:rgba(232,130,12,.4);
+}
+html[data-site="line-hardware"] .theme-switch-sky--day{
+  background:linear-gradient(160deg,#FFF7ED 0%,#FFD89B 50%,#E8820C 100%);
+}
+html[data-site="line-hardware"] .theme-switch-sky--night{
+  background:linear-gradient(160deg,#0D1117 0%,#1C2333 50%,#2D3748 100%);
+}
+html[data-site="line-hardware"] .theme-icon-sun{color:#fff;filter:drop-shadow(0 0 4px rgba(232,130,12,.5))}
+html[data-site="line-hardware"] .theme-icon-moon{color:#F59E0B}
+
+/* ESHA — editorial gold minimal */
+html[data-site="esha-holdings"] .theme-switch-btn{
+  border-radius:50%;border-color:rgba(156,128,72,.55);
+  box-shadow:0 4px 16px rgba(0,0,0,.25);
+}
+html[data-site="esha-holdings"] .theme-switch-sky--day{
+  background:linear-gradient(160deg,#F7F7F5 0%,#EDEBE6 45%,#C2A567 100%);
+}
+html[data-site="esha-holdings"] .theme-switch-sky--night{
+  background:linear-gradient(160deg,#000 0%,#161616 50%,#1F1F1F 100%);
+}
+html[data-site="esha-holdings"] .theme-icon-sun{color:#fff;filter:drop-shadow(0 0 4px rgba(194,165,103,.5))}
+html[data-site="esha-holdings"] .theme-icon-moon{color:#C2A567}
+
+/* ARSC School — playful navy & sun */
+html[data-site="arsc-school"] .theme-switch-btn{
+  border-radius:50%;border:2px solid rgba(255,182,39,.55);
+  width:38px;height:38px;
+}
+html[data-site="arsc-school"] .theme-switch-sky--day{
+  background:linear-gradient(160deg,#4FC3F7 0%,#FFB627 55%,#FFCB5C 100%);
+}
+html[data-site="arsc-school"] .theme-switch-sky--night{
+  background:linear-gradient(160deg,#0F2447 0%,#1B3A6B 50%,#284D85 100%);
+}
+html[data-site="arsc-school"] .theme-icon-sun{color:#fff;filter:drop-shadow(0 0 4px rgba(255,182,39,.55))}
+html[data-site="arsc-school"] .theme-icon-moon{color:#FFCB5C}
+html[data-site="arsc-school"] .theme-switch--inline .theme-switch-btn:hover{
+  transform:scale(1.08) rotate(-3deg);
+}
+
+/* ── Night mode page palettes ── */
+html[data-theme="night"][data-site="group"]{
+  --ink:#e8f0e8;--ink2:#0a1a0c;--green:#4a9e4a;--green-mid:#3d8a3d;
+  --green-pale:#142818;--gold:#D4AF6A;--gold-light:#2a2418;--off:#0a120a;
+  --white:#FFFFFF;--muted:#8aab8a;--border:#1e3a1e;
+}
+html[data-theme="night"][data-site="group"] body{background:var(--off);color:var(--ink)}
+html[data-theme="night"][data-site="group"] nav.scrolled{background:rgba(5,20,5,.97)}
+html[data-theme="night"][data-site="group"] .sectors,
+html[data-theme="night"][data-site="group"] .about-section,
+html[data-theme="night"][data-site="group"] .clients-section{background:var(--off)}
+html[data-theme="night"][data-site="group"] .sector-card{background:var(--green-pale);border-color:var(--border)}
+html[data-theme="night"][data-site="group"] .page-transition-overlay{background:#0a120a}
+html[data-theme="night"][data-site="group"]{background:#0a120a}
+
+html[data-theme="night"][data-site="electric"]{
+  --black:#030304;--steel:#0A0C10;--steel2:#111418;--steel3:#1A1F26;
+  --electric:#FFD740;--electric2:#F5C400;--white:#E8ECF0;--muted:#6B7580;
+  --border:rgba(255,255,255,.05);
+}
+html[data-theme="night"][data-site="electric"] body{background:var(--black);color:var(--white)}
+
+html[data-theme="night"][data-site="agriculture"]{
+  --soil:#e8e0d4;--soil2:#1a1008;--bark:#c4b09a;--harvest:#9BC158;--harvest2:#7A9B3F;
+  --wheat:#E8C77E;--wheat2:#D4A856;--cream:#1a1510;--paper:#221c14;--white:#2a2318;
+  --muted:#9a8a78;--border:#3a3028;--ink:#e8e0d4;
+}
+html[data-theme="night"][data-site="agriculture"] body{background:var(--cream);color:var(--ink)}
+html[data-theme="night"][data-site="agriculture"] nav{background:rgba(26,21,16,.94)!important}
+html[data-theme="night"][data-site="agriculture"] .stats-grid,
+html[data-theme="night"][data-site="agriculture"] .site-card,
+html[data-theme="night"][data-site="agriculture"] .prod-card{background:var(--white)}
+html[data-theme="night"][data-site="agriculture"] .site{background:var(--paper)}
+html[data-theme="night"][data-site="agriculture"] .products{background:var(--cream)}
+html[data-theme="night"][data-site="agriculture"] .page-transition-overlay{background:#1a1510}
+
+html[data-theme="night"][data-site="line-hardware"]{
+  --white:#1a1f28;--off:#12161c;--light:#1e2430;--mid:#2a3340;
+  --ink:#e8ecf0;--ink2:#d0d5dd;--ink3:#b0b8c4;--amber:#F59E0B;--amber2:#E8820C;
+  --amber-pale:#2a1e0a;--muted:#8a95a0;--border:#2a3340;
+}
+html[data-theme="night"][data-site="line-hardware"] body{background:var(--off);color:var(--ink)}
+html[data-theme="night"][data-site="line-hardware"] nav{background:var(--white)!important;border-color:var(--border)}
+html[data-theme="night"][data-site="line-hardware"] .hero{background:var(--off)}
+html[data-theme="night"][data-site="line-hardware"] .catalogue-section{background:var(--off)}
+html[data-theme="night"][data-site="line-hardware"] .page-transition-overlay{background:#12161c}
+
+html[data-theme="night"][data-site="esha-holdings"]{
+  --black:#f0f0ec;--charcoal:#0a0a0a;--charcoal2:#121212;--white:#1a1a1a;
+  --offwhite:#0e0e0e;--stone:#1a1a18;--gold:#C2A567;--gold2:#9C8048;
+  --muted:#888880;--border:#2a2a28;--border-l:#2a2a28;
+}
+html[data-theme="night"][data-site="esha-holdings"] body{background:var(--offwhite);color:var(--black)}
+
+html[data-theme="night"][data-site="arsc-school"]{
+  --navy:#c8d8f0;--navy2:#0a1628;--navy3:#1B3A6B;--sun:#FFB627;--sun2:#FFCB5C;
+  --sky:#4FC3F7;--coral:#FF6B6B;--white:#1a2438;--cream:#0f1a2e;--paper:#152238;
+  --muted:#8a9ab8;--border:#243048;--ink:#e8f0ff;
+}
+html[data-theme="night"][data-site="arsc-school"] body{background:var(--cream);color:var(--ink)}
+html[data-theme="night"][data-site="arsc-school"] nav{background:var(--white)!important;box-shadow:0 2px 16px rgba(0,0,0,.3)}
+html[data-theme="night"][data-site="arsc-school"] .stats-grid,
+html[data-theme="night"][data-site="arsc-school"] .val-card{background:var(--white)}
+html[data-theme="night"][data-site="arsc-school"] .page-transition-overlay{background:#0f1a2e}
+
+/* Smooth page transitions */
+html[data-site]{color-scheme:light}
+html[data-theme="night"][data-site]{color-scheme:dark}
+html[data-site] body{transition:background .45s ease,color .45s ease}
+
+/* Responsive */
+@media(max-width:768px){
+  html[data-site="real-estate"] .theme-switch--hang{
+    top:72px;right:68px;
+  }
+  .theme-switch-btn{width:34px;height:34px}
+  .theme-icon{width:16px;height:16px}
+}

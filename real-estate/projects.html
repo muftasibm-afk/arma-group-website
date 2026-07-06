@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="images/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
-<script>(function(){try{var t=localStorage.getItem('arma-re-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
+<script>(function(){try{var t=localStorage.getItem('arma-re-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','real-estate');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
 </head>
 <body>
 
@@ -24,7 +24,6 @@
 <nav class="site-nav light scrolled" id="siteNav">
   <a href="index.html" class="nav-logo">
     <img src="images/logo.png" alt="ARMA Real Estate Ltd." class="nav-logo-img">
-    <div class="nav-logo-text"><strong>ARMA REAL ESTATE</strong><small>Ltd.</small></div>
   </a>
   <ul class="nav-menu" id="navMenu">
     <li><a href="index.html#about">About</a></li>
@@ -49,7 +48,9 @@
     <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
     <li><a href="../group/index.html" class="nav-group-link">← Group</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-actions">
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
 </nav>
 
 <section class="projects-hero">
@@ -113,6 +114,7 @@
   </a>
 </div>
 
+<script src="../shared/js/theme-switch.js"></script>
 <script src="js/config.js"></script>
 <script src="js/projects.js"></script>
 <script src="js/site.js"></script>

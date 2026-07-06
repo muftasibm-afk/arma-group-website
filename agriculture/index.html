@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('arma-agriculture-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','agriculture');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
 <style>
 html{background:#FAF6EE}
 .page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FAF6EE;opacity:0;pointer-events:none;transition:opacity .38s ease}
@@ -13,6 +14,7 @@ body.page-loaded{opacity:1;transition:opacity .45s ease}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARMA Agriculture Limited — Ashulia, Bangladesh</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/css/theme-switch.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -164,6 +166,7 @@ footer{background:var(--soil);padding:40px 5% 24px}
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
     <li><a href="../group/index.html" style="color:var(--harvest)!important;font-size:11px">← Group</a></li>
   </ul>
+  <div id="themeSwitchMount" class="nav-theme-slot"></div>
   <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
 </nav>
 
@@ -309,5 +312,7 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
   });
 })();
 </script>
+<script src="../shared/js/theme-switch.js"></script>
+<script>ARMATheme.init({ site: 'agriculture', placement: 'inline' });</script>
 </body>
 </html>

@@ -175,46 +175,9 @@
 
   /* ── DAY / NIGHT THEME SWITCH ── */
   function initThemeSwitch() {
-    if (!document.getElementById('themeSwitch')) {
-      const wrap = document.createElement('div');
-      wrap.className = 'theme-switch';
-      wrap.id = 'themeSwitch';
-      wrap.innerHTML = `
-        <div class="theme-switch-cord" aria-hidden="true"></div>
-        <button type="button" class="theme-switch-btn" id="themeToggle" aria-label="Switch to night mode" aria-pressed="false">
-          <span class="theme-switch-sky theme-switch-sky--day" aria-hidden="true"></span>
-          <span class="theme-switch-sky theme-switch-sky--night" aria-hidden="true"></span>
-          <span class="theme-switch-stars" aria-hidden="true"></span>
-          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <circle cx="12" cy="12" r="4.5"></circle>
-            <g stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
-              <line x1="12" y1="2" x2="12" y2="5"></line>
-              <line x1="12" y1="19" x2="12" y2="22"></line>
-              <line x1="2" y1="12" x2="5" y2="12"></line>
-              <line x1="19" y1="12" x2="22" y2="12"></line>
-              <line x1="4.9" y1="4.9" x2="7" y2="7"></line>
-              <line x1="17" y1="17" x2="19.1" y2="19.1"></line>
-              <line x1="4.9" y1="19.1" x2="7" y2="17"></line>
-              <line x1="17" y1="7" x2="19.1" y2="4.9"></line>
-            </g>
-          </svg>
-          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M21 14.5A8.5 8.5 0 0110.2 3.2 8.5 8.5 0 1014 21.8 6.6 6.6 0 0021 14.5z"></path>
-          </svg>
-        </button>`;
-      document.body.appendChild(wrap);
+    if (window.ARMATheme) {
+      ARMATheme.init({ site: 'real-estate', placement: 'hang' });
     }
-
-    const btn = document.getElementById('themeToggle');
-    if (!btn) return;
-
-    applyTheme(localStorage.getItem(THEME_KEY) === 'night' ? 'night' : 'day');
-
-    btn.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'night' ? 'day' : 'night';
-      try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* ignore */ }
-      applyTheme(next);
-    });
   }
 
   /* ── FOOTER ATTRIBUTION ── */
