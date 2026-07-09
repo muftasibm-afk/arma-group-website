@@ -46,15 +46,25 @@
     }
   }
 
-  function playSwitchAnim(btn) {
-  btn.classList.remove('is-switching');
+  function playSwitchAnim(btn, onMidpoint) {
+  btn.classList.remove('is-rising', 'is-dropping');
   void btn.offsetWidth;
-  btn.classList.add('is-switching');
-  window.clearTimeout(btn._switchTimer);
-  btn._switchTimer = window.setTimeout(() => {
-    btn.classList.remove('is-switching');
+  btn.classList.add('is-rising');
+
+  window.clearTimeout(btn._riseTimer);
+  window.clearTimeout(btn._dropTimer);
+
+  btn._riseTimer = window.setTimeout(() => {
+    onMidpoint();
+    btn.classList.remove('is-rising');
     void btn.offsetWidth;
-  }, SWITCH_MS);
+    btn.classList.add('is-dropping');
+
+    btn._dropTimer = window.setTimeout(() => {
+      btn.classList.remove('is-dropping');
+      void btn.offsetWidth;
+    }, 430);
+  }, 320);
 }
 
   function buildWidget(site, placement) {
