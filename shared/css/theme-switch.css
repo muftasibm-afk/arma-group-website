@@ -94,7 +94,7 @@ nav .nav-theme-slot{flex-shrink:0}
   100%{transform:translateY(0);opacity:1}
 }
 .theme-switch-btn.is-rising{animation:themeRiseOut .32s cubic-bezier(.4,0,1,1) forwards}
-.theme-switch-btn.is-dropping{animation:themeDropIn2 .42s cubic-bezier(.34,1.35,.64,1) forwards}
+.theme-switch-btn.is-rising.is-dropping{animation:themeDropIn2 .42s cubic-bezier(.34,1.35,.64,1) forwards}
 
 @keyframes themeDropIn{
   0%{transform:translateY(-80px);opacity:0}
