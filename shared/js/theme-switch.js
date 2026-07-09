@@ -97,11 +97,15 @@
     applyTheme(localStorage.getItem(storageKey) === 'night' ? 'night' : 'day', btn);
 
     btn.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'night' ? 'day' : 'night';
-      playSwitchAnim(btn);
-      try { localStorage.setItem(storageKey, next); } catch (e) { /* ignore */ }
+  const next = document.documentElement.getAttribute('data-theme') === 'night' ? 'day' : 'night';
+  playSwitchAnim(btn);
+  try { localStorage.setItem(storageKey, next); } catch (e) { /* ignore */ }
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       applyTheme(next, btn);
     });
+  });
+});
 
     document.querySelectorAll('.theme-switch-btn').forEach((el) => {
       const hoverOn = site === 'group' ? 'cursor-hover' : 'ch';
