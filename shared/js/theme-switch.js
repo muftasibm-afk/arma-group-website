@@ -47,14 +47,15 @@
   }
 
   function playSwitchAnim(btn) {
+  btn.classList.remove('is-switching');
+  void btn.offsetWidth;
+  btn.classList.add('is-switching');
+  window.clearTimeout(btn._switchTimer);
+  btn._switchTimer = window.setTimeout(() => {
     btn.classList.remove('is-switching');
     void btn.offsetWidth;
-    btn.classList.add('is-switching');
-    window.clearTimeout(btn._switchTimer);
-    btn._switchTimer = window.setTimeout(() => {
-      btn.classList.remove('is-switching');
-    }, SWITCH_MS);
-  }
+  }, SWITCH_MS);
+}
 
   function buildWidget(site, placement) {
     const hang = placement === 'hang';
