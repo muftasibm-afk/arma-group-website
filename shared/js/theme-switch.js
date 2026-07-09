@@ -107,14 +107,11 @@
 
     applyTheme(localStorage.getItem(storageKey) === 'night' ? 'night' : 'day', btn);
 
-    btn.addEventListener('click', () => {
+   btn.addEventListener('click', () => {
   const next = document.documentElement.getAttribute('data-theme') === 'night' ? 'day' : 'night';
-  playSwitchAnim(btn);
-  try { localStorage.setItem(storageKey, next); } catch (e) { /* ignore */ }
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      applyTheme(next, btn);
-    });
+  playSwitchAnim(btn, () => {
+    try { localStorage.setItem(storageKey, next); } catch (e) { /* ignore */ }
+    applyTheme(next, btn);
   });
 });
 
