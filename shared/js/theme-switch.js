@@ -56,12 +56,10 @@
 
   btn._riseTimer = window.setTimeout(() => {
     onMidpoint();
-    btn.classList.remove('is-rising');
-    void btn.offsetWidth;
     btn.classList.add('is-dropping');
 
     btn._dropTimer = window.setTimeout(() => {
-      btn.classList.remove('is-dropping');
+      btn.classList.remove('is-rising', 'is-dropping');
       void btn.offsetWidth;
     }, 430);
   }, 320);
