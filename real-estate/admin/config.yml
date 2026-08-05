@@ -1,0 +1,169 @@
+# ═══════════════════════════════════════════════════════════
+# ARMA REAL ESTATE — Decap CMS Configuration
+# ═══════════════════════════════════════════════════════════
+
+backend:
+  name: github
+  repo: muftasibm-afk/arma-group-website
+  branch: main
+  auth_type: pkce
+  # ──────────────────────────────────────────────────────────
+  # SETUP STEP: Replace the value below with your GitHub
+  # OAuth App Client ID (see SETUP.md for instructions).
+  # ──────────────────────────────────────────────────────────
+  app_id: Ov23liuz5PFMhojR9mSd
+
+locale: en
+
+# Where uploaded images are saved in the repo
+media_folder: "real-estate/images/projects"
+# How those images are referenced in the site
+public_folder: "images/projects"
+
+# ═══════════════════════════════════════════════════════════
+# COLLECTIONS — what the admin can manage
+# ═══════════════════════════════════════════════════════════
+collections:
+
+  # ── PROJECT DATABASE ──────────────────────────────────────
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    description: "Add, edit, or remove Real Estate projects. Changes go live automatically within ~60 seconds after saving."
+    files:
+      - name: "project-database"
+        label: "All Projects"
+        file: "real-estate/content/projects.json"
+        format: json
+        fields:
+          - label: "Projects"
+            name: "projects"
+            widget: "list"
+            label_singular: "Project"
+            summary: "{{fields.name}}  ·  {{fields.status}}  ·  {{fields.category}}"
+            minimize_collapsed: true
+            fields:
+
+              # ── Identity ──
+              - label: "ID (unique slug)"
+                name: "id"
+                widget: "string"
+                hint: "Lowercase, hyphens only. e.g. binti-kuthir · Never change after publishing."
+                pattern: ['^[a-z0-9-]+$', "Lowercase letters, numbers and hyphens only"]
+
+              - label: "Project Name"
+                name: "name"
+                widget: "string"
+                hint: "e.g. ARMA Binti Kuthir"
+
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Residential", value: "residential" }
+                  - { label: "Commercial", value: "commercial" }
+
+              - label: "Status"
+                name: "status"
+                widget: "select"
+                options:
+                  - { label: "Upcoming", value: "upcoming" }
+                  - { label: "Ongoing", value: "ongoing" }
+                  - { label: "Handed Over", value: "handed-over" }
+
+              # ── Location ──
+              - label: "Location (short)"
+                name: "location"
+                widget: "string"
+                hint: "e.g. Banasree, Dhaka"
+
+              - label: "Full Address"
+                name: "address"
+                widget: "string"
+                hint: "e.g. Plot# 2/4, 20' N.S Road, Block-A, Banasree, Dhaka-1219"
+
+              # ── Details ──
+              - label: "Land Area"
+                name: "land"
+                widget: "string"
+                hint: "e.g. 3.5 Katha"
+
+              - label: "Unit Type"
+                name: "unitType"
+                widget: "string"
+                hint: "e.g. Single Unit, Luxury Apartments, Commercial Floors"
+
+              - label: "Description"
+                name: "description"
+                widget: "text"
+                hint: "A short paragraph shown on the project detail page."
+
+              # ── Media ──
+              - label: "Cover Image"
+                name: "image"
+                widget: "image"
+                required: false
+                hint: "Main image shown on the projects grid. Upload a JPG/PNG."
+                media_library:
+                  config:
+                    max_file_size: 5120000
+
+              - label: "Gallery Images"
+                name: "gallery"
+                widget: "list"
+                required: false
+                summary: "{{fields.image}}"
+                hint: "Additional images shown in the project gallery. Min 1 recommended."
+                field:
+                  label: "Image"
+                  name: "image"
+                  widget: "image"
+                  media_library:
+                    config:
+                      max_file_size: 5120000
+
+              - label: "Video URL"
+                name: "video"
+                widget: "string"
+                required: false
+                hint: "YouTube embed URL (e.g. https://www.youtube.com/embed/VIDEOID) or leave blank."
+
+              # ── Map ──
+              - label: "Google Maps URL"
+                name: "mapUrl"
+                widget: "string"
+                required: false
+                hint: "Full Google Maps link for the project site."
+
+              - label: "Coordinates"
+                name: "mapCoords"
+                widget: "string"
+                required: false
+                hint: "e.g. 23.7749,90.4278 — find on Google Maps, right-click → copy coords."
+
+              # ── Brochure ──
+              - label: "Brochure PDF"
+                name: "brochure"
+                widget: "file"
+                required: false
+                hint: "Upload the project brochure PDF. Visitors must enter name/email/phone to download."
+                media_library:
+                  config:
+                    max_file_size: 10240000
+
+              # ── Flags ──
+              - label: "Show on Homepage"
+                name: "featured"
+                widget: "boolean"
+                default: false
+                hint: "If on, this project appears in the Featured Residences section on the homepage (max 3 shown)."
+
+              - label: "Related Project IDs"
+                name: "related"
+                widget: "list"
+                required: false
+                hint: "IDs of other projects to show at the bottom of this project's page."
+                field:
+                  label: "Project ID"
+                  name: "id"
+                  widget: "string"
