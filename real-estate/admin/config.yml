@@ -11,7 +11,7 @@ backend:
   # SETUP STEP: Replace the value below with your GitHub
   # OAuth App Client ID (see SETUP.md for instructions).
   # ──────────────────────────────────────────────────────────
-  app_id: PLACEHOLDER_GITHUB_OAUTH_APP_CLIENT_ID
+  app_id: Ov23liuz5PFMhojR9mSd
 
 locale: en
 
