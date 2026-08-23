@@ -189,6 +189,32 @@ html[data-site="line-hardware"] .theme-switch-btn.is-switching::after{
   50%{opacity:1;box-shadow:0 0 10px rgba(245,158,11,1)}
 }
 
+/* ELECTRIC — power-up snap in, surge flicker on switch */
+html[data-site="electric"] .theme-switch--inline{
+  animation:elecEnter .5s cubic-bezier(.16,1,.3,1) .45s both;
+}
+@keyframes elecEnter{
+  0%{opacity:0;transform:scale(.55)}
+  100%{opacity:1;transform:scale(1)}
+}
+html[data-site="electric"] .theme-switch-decor{
+  background:
+    linear-gradient(rgba(245,196,0,.14) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(245,196,0,.14) 1px,transparent 1px);
+  background-size:5px 5px;
+  opacity:.6;
+}
+html[data-site="electric"] .theme-switch-btn.is-switching{
+  animation:elecSwitch .58s steps(2,end);
+}
+@keyframes elecSwitch{
+  0%,100%{opacity:1;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+  20%{opacity:.4}
+  35%{opacity:1;box-shadow:0 0 18px rgba(245,196,0,.6)}
+  50%{opacity:.55}
+  65%{opacity:1;box-shadow:0 0 22px rgba(245,196,0,.7)}
+}
+
 /* ESHA — gallery fade-in, crosshair breathe on switch */
 html[data-site="esha-holdings"] .theme-switch--inline{
   animation:eshaEnter .85s ease .55s both;
@@ -362,6 +388,45 @@ html[data-site="line-hardware"] .theme-switch--inline .theme-switch-btn:hover{
   border-color:rgba(232,130,12,.65);
 }
 
+/* ── ELECTRIC — industrial square chip, crosshair scan ── */
+html[data-site="electric"] .theme-switch-btn{
+  width:34px;height:34px;border-radius:3px;
+  border:1.5px solid rgba(245,196,0,.4);
+  box-shadow:0 4px 14px rgba(10,10,10,.25);
+}
+html[data-site="electric"] .theme-switch-btn::before{
+  content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(to bottom,transparent 0%,rgba(245,196,0,.08) 50%,transparent 100%);
+  opacity:0;
+}
+html[data-site="electric"] .theme-switch-btn.is-switching::before{
+  animation:elecScan .58s ease;
+}
+@keyframes elecScan{
+  0%{opacity:0;transform:translateY(-100%)}
+  40%{opacity:1}
+  100%{opacity:0;transform:translateY(100%)}
+}
+html[data-site="electric"] .theme-switch-sky--day{
+  background:linear-gradient(165deg,#fff 0%,#FFF7DC 45%,#FFE68A 75%,#F5C400 100%);
+}
+html[data-site="electric"] .theme-switch-sky--night{
+  background:linear-gradient(165deg,#0A0A0A 0%,#111418 50%,#1A1F26 100%);
+}
+html[data-site="electric"] .theme-switch-stars{
+  background:
+    radial-gradient(circle at 24% 26%,rgba(245,196,0,.9) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 68% 20%,rgba(255,255,255,.7) 0 1px,transparent 1.5px),
+    radial-gradient(circle at 46% 74%,rgba(245,196,0,.5) 0 1px,transparent 1.5px);
+}
+html[data-site="electric"] .theme-icon-sun{color:#fff;filter:drop-shadow(0 0 5px rgba(245,196,0,.6))}
+html[data-site="electric"] .theme-icon-moon{color:#F5C400;filter:drop-shadow(0 0 6px rgba(245,196,0,.45))}
+html[data-site="electric"] .theme-switch--inline .theme-switch-btn:hover:not(.is-switching){
+  transform:scale(1.06);
+  border-color:rgba(245,196,0,.7);
+  box-shadow:0 6px 18px rgba(10,10,10,.3),0 0 14px rgba(245,196,0,.3);
+}
+
 /* ── ESHA — editorial hairline ring, gallery calm ── */
 html[data-site="esha-holdings"] .theme-switch-btn{
   width:32px;height:32px;border-radius:50%;
@@ -433,14 +498,43 @@ html[data-site="real-estate"] .theme-icon-sun{color:#fff7e6;filter:drop-shadow(0
 html[data-site="real-estate"] .theme-icon-moon{color:#eef2ff;filter:drop-shadow(0 0 6px rgba(180,200,255,.4))}
 html[data-site="real-estate"] .theme-switch--hang{top:76px}
 
-/* Logo visibility on dark backgrounds in night mode */
+/* ── Logo legibility on dark navbars ──────────────────────────────
+   Every site logo is dark ink on transparency: a green wordmark plus a
+   large share of near-black text (15–43% of opaque pixels). On a dark
+   nav that black text renders at ~1.1:1 — invisible.
+
+   `.nav-logo-img.on-dark` inverts the luminance while restoring the hue,
+   so the near-black text becomes near-white and the brand green survives
+   as a lighter green. Applied per nav state by each site below, so it is
+   active only when the bar behind the logo is actually dark.
+
+   invert(1)          → black text becomes white; green becomes magenta
+   hue-rotate(180deg) → magenta swings back to green
+   saturate/brightness→ correct the residual drift from the two transforms
+
+   The saturate/brightness values are calibrated, not decorative: CSS
+   hue-rotate is a fixed luminance-preserving matrix rather than a true
+   HSL rotation, so inverting and rotating back overshoots. .95/1.1 lands
+   the brand green at rgb(0,167,78) against its rgb(0,166,81) source;
+   raising them (e.g. 1.45/1.12) pushes it to a yellow-green lime.
+   Near-black text still resolves to ~#DADADA (11-14:1 on these bars).  */
+/* Short and linear: a filter mid-way between the two states is a
+   half-inverted logo, so this crossfade wants to be brief rather than
+   eased. .15s reads as a clean swap and still avoids a hard pop. */
+.nav-logo-img{
+  transition:filter .15s linear;
+}
+.nav-logo-img.on-dark{
+  filter:invert(1) hue-rotate(180deg) saturate(1.1) brightness(.95);
+}
+
+/* mix-blend-mode:multiply would render the logo near-black on a dark nav,
+   so it is reset in night mode. */
 html[data-theme="night"] .nav-logo-img{
   mix-blend-mode:normal!important;
-  filter:
-    brightness(1.05)
-    drop-shadow(0 0 4px rgba(255,255,255,.45))
-    drop-shadow(0 0 10px rgba(255,255,255,.15))
-    drop-shadow(0 0 1px rgba(255,255,255,.65));
+}
+html[data-theme="night"] .nav-logo-img:not(.on-dark){
+  filter:brightness(1.05);
 }
 
 /* ── Night mode page palettes ── */
@@ -546,6 +640,10 @@ html[data-theme="night"][data-site="line-hardware"],
 html[data-theme="night"][data-site="line-hardware"] .page-transition-overlay{background:#12161c}
 html[data-theme="night"][data-site="line-hardware"] body{background:var(--off);color:var(--ink)}
 html[data-theme="night"][data-site="line-hardware"] nav{background:var(--white)!important;border-color:var(--border)}
+/* The night nav is dark without carrying .scrolled, so the light-mode
+   #9a5200 link colour would sit at 2.8:1. --amber (#F59E0B here) → 7.7:1. */
+html[data-theme="night"][data-site="line-hardware"] .nav-group-link,
+html[data-theme="night"][data-site="line-hardware"] .nav-links a.is-here{color:var(--amber)!important}
 html[data-theme="night"][data-site="line-hardware"] .hero{background:var(--off)}
 html[data-theme="night"][data-site="line-hardware"] .catalogue{background:var(--off)}
 html[data-theme="night"][data-site="line-hardware"] .about{background:var(--off)}
@@ -597,6 +695,14 @@ html[data-theme="night"][data-site="arsc-school"] nav{
   border-bottom-color:var(--sun-border)!important;
   box-shadow:0 2px 16px rgba(0,0,0,.3);
 }
+/* In night mode --navy3 becomes #1B3A6B, which on the #1a2438 nav is only
+   1.38:1. --ink (#e8f0ff) restores it to 13.6:1. */
+html[data-theme="night"][data-site="arsc-school"] .nav-links a{color:var(--ink)}
+html[data-theme="night"][data-site="arsc-school"] .nav-links a:hover{color:var(--sun)}
+html[data-theme="night"][data-site="arsc-school"] .nav-group-link{color:var(--sun2)!important}
+/* --navy inverts to a pale #c8d8f0 in night mode, giving 1.21:1 on the
+   --sun pill. Pin the CTA label to the original deep navy (7.6:1). */
+html[data-theme="night"][data-site="arsc-school"] .nav-cta{color:#0F2447!important}
 html[data-theme="night"][data-site="arsc-school"] .stats-grid,
 html[data-theme="night"][data-site="arsc-school"] .val-card,
 html[data-theme="night"][data-site="arsc-school"] .campus-card{background:var(--white)}

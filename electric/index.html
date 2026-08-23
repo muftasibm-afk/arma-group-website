@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem('arma-electric-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','electric');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
 <style>
-html{background:#0A0A0A}
-.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#0A0A0A;opacity:0;pointer-events:none;transition:opacity .38s ease}
+html{background:#FAFBFC}
+html[data-theme="night"]{background:#0A0A0A}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FAFBFC;opacity:0;pointer-events:none;transition:opacity .38s ease}
+html[data-theme="night"] .page-transition-overlay{background:#0A0A0A}
 .page-transition-overlay.active{opacity:1;pointer-events:all}
 body{opacity:0}
 body.page-loaded{opacity:1;transition:opacity .45s ease}
@@ -13,25 +16,42 @@ body.page-loaded{opacity:1;transition:opacity .45s ease}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ARMA Electric Company — Power Infrastructure Bangladesh</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/css/theme-switch.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
+  --black:#FAFBFC;
+  --steel:#FFFFFF;
+  --steel2:#EEF1F4;
+  --steel3:#E2E7EC;
+  --electric:#7F6200;
+  --electric-fill:#F5C400;
+  --electric2:#FFD740;
+  --ink-on-fill:#0A0A0A;
+  --red:#C0392B;
+  --white:#14171B;
+  --muted:#5A6470;
+  --border:rgba(20,22,26,.10);
+  --green:#008000;
+}
+html[data-theme="night"]{
   --black:#0A0A0A;
   --steel:#111418;
   --steel2:#1A1F26;
   --steel3:#242B33;
   --electric:#F5C400;
+  --electric-fill:#F5C400;
   --electric2:#FFD740;
+  --ink-on-fill:#0A0A0A;
   --red:#E84040;
   --white:#F0F2F4;
   --muted:#8A95A0;
   --border:rgba(255,255,255,.07);
-  --green:#008000;
 }
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;cursor:none}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;cursor:none;transition:background .45s ease,color .45s ease}
 a{color:inherit;text-decoration:none}
 
 /* INTERNATIONAL PARTNERS — marquee */
@@ -52,56 +72,97 @@ a{color:inherit;text-decoration:none}
 
 /* CURSOR — crosshair style */
 #cur-ring{position:fixed;width:32px;height:32px;border:1px solid var(--electric);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
-#cur-dot{position:fixed;width:4px;height:4px;background:var(--electric);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-#cur-ring::before,#cur-ring::after{content:'';position:absolute;background:var(--electric)}
+#cur-dot{position:fixed;width:4px;height:4px;background:var(--electric-fill);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-ring::before,#cur-ring::after{content:'';position:absolute;background:var(--electric-fill)}
 #cur-ring::before{width:8px;height:1px;top:50%;left:-10px;margin-top:-.5px}
 #cur-ring::after{width:1px;height:8px;left:50%;top:-10px;margin-left:-.5px}
 body.ch #cur-ring{width:48px;height:48px;border-color:var(--electric2)}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid var(--border);background:rgba(10,10,10,.95);backdrop-filter:blur(12px)}
+/* NAV — translucent glass over the hero photo in both themes; the blur
+   keeps nav text readable without needing a near-opaque backing fill. */
+/* The nav is fixed and 78px tall, so an anchor jump would land the section's
+   top edge underneath it. Offset every scroll target by the nav height. */
+html{scroll-padding-top:94px}
+section[id]{scroll-margin-top:94px}
+@media(max-width:640px){html{scroll-padding-top:86px}section[id]{scroll-margin-top:86px}}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid rgba(127,98,0,.14);background:rgba(255,255,255,.8);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);transition:background .45s ease,border-color .45s ease}
+html[data-theme="night"] nav{border-bottom-color:rgba(245,196,0,.18);background:rgba(6,7,8,.8)}
 .nav-logo{display:flex;align-items:center;gap:10px}
-.nav-logo-img{height:40px;width:auto;display:block;filter:drop-shadow(0 0 4px rgba(255,255,255,.55)) drop-shadow(0 0 1px rgba(255,255,255,.9));}
+.nav-logo-img{height:64px;width:auto;display:block;transition:filter .15s linear}
+/* Logo is dark ink on transparency. In day mode the nav is near-white, so
+   the logo needs no correction; night-contrast.js adds .on-dark only when
+   the measured backdrop is actually dark (night mode's near-black nav). */
+.nav-logo-img.on-dark{filter:invert(1) hue-rotate(180deg) saturate(1.1) brightness(.95)}
 
-.nav-logo-sq{width:32px;height:32px;background:var(--electric);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:18px;color:var(--black)}
+.nav-logo-sq{width:32px;height:32px;background:var(--electric-fill);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:18px;color:var(--ink-on-fill)}
 .nav-wordmark{font-family:'Bebas Neue';font-size:15px;letter-spacing:3px;color:var(--white)}
 .nav-wordmark span{color:var(--electric)}
 .nav-links{display:flex;align-items:center;gap:24px;list-style:none}
 .nav-links a{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--electric)}
-.nav-back{border:1px solid rgba(255,255,255,.15)!important;color:var(--white)!important;padding:6px 14px;font-size:10px!important}
+.nav-back{border:1px solid var(--border)!important;color:var(--white)!important;padding:6px 14px;font-size:10px!important}
 .nav-back:hover{border-color:var(--electric)!important;color:var(--electric)!important}
 .hamburger{display:none;flex-direction:column;gap:4px;cursor:none;padding:4px}
 .hamburger span{display:block;width:20px;height:1px;background:var(--white)}
 
-/* HERO — industrial dark, animated grid */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--black);padding-top:84px}}
+/* HERO — full-bleed photographic scene. Night mode keeps the original
+   dusk/dark-industrial treatment (tokens pinned dark regardless of page
+   theme); day mode gets its own bright daytime photo and a light scrim,
+   so the two are genuinely different scenes rather than one dimmed. */
+.hero{
+  --black:#0A0A0A;--electric:#F5C400;--white:#F0F2F4;--muted:#8A95A0;
+  position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--black);padding-top:84px;color:var(--white);
+}
+html[data-theme="night"] .hero{
+  --black:#0A0A0A;--electric:#F5C400;--white:#F0F2F4;--muted:#8A95A0;
+}
+html:not([data-theme="night"]) .hero{
+  --black:#EAF1F8;--electric:#7F6200;--white:#12161C;--muted:#41505F;
+  background:var(--black);
+}
 .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(245,196,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(245,196,0,.04) 1px,transparent 1px);background-size:48px 48px;animation:gridshift 20s linear infinite}
+html:not([data-theme="night"]) .hero-grid-bg{opacity:.5}
 @keyframes gridshift{0%{background-position:0 0}100%{background-position:48px 48px}}
-.hero-photo{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat;opacity:.25}
+.hero-photo{position:absolute;inset:0;background:url('images/hero/transmission-lines.webp') center 62%/cover no-repeat;opacity:.6}
+html:not([data-theme="night"]) .hero-photo{
+  background-image:url('images/hero/transmission-lines-day.webp');
+  background-position:center 55%;
+  opacity:1;
+}
 .hero-scan{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 0%,rgba(245,196,0,.03) 50%,transparent 100%);animation:scan 6s ease-in-out infinite}
+html:not([data-theme="night"]) .hero-scan{display:none}
 @keyframes scan{0%,100%{transform:translateY(-100%)}50%{transform:translateY(100%)}}
-.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.8) 100%)}
+.hero-vignette{position:absolute;inset:0;background:
+  linear-gradient(100deg,rgba(10,10,10,.94) 0%,rgba(10,10,10,.65) 32%,rgba(10,10,10,.15) 58%,transparent 78%),
+  linear-gradient(to top,rgba(10,10,10,.85) 0%,transparent 42%)}
+/* Day: a soft white-to-clear wash on the left for text legibility, easing
+   out toward the open sky — no bottom band, so the photo runs to the edge
+   instead of terminating in a dark strip. */
+html:not([data-theme="night"]) .hero-vignette{background:
+  linear-gradient(100deg,rgba(234,241,248,.96) 0%,rgba(234,241,248,.8) 30%,rgba(234,241,248,.25) 56%,transparent 76%),
+  linear-gradient(to top,rgba(234,241,248,.35) 0%,transparent 26%)}
 .hero-left-accent{position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,transparent,var(--electric),transparent)}
 .hero-content{position:relative;z-index:2;padding:0 5% 80px}
 .hero-sys-tag{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--electric);letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.hero-sys-tag::before{content:'';display:block;width:24px;height:1px;background:var(--electric)}
+.hero-sys-tag::before{content:'';display:block;width:24px;height:1px;background:var(--electric-fill)}
 .hero-title-wrap{overflow:hidden;margin-bottom:8px}
-.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,12vw,160px);line-height:.88;letter-spacing:3px;transform:translateY(100%)}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,7.4vw,96px);line-height:.92;letter-spacing:2px;transform:translateY(100%)}
 .hero h1 .y{color:var(--electric)}
 .hero h1 .dim{opacity:.2}
-.hero-rule{width:80px;height:2px;background:var(--electric);margin:24px 0;transform:scaleX(0);transform-origin:left}
+.hero-rule{width:80px;height:2px;background:var(--electric-fill);margin:24px 0;transform:scaleX(0);transform-origin:left}
 .hero-sub{font-size:14px;color:var(--muted);max-width:480px;line-height:1.8;letter-spacing:.3px;opacity:0}
-.hero-readout{display:flex;flex-wrap:wrap;margin-top:28px;opacity:0;border:1px solid rgba(245,196,0,.25);background:rgba(0,0,0,.45)}
+.hero-readout{display:flex;flex-wrap:wrap;margin-top:28px;opacity:0;border:1px solid rgba(127,98,0,.25);background:rgba(0,0,0,.45)}
+html:not([data-theme="night"]) .hero-readout{border-color:rgba(127,98,0,.22);background:rgba(255,255,255,.55)}
 .hero-readout-item{
   font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:600;
   letter-spacing:2px;text-transform:uppercase;color:rgba(245,196,0,.65);
   padding:8px 14px;border-right:1px solid rgba(245,196,0,.15);
 }
+html:not([data-theme="night"]) .hero-readout-item{color:#7F6200;border-right-color:rgba(127,98,0,.18)}
 .hero-readout-item:last-child{border-right:none}
-.hero-readout-item.active{color:var(--black);background:var(--electric);box-shadow:inset 0 0 12px rgba(255,255,255,.15)}
+.hero-readout-item.active{color:var(--ink-on-fill);background:var(--electric-fill);box-shadow:inset 0 0 12px rgba(255,255,255,.15)}
 .hero-ctas{display:flex;gap:14px;margin-top:24px;opacity:0;flex-wrap:wrap}
-.btn-elec{background:var(--electric);color:var(--black);padding:12px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:none;transition:all .2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.btn-elec{background:var(--electric-fill);color:var(--ink-on-fill);padding:12px 28px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:none;transition:all .2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
 .btn-elec:hover{background:var(--electric2);transform:translateY(-2px)}
 .btn-outline-elec{background:transparent;color:var(--electric);padding:12px 28px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(245,196,0,.4);cursor:none;transition:all .2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
 .btn-outline-elec:hover{border-color:var(--electric);background:rgba(245,196,0,.05)}
@@ -112,11 +173,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 @keyframes scrollpulse{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
 
 /* TICKER */
-.ticker{background:var(--electric);padding:10px 0;overflow:hidden}
+.ticker{background:var(--electric-fill);padding:10px 0;overflow:hidden}
 .ticker-track{display:flex;width:max-content;animation:ticker 20s linear infinite}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.ticker-item{display:flex;align-items:center;gap:16px;padding:0 24px;font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;color:var(--black);letter-spacing:1px;white-space:nowrap}
-.ticker-sep{width:4px;height:4px;background:var(--black);opacity:.4;border-radius:50%}
+.ticker-item{display:flex;align-items:center;gap:16px;padding:0 24px;font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;color:var(--ink-on-fill);letter-spacing:1px;white-space:nowrap}
+.ticker-sep{width:4px;height:4px;background:var(--ink-on-fill);opacity:.4;border-radius:50%}
 
 /* STATS */
 .stats{background:var(--steel);border-top:2px solid var(--electric);border-bottom:1px solid var(--border)}
@@ -126,7 +187,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .stat-item:last-child{border-right:none}
 .stat-num{font-family:'Bebas Neue';font-size:60px;color:var(--electric);line-height:1;margin-bottom:4px;letter-spacing:1px}
 .stat-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
-.stat-item::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--electric);transition:height .4s}
+.stat-item::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--electric-fill);transition:height .4s}
 .stat-item:hover::before{height:100%}
 
 /* ABOUT — dark technical */
@@ -141,7 +202,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .tr{top:0;right:0;border-width:2px 2px 0 0}
 .bl{bottom:0;left:0;border-width:0 0 2px 2px}
 .br{bottom:0;right:0;border-width:0 2px 2px 0}
-.about-sys-id{position:absolute;bottom:16px;left:16px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--electric);letter-spacing:1px;background:rgba(0,0,0,.7);padding:4px 8px}
+.about-sys-id{position:absolute;bottom:16px;left:16px;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--electric-fill);letter-spacing:1px;background:rgba(0,0,0,.7);padding:4px 8px}
 .about-text .sys-label{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--electric);letter-spacing:2px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .about-text .sys-label::before{content:'//';opacity:.5}
 .about-title{font-family:'Bebas Neue';font-size:clamp(36px,4vw,54px);line-height:1;letter-spacing:2px;color:var(--white);margin-bottom:24px}
@@ -161,7 +222,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .srv-card{background:var(--steel);padding:36px;position:relative;overflow:hidden;transition:background .3s;border:1px solid var(--border)}
 .srv-card:hover{background:var(--steel2)}
-.srv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--electric);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.srv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--electric-fill);transform:scaleX(0);transform-origin:left;transition:transform .4s}
 .srv-card:hover::after{transform:scaleX(1)}
 .srv-num{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--electric);letter-spacing:2px;margin-bottom:20px;opacity:.6}
 .srv-icon{width:48px;height:48px;border:1px solid rgba(245,196,0,.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:border-color .3s,background .3s}
@@ -169,6 +230,87 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .srv-icon svg{width:24px;height:24px;stroke:var(--electric);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .srv-title{font-size:16px;font-weight:600;color:var(--white);margin-bottom:10px;letter-spacing:.3px}
 .srv-desc{font-size:13px;color:var(--muted);line-height:1.75}
+
+/* PRODUCTS */
+.products{padding:100px 5%;background:var(--steel)}
+.prod-cat{margin-bottom:64px}
+.prod-cat:last-child{margin-bottom:0}
+.prod-cat-head{display:flex;align-items:baseline;gap:16px;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.prod-cat-tag{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--electric);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.prod-cat-tag::before{content:'// '}
+.prod-cat-title{font-size:15px;font-weight:600;color:var(--white);letter-spacing:.3px;min-width:0}
+.prod-cat-desc{font-size:12px;color:var(--muted);margin-left:auto;text-align:right;max-width:320px;line-height:1.6}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.prod-card{background:var(--steel2);border:1px solid var(--border);overflow:hidden;transition:border-color .3s,transform .3s}
+.prod-card:hover{border-color:rgba(245,196,0,.4);transform:translateY(-3px)}
+.prod-img-wrap{position:relative;height:200px;background:var(--steel2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.prod-img-wrap img{width:100%;height:100%;object-fit:contain;padding:10px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.06)}
+.prod-sku{position:absolute;top:8px;left:8px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--ink-on-fill);background:var(--electric-fill);padding:2px 6px;letter-spacing:1px}
+.prod-body{padding:16px}
+.prod-name{font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px;letter-spacing:.2px;line-height:1.4}
+.prod-desc{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px;line-height:1.6}
+.prod-cat-wide .prod-grid{grid-template-columns:repeat(4,1fr)}
+.prod-origin{
+  position:absolute;top:8px;right:8px;z-index:2;
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;
+  color:#F0F2F4;background:rgba(10,10,10,.82);border:1px solid rgba(245,196,0,.45);
+  padding:2px 6px;
+}
+/* PRODUCTS TEASER — a sample of each supply line, then out to the full catalogue */
+.prod-intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:end;margin-bottom:48px}
+.prod-intro p{font-size:14px;line-height:1.85;color:var(--muted);font-weight:300;max-width:60ch}
+.prod-lines{display:grid;gap:0;border-top:1px solid var(--border)}
+.prod-lines a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  padding:15px 0;border-bottom:1px solid var(--border);transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s;
+}
+.prod-lines a:hover{transform:translateX(10px);border-bottom-color:rgba(245,196,0,.45)}
+.prod-lines dt{font-size:12.5px;color:var(--muted);transition:color .2s}
+.prod-lines a:hover dt{color:var(--white)}
+.prod-lines dd{font-family:'Bebas Neue';font-size:28px;line-height:1;color:var(--electric);letter-spacing:1px;white-space:nowrap}
+.prod-cat-more{
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--electric);margin-left:auto;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;border:1px solid rgba(245,196,0,.45);transition:background .25s,border-color .25s,color .25s;
+}
+.prod-cat-more svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.prod-cat-more:hover{background:var(--electric-fill);border-color:var(--electric);color:var(--ink-on-fill)}
+.prod-cat-more:hover svg{transform:translateX(4px)}
+/* The section leads with its own route to the full catalogue, before any card is scrolled past */
+.prod-header{display:flex;flex-wrap:wrap;gap:26px 48px;align-items:flex-end;justify-content:space-between}
+.prod-all-lead{padding:16px 32px;font-size:12px;letter-spacing:2px}
+.prod-outro{margin-top:52px;padding-top:34px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
+.prod-outro p{font-size:13px;color:var(--muted);line-height:1.75;max-width:52ch;font-weight:300}
+.prod-all{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 28px;
+  background:var(--electric-fill);color:var(--ink-on-fill);
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  transition:background .25s,transform .25s;flex-shrink:0;
+  clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));
+}
+.prod-all svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.prod-all:hover{background:var(--electric2);transform:translateY(-2px)}
+.prod-all:hover svg{transform:translateX(4px)}
+@media(max-width:900px){
+  .prod-intro{grid-template-columns:1fr;gap:32px;align-items:start}
+  .prod-cat-desc{margin-left:0;text-align:left;max-width:none}
+  .prod-cat-more{margin-left:0}
+  .prod-header{align-items:flex-start;gap:24px}
+  .prod-all-lead{width:100%;justify-content:center}
+}
+
+/* SERVICE CARDS as links — the card is the affordance, so it must look like one */
+a.srv-card{display:block;color:inherit}
+a.srv-card:focus-visible{outline:2px solid var(--electric);outline-offset:3px}
+.srv-go{
+  margin-top:18px;font-family:'Share Tech Mono',monospace;font-size:9.5px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--electric);display:flex;align-items:center;gap:7px;
+  opacity:.65;transition:opacity .25s;
+}
+.srv-go svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+a.srv-card:hover .srv-go{opacity:1}
+a.srv-card:hover .srv-go svg{transform:translateX(4px)}
 
 /* CLIENTS — dark rows */
 .clients{padding:80px 5%;background:var(--steel2)}
@@ -194,14 +336,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 
 /* CERTS */
 .certs{padding:80px 5%;background:var(--steel);border-top:1px solid var(--border)}
-.certs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px}
-.cert-card{background:var(--steel2);border:1px solid var(--border);padding:24px;transition:all .3s}
-.cert-card:hover{border-color:var(--electric);background:var(--steel3)}
-.cert-icon-box{width:40px;height:40px;border:1px solid rgba(245,196,0,.3);display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:all .3s}
-.cert-card:hover .cert-icon-box{border-color:var(--electric);background:rgba(245,196,0,.08)}
-.cert-icon-box svg{width:20px;height:20px;stroke:var(--electric);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.cert-name{font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px}
-.cert-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px}
+.certs-teaser{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:56px;align-items:end;margin-top:8px}
+.certs-teaser-text p{font-size:14px;line-height:1.85;color:var(--muted);font-weight:300;max-width:58ch;margin-bottom:28px}
+.certs-teaser-link{
+  display:inline-flex;align-items:center;gap:10px;padding:13px 26px;
+  border:1px solid var(--electric);color:var(--electric);
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  transition:background .25s,color .25s;
+}
+.certs-teaser-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.certs-teaser-link:hover{background:var(--electric-fill);color:var(--ink-on-fill)}
+.certs-teaser-link:hover svg{transform:translateX(4px)}
+.certs-teaser-link:focus-visible{outline:2px solid var(--electric);outline-offset:3px}
+.certs-teaser-figures{display:grid;gap:0;border-top:1px solid var(--border)}
+.certs-teaser-figures > div{display:flex;align-items:baseline;justify-content:space-between;gap:18px;padding:15px 0;border-bottom:1px solid var(--border)}
+.certs-teaser-figures dt{font-size:12px;color:var(--muted)}
+.certs-teaser-figures dd{font-family:'Bebas Neue';font-size:28px;line-height:1;color:var(--electric);letter-spacing:1px;white-space:nowrap}
+@media(max-width:900px){.certs-teaser{grid-template-columns:1fr;gap:32px;align-items:start}}
 
 /* CONTACT */
 .contact{padding:100px 5%;background:var(--black)}
@@ -217,7 +368,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .f-row{margin-bottom:18px}
 .f-row label{display:block;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--electric);text-transform:uppercase;margin-bottom:8px}
 .f-row input,.f-row select,.f-row textarea{width:100%;background:var(--steel2);border:1px solid var(--border);padding:11px 14px;font-family:'Inter',sans-serif;font-size:13px;color:var(--white);outline:none;transition:border-color .2s;cursor:none}
-.f-row input::placeholder,.f-row textarea::placeholder{color:rgba(138,149,160,.4)}
+.f-row input::placeholder,.f-row textarea::placeholder{color:var(--muted)}
 .f-row input:focus,.f-row select:focus,.f-row textarea:focus{border-color:var(--electric)}
 .f-row textarea{resize:vertical;min-height:90px}
 .f-row select option{background:var(--steel2)}
@@ -227,18 +378,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--electric)}
 .footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;margin-bottom:32px}
 .footer-brand{display:flex;align-items:center;gap:10px}
-.footer-brand-sq{width:28px;height:28px;background:var(--electric);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:14px;color:var(--black)}
+.footer-brand-sq{width:28px;height:28px;background:var(--electric-fill);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:14px;color:var(--ink-on-fill)}
 .footer-brand-text strong{display:block;font-family:'Bebas Neue';font-size:16px;letter-spacing:2px;color:var(--white)}
 .footer-brand-text small{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1.5px}
 .footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap}
 .footer-links a{font-size:11px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;transition:color .2s}
 .footer-links a:hover{color:var(--electric)}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
-.footer-bottom p{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(138,149,160,.4);letter-spacing:.5px}
+.footer-bottom p{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px}
 .iso-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--electric);border:1px solid rgba(245,196,0,.3);padding:4px 10px;letter-spacing:1px}
 
 @media(max-width:900px){body{cursor:auto}#cur-ring,#cur-dot{display:none}.about-inner,.contact-inner{grid-template-columns:1fr}.services-grid,.partners-grid,.certs-grid{grid-template-columns:1fr 1fr}.stats-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(10,10,10,.98);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}.hamburger{display:flex}.services-grid,.partners-grid,.certs-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.f-2col{grid-template-columns:1fr}}
+@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:78px;left:0;right:0;background:var(--steel);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}.hamburger{display:flex}.services-grid,.partners-grid,.certs-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.f-2col{grid-template-columns:1fr}.nav-logo-img{height:50px}}
 </style>
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="apple-touch-icon" href="images/favicon.png">
@@ -254,11 +405,14 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">ABOUT</a></li>
     <li><a href="#services">SERVICES</a></li>
+    <li><a href="products.html">PRODUCTS</a></li>
     <li><a href="#clients">CLIENTS</a></li>
     <li><a href="#partners">PARTNERS</a></li>
+<li><a href="certifications.html">CERTIFICATIONS</a></li>
     <li><a href="#contact">CONTACT</a></li>
     <li><a href="../group/index.html" class="nav-back">← GROUP</a></li>
   </ul>
+  <div id="themeSwitchMount" class="nav-theme-slot"></div>
   <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
 </nav>
 
@@ -273,7 +427,7 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
     <div class="hero-sys-tag">SYS.ID — AEC.BD.1985 — POWER SECTOR OPERATIONS</div>
     <div class="hero-title-wrap"><h1 id="h1a">ARMA</h1></div>
     <div class="hero-title-wrap"><h1 id="h1b"><span class="y">ELEC</span><span class="dim">TRIC</span></h1></div>
-    <div class="hero-title-wrap"><h1 id="h1c">CO.</h1></div>
+    <div class="hero-title-wrap"><h1 id="h1c">COMPANY</h1></div>
     <div class="hero-rule" id="heroRule"></div>
     <p class="hero-sub" id="heroSub">Bangladesh's trusted civil and electrical construction company — building the nation's power infrastructure for over 40 years. ISO 9001:2015 Certified.</p>
     <div class="hero-readout" id="heroBadges">
@@ -283,7 +437,8 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
       <span class="hero-readout-item">230KV CAPABLE</span>
     </div>
     <div class="hero-ctas" id="heroCtas">
-      <a href="#services" class="btn-elec">Our Services</a>
+      <a href="products.html" class="btn-elec">Browse Products</a>
+      <a href="#services" class="btn-outline-elec">Our Services</a>
       <a href="#contact" class="btn-outline-elec">Project Enquiry</a>
     </div>
   </div>
@@ -353,42 +508,177 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
     <h2 class="section-title">SERVICES &<br><span>EXPERTISE</span></h2>
   </div>
   <div class="services-grid">
-    <div class="srv-card">
+    <a class="srv-card" href="#clients">
       <div class="srv-num">01 // TRANSMISSION</div>
       <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
       <div class="srv-title">Transmission Line Construction</div>
       <div class="srv-desc">HT/LT transmission and distribution lines including 230KV lines under PGCB, BPDB, DPDC and other government entities across Bangladesh.</div>
-    </div>
-    <div class="srv-card">
+      <div class="srv-go">See client projects
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+    <a class="srv-card" href="#clients">
       <div class="srv-num">02 // SUBSTATION</div>
       <div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
       <div class="srv-title">Substation Construction</div>
       <div class="srv-desc">Full civil and electrical construction of substation control room buildings for BPDB, DPDC, PGCB, DESCO, and EGCB.</div>
-    </div>
-    <div class="srv-card">
+      <div class="srv-go">See client projects
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+    <a class="srv-card" href="#about">
       <div class="srv-num">03 // CIVIL</div>
       <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg></div>
       <div class="srv-title">Civil Construction</div>
       <div class="srv-desc">Buildings, roads, and infrastructure for Government and Semi-Government organizations — built to last.</div>
-    </div>
-    <div class="srv-card">
+      <div class="srv-go">About our capability
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+    <a class="srv-card" href="products.html">
       <div class="srv-num">04 // SUPPLY</div>
       <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div>
       <div class="srv-title">Line Hardware Supply</div>
       <div class="srv-desc">Import and supply of HT/LT hardware, insulators, MCCBs, LA&DOFC, transformers, measuring instruments, and SPC Poles.</div>
-    </div>
-    <div class="srv-card">
+      <div class="srv-go">Browse the catalogue
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+    <a class="srv-card" href="#contact">
       <div class="srv-num">05 // PROCUREMENT</div>
       <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
       <div class="srv-title">e-GP Tendering</div>
       <div class="srv-desc">Expert capacity in electronic government procurement tendering for all power sector entities — consistently successful.</div>
-    </div>
-    <div class="srv-card">
+      <div class="srv-go">Start an enquiry
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+    <a class="srv-card" href="#partners">
       <div class="srv-num">06 // TRADE</div>
       <div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg></div>
       <div class="srv-title">International Trade</div>
       <div class="srv-desc">Import and export of specialist power sector equipment through partnerships with Germany, USA, and Russia.</div>
+      <div class="srv-go">Our partners
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- PRODUCTS — a sample of each supply line; the full catalogue lives on products.html -->
+<section class="products" id="products">
+  <div class="section-header prod-header">
+    <div>
+      <div class="sys-eyebrow">MANUFACTURED &amp; SUPPLIED HARDWARE</div>
+      <h2 class="section-title">PRODUCT<br><span>CATALOGUE</span></h2>
     </div>
+    <a href="products.html" class="prod-all prod-all-lead">View all 28 products
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+
+  <div class="prod-intro">
+    <p>We manufacture galvanised line hardware in-house, represent KOCOS Messtechnik AG of Germany
+       for test and measurement systems, and import protection, insulation and instrumentation
+       equipment from vetted manufacturers across nine countries. A sample of each line is below —
+       the full catalogue carries all 28 items with specifications and origin.</p>
+    <dl class="prod-lines">
+      <a href="products.html?line=manufactured"><dt>Own manufacture — line hardware</dt><dd>8</dd></a>
+      <a href="products.html?line=kocos"><dt>KOCOS test &amp; measurement</dt><dd>7</dd></a>
+      <a href="products.html?line=imported"><dt>Imported protection &amp; instrumentation</dt><dd>13</dd></a>
+    </dl>
+  </div>
+
+  <div class="prod-cat">
+    <div class="prod-cat-head">
+      <div class="prod-cat-tag">CAT.01 — OWN MANUFACTURE</div>
+      <div class="prod-cat-title">Line Hardware &amp; Pole Fittings</div>
+      <a href="products.html?line=manufactured" class="prod-cat-more">All 8 items
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="prod-grid">
+      <a class="prod-card" href="products.html?line=manufactured">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-C001</span><img src="images/products/line-hardware/cross-arm-angle-type.jpg" alt="Cross-Arm, Angle Type, galvanised steel line hardware" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">Cross-Arm (Angle Type)</div><div class="prod-desc">GALVANISED STEEL // POLE MOUNT</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=manufactured">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-C003</span><img src="images/products/line-hardware/cross-arm-tension-type.jpg" alt="Cross-Arm, Tension Type, galvanised steel line hardware" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">Cross-Arm (Tension Type)</div><div class="prod-desc">GALVANISED STEEL // POLE MOUNT</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=manufactured">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-C006</span><img src="images/products/line-hardware/top-mount-bracket.jpg" alt="Top Mount Bracket, galvanised steel line hardware" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">Top Mount Bracket</div><div class="prod-desc">GALVANISED STEEL // POLE MOUNT</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=manufactured">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-C007</span><img src="images/products/line-hardware/2-way-clamp.jpg" alt="2 Way Clamp, galvanised steel line hardware" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">2 Way Clamp</div><div class="prod-desc">GALVANISED STEEL // POLE BAND</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="prod-cat">
+    <div class="prod-cat-head">
+      <div class="prod-cat-tag">CAT.02 — KOCOS MESSTECHNIK AG</div>
+      <div class="prod-cat-title">Test &amp; Measurement Systems</div>
+      <a href="products.html?line=kocos" class="prod-cat-more">All 7 items
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="prod-grid">
+      <a class="prod-card" href="products.html?line=kocos">
+        <div class="prod-img-wrap"><img src="images/products/kocos/actas-p360-switchgear-test-system.png" alt="KOCOS ACTAS P360 portable switchgear test system in carry case" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">ACTAS P360 Switchgear Test System</div><div class="prod-desc">KOCOS // PORTABLE TEST SET</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=kocos">
+        <div class="prod-img-wrap"><img src="images/products/kocos/artes-600-relay-test-system.png" alt="KOCOS ARTES-600 automatic relay test system" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">ARTES-600 Relay Test System</div><div class="prod-desc">KOCOS // AUTOMATIC RELAY TEST</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=kocos">
+        <div class="prod-img-wrap"><img src="images/products/kocos/eppe-px-power-quality-analyser.png" alt="KOCOS EPPE PX power quality analyser in carry case" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">EPPE PX Power Quality Analyser</div><div class="prod-desc">KOCOS // POWER QUALITY ANALYSER</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=kocos">
+        <div class="prod-img-wrap"><img src="images/products/kocos/sherlog-crx-fault-recorder.png" alt="KOCOS SHERLOG CRX fault recorder system" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">SHERLOG CRX Fault Recorder</div><div class="prod-desc">KOCOS // FAULT RECORDER SYSTEM</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="prod-cat">
+    <div class="prod-cat-head">
+      <div class="prod-cat-tag">CAT.03 — IMPORTED &amp; SUPPLIED</div>
+      <div class="prod-cat-title">Protection, Insulation &amp; Instrumentation</div>
+      <a href="products.html?line=imported" class="prod-cat-more">All 13 items
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="prod-grid">
+      <a class="prod-card" href="products.html?line=imported">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-I001</span><span class="prod-origin">SPAIN</span><img src="images/products/imported/lightning-arrestor.jpg" alt="Polymer housed lightning arrestor (LA) for overhead line surge protection" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">Lightning Arrestor (LA)</div><div class="prod-desc">SPAIN (EU) // SURGE PROTECTION</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=imported">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-I002</span><span class="prod-origin">SPAIN</span><img src="images/products/imported/dropout-fuse-cutout.jpg" alt="Drop Out Fuse Cutout (DOFC) for overhead distribution line protection" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">Drop Out Fuse Cutout (DOFC)</div><div class="prod-desc">SPAIN (EU) // LINE PROTECTION</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=imported">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-I006</span><span class="prod-origin">CHINA</span><img src="images/products/imported/disc-insulator.jpg" alt="Disc suspension insulator string for transmission lines" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">DISC Insulator</div><div class="prod-desc">CHINA // SUSPENSION INSULATION</div></div>
+      </a>
+      <a class="prod-card" href="products.html?line=imported">
+        <div class="prod-img-wrap"><span class="prod-sku">AEC-I007</span><span class="prod-origin">POLAND</span><img src="images/products/imported/thermal-imaging-camera.png" alt="Handheld thermal imaging camera for electrical hotspot inspection" loading="lazy"></div>
+        <div class="prod-body"><div class="prod-name">Thermal Imaging Camera</div><div class="prod-desc">POLAND // THERMOGRAPHIC SURVEY</div></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="prod-outro">
+    <p>Twelve of the twenty-eight items are shown here. The full catalogue lists every item with
+       its specifications, origin and quality scope, filterable by supply line.</p>
+    <a href="products.html" class="prod-all">View the full catalogue
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </div>
 </section>
 
@@ -411,33 +701,8 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
   </div>
 </section>
 
-<!-- PARTNERS -->
-<section class="partners" id="partners">
-  <div class="section-header">
-    <div class="sys-eyebrow">EXCLUSIVE AGREEMENTS</div>
-    <h2 class="section-title">INTERNATIONAL<br><span>PARTNERS</span></h2>
-  </div>
-  <div class="partners-grid">
-    <div class="partner-card">
-      <div class="partner-flag">GERMANY // TEST & MEASUREMENT</div>
-      <div class="partner-name">KOCOS Messtechnik AG</div>
-      <div class="partner-spec">Exclusive partnership for precision testing and measurement technology for power sector applications in Bangladesh.</div>
-    </div>
-    <div class="partner-card">
-      <div class="partner-flag">USA // UTILITY SOLUTIONS</div>
-      <div class="partner-name">Utility Solutions, Inc.</div>
-      <div class="partner-spec">Exclusive rights for distribution of power utility solutions and equipment across the Bangladesh market.</div>
-    </div>
-    <div class="partner-card">
-      <div class="partner-flag">RUSSIA // SWITCHING EQUIPMENT</div>
-      <div class="partner-name">Tavrida Electric</div>
-      <div class="partner-spec">Exclusive partner for advanced switching and protection equipment — vacuum circuit breakers and reclosers.</div>
-    </div>
-  </div>
-</section>
-
 <!-- INTERNATIONAL PARTNERS -->
-<section class="int-partners">
+<section class="int-partners" id="partners">
   <div class="int-partners-header">
     <h2>International Partners</h2>
     <p>Trusted supply &amp; technology partners<br>across Europe, Asia &amp; the Americas</p>
@@ -445,19 +710,15 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
   <div class="marquee-track-wrap">
     <div class="marquee-track">
 
-      <!-- ── First pass (12 logos) ── -->
+      <!-- ── First pass (8 logos) ── -->
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner1.png" alt="Partner 1"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner2.png" alt="Partner 2"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner3.png" alt="Partner 3"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner4.png" alt="Partner 4"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner5.png" alt="Partner 5"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner6.png" alt="Partner 6"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner7.png" alt="Partner 7"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner8.png" alt="Partner 8"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner9.png" alt="Partner 9"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner10.png" alt="Partner 10"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner11.png" alt="Partner 11"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner12.png" alt="Partner 12"></div>
 
 <!-- ── Duplicate pass for seamless loop ── -->
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner1.png" alt="Partner 1"></div>
@@ -466,28 +727,33 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner4.png" alt="Partner 4"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner5.png" alt="Partner 5"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner6.png" alt="Partner 6"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner7.png" alt="Partner 7"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner8.png" alt="Partner 8"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner9.png" alt="Partner 9"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner10.png" alt="Partner 10"></div>
 <div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner11.png" alt="Partner 11"></div>
-<div class="marquee-item"><img src="https://raw.githubusercontent.com/muftasibm-afk/arma-group-website/refs/heads/main/images/intl_partners/partner12.png" alt="Partner 12"></div>
 
     </div>
   </div>
 </section>
   
-<!-- CERTS -->
+<!-- CERTS — summary; the full register lives on certifications.html -->
 <section class="certs" id="certifications">
   <div class="section-header">
-    <div class="sys-eyebrow">VERIFIED CREDENTIALS</div>
-    <h2 class="section-title">QUALITY &<br><span>COMPLIANCE</span></h2>
+    <h2 class="section-title">QUALITY &amp;<br><span>COMPLIANCE</span></h2>
   </div>
-  <div class="certs-grid">
-    <div class="cert-card"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="cert-name">ISO 9001:2015</div><div class="cert-sub">Quality Management System</div></div>
-    <div class="cert-card"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg></div><div class="cert-name">DCCI Member</div><div class="cert-sub">Dhaka Chamber of Commerce</div></div>
-    <div class="cert-card"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="cert-name">BPDB Registered</div><div class="cert-sub">Approved Contractor</div></div>
-    <div class="cert-card"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/></svg></div><div class="cert-name">Test Reports</div><div class="cert-sub">Product Certification</div></div>
+  <div class="certs-teaser">
+    <div class="certs-teaser-text">
+      <p>ISO 9001 quality management certification, Dhaka Chamber membership, and independent
+         material testing from BUET and BSTI — every document reproduced as a full scan, with
+         what it verifies and the accreditation behind each issuer set out beside it.</p>
+      <a href="certifications.html" class="certs-teaser-link">
+        View certificates &amp; test reports
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <dl class="certs-teaser-figures">
+      <div><dt>Documents on file</dt><dd>4</dd></div>
+      <div><dt>Verified tensile strength</dt><dd>485 MPa</dd></div>
+      <div><dt>Certified scope</dt><dd>33/11 kV</dd></div>
+    </dl>
   </div>
 </section>
 
@@ -524,7 +790,9 @@ footer{background:var(--black);padding:40px 5% 24px;border-top:2px solid var(--e
       <li><a href="../group/index.html">← GROUP HOME</a></li>
       <li><a href="#about">ABOUT</a></li>
       <li><a href="#services">SERVICES</a></li>
+      <li><a href="products.html">PRODUCTS</a></li>
       <li><a href="#clients">CLIENTS</a></li>
+      <li><a href="certifications.html">CERTIFICATIONS</a></li>
       <li><a href="#contact">CONTACT</a></li>
     </ul>
   </div>
@@ -543,7 +811,7 @@ let mx=0,my=0,ox=0,oy=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});
 function animC(){ox+=(mx-ox)*.1;oy+=(my-oy)*.1;cr.style.left=ox+'px';cr.style.top=oy+'px';requestAnimationFrame(animC);}
 animC();
-document.querySelectorAll('a,button,.srv-card,.client-row,.partner-card,.cert-card').forEach(el=>{
+document.querySelectorAll('a,button,.srv-card,.client-row,.certs-teaser-link').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
 });
@@ -559,7 +827,10 @@ tl.to('#h1a',{y:'0%',duration:.7,ease:'power4.out'})
   .to('#heroCtas',{opacity:1,duration:.5},'-=.2');
 
 // Nav scroll
-window.addEventListener('scroll',()=>{document.getElementById('nav').style.borderBottomColor=window.scrollY>40?'rgba(245,196,0,.3)':'transparent';});
+window.addEventListener('scroll',()=>{
+  const night=document.documentElement.getAttribute('data-theme')==='night';
+  document.getElementById('nav').style.borderBottomColor=window.scrollY>40?(night?'rgba(245,196,0,.3)':'rgba(127,98,0,.25)'):'transparent';
+});
 
 // Hero parallax
 gsap.to('.hero-photo',{yPercent:20,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
@@ -570,9 +841,46 @@ function cnt(el,t,d,s=''){gsap.to({v:0},{v:t,duration:d,ease:'power2.out',onUpda
 ScrollTrigger.create({trigger:'.stats',start:'top 80%',once:true,onEnter:()=>{cnt(document.getElementById('s1'),1985,1.8);cnt(document.getElementById('s2'),40,1.3,'+');cnt(document.getElementById('s3'),9,1.0);cnt(document.getElementById('s4'),10,1.1,'+');}});
 
 // Reveal animations
-document.querySelectorAll('.srv-card,.partner-card,.cert-card').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.5,delay:(i%3)*.1,scrollTrigger:{trigger:el,start:'top 88%',once:true}});});
+document.querySelectorAll('.srv-card').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.5,delay:(i%3)*.1,scrollTrigger:{trigger:el,start:'top 88%',once:true}});});
 document.querySelectorAll('.client-row').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,x:-20},{opacity:1,x:0,duration:.4,delay:i*.05,scrollTrigger:{trigger:el,start:'top 90%',once:true}});});
 document.querySelectorAll('.section-title,.sys-eyebrow,.about-title').forEach(el=>{gsap.fromTo(el,{opacity:0,y:24},{opacity:1,y:0,duration:.7,scrollTrigger:{trigger:el,start:'top 85%',once:true}});});
+
+// Anchor offset — the nav is fixed, and images/GSAP reveals settle after the
+// browser has already performed its native hash jump, so that jump lands short.
+// Re-run it once layout is final, and take over in-page clicks entirely.
+const NAV_OFFSET=()=>document.getElementById('nav').offsetHeight+16;
+function scrollToAnchor(id,behavior){
+  const el=document.getElementById(id);
+  if(!el) return;
+  const y=el.getBoundingClientRect().top+window.pageYOffset-NAV_OFFSET();
+  window.scrollTo({top:y,behavior:behavior||'auto'});
+}
+document.addEventListener('click',e=>{
+  const link=e.target.closest('a[href^="#"]');
+  if(!link) return;
+  const id=link.getAttribute('href').slice(1);
+  if(!id||!document.getElementById(id)) return;
+  e.preventDefault();
+  document.getElementById('navLinks').classList.remove('open');
+  scrollToAnchor(id,'smooth');
+  history.pushState(null,'','#'+id);
+});
+window.addEventListener('load',()=>{
+  ScrollTrigger.refresh();
+  const id=location.hash.length>1?location.hash.slice(1):null;
+  if(!id||!document.getElementById(id)) return;
+  // Sections above the target keep settling (late images, GSAP reveals), which
+  // shifts the target after a single scroll. Re-assert until the position holds.
+  let last=-1,tries=0;
+  (function settle(){
+    scrollToAnchor(id);
+    const y=Math.round(window.pageYOffset);
+    if(y!==last&&tries++<12){last=y;requestAnimationFrame(()=>setTimeout(settle,80));}
+  })();
+});
+window.addEventListener('hashchange',()=>{
+  if(location.hash.length>1) scrollToAnchor(location.hash.slice(1));
+});
 
 // Mobile nav
 function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
@@ -601,7 +909,7 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
     if(!link) return;
     const href=link.getAttribute('href');
     if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || link.target==='_blank') return;
-    if(href.endsWith('.html')){
+    if(href.indexOf('.html')>-1){
       e.preventDefault();
       overlay.classList.add('active');
       setTimeout(function(){ window.location.href=href; },380);
@@ -609,5 +917,8 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
   });
 })();
 </script>
+<script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
+<script>ARMATheme.init({ site: 'electric', placement: 'inline' });</script>
 </body>
 </html>

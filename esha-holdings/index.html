@@ -33,13 +33,17 @@ a{color:inherit;text-decoration:none}
 #cur-h{position:fixed;width:42px;height:1px;background:var(--gold);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,background .3s}
 body.ch #cur{height:8px}body.ch #cur-h{width:8px}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:500;height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;transition:background .45s ease,border-color .45s ease,box-shadow .45s ease;border-bottom:1px solid transparent}
-nav.nav-scrolled{background:rgba(8,8,8,0.82);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);border-bottom:1px solid rgba(156,128,72,0.18);box-shadow:0 2px 28px rgba(0,0,0,0.35)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:linear-gradient(to bottom,rgba(6,6,6,.55),transparent);transition:background .45s ease,border-color .45s ease,box-shadow .45s ease,backdrop-filter .45s ease;border-bottom:1px solid transparent}
+nav.nav-scrolled{background:rgba(6,6,6,0.92);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);border-bottom:1px solid rgba(156,128,72,0.22);box-shadow:0 2px 28px rgba(0,0,0,0.35)}
 .nav-logo strong{font-family:'Bodoni Moda',serif;font-size:18px;font-weight:500;letter-spacing:4px;color:var(--white);mix-blend-mode:normal;isolation:isolate}
-.nav-logo-img{height:40px;width:auto;display:block;mix-blend-mode:normal;isolation:isolate;filter:drop-shadow(0 0 4px rgba(255,255,255,.55)) drop-shadow(0 0 1px rgba(255,255,255,.9));}
+.nav-logo-img{height:64px;width:auto;display:block;mix-blend-mode:normal;isolation:isolate}
 .nav-links{display:flex;align-items:center;gap:40px;list-style:none}
-.nav-links a{font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--white);opacity:.6;transition:opacity .3s}
+/* Was opacity:.6 → ~3.9:1 on the dark bar, failing AA for 11px text.
+   .85 lifts it to ~11:1 while keeping the muted editorial tone. */
+.nav-links a{font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--white);opacity:.85;transition:opacity .3s}
 .nav-links a:hover{opacity:1}
+/* --gold2 at .85 opacity is ~4.1:1 on the dark bar. Full opacity → 8.6:1. */
+.nav-links a.nav-group-link{color:var(--gold2)!important;opacity:1}
 .hamburger{display:none;flex-direction:column;gap:6px;cursor:none;padding:4px}
 .hamburger span{display:block;width:24px;height:1px;background:var(--white)}
 
@@ -154,7 +158,7 @@ footer{background:var(--black);padding:48px 6% 28px;border-top:1px solid var(--b
 .footer-bottom p{font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.5px}
 
 @media(max-width:900px){body{cursor:auto}#cur,#cur-h{display:none}.about-grid{grid-template-columns:1fr}.about-text{padding:60px 6% 0}.about-img img{height:400px}.dev-row{grid-template-columns:1fr 1fr}.contact-grid{grid-template-columns:1fr;gap:48px}.numbers-grid{grid-template-columns:1fr}.num-item{border-right:none!important}}
-@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:84px;left:0;right:0;background:var(--black);padding:24px 6%;gap:20px}.hamburger{display:flex}.dev-row{grid-template-columns:1fr}.str-row{flex-direction:column;gap:8px}}
+@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:84px;left:0;right:0;background:var(--black);padding:24px 6%;gap:20px}.hamburger{display:flex}.dev-row{grid-template-columns:1fr}.str-row{flex-direction:column;gap:8px}.nav-logo-img{height:50px}}
 </style>
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="apple-touch-icon" href="images/favicon.png">
@@ -171,7 +175,7 @@ footer{background:var(--black);padding:48px 6% 28px;border-top:1px solid var(--b
     <li><a href="#developments">Developments</a></li>
     <li><a href="#strengths">Strengths</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="../group/index.html" style="color:var(--gold2)!important">← Group</a></li>
+    <li><a href="../group/index.html" class="nav-group-link">← Group</a></li>
   </ul>
   <div id="themeSwitchMount" class="nav-theme-slot"></div>
   <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
@@ -326,6 +330,7 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
 })();
 </script>
 <script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
 <script>ARMATheme.init({ site: 'esha-holdings', placement: 'inline' });</script>
 </body>
 </html>

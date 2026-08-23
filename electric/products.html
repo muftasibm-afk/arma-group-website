@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('arma-electric-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','electric');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
+<style>
+html{background:#FAFBFC}
+html[data-theme="night"]{background:#0A0A0A}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FAFBFC;opacity:0;pointer-events:none;transition:opacity .38s ease}
+html[data-theme="night"] .page-transition-overlay{background:#0A0A0A}
+.page-transition-overlay.active{opacity:1;pointer-events:all}
+body{opacity:0}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Catalogue — ARMA Electric Company</title>
+<meta name="description" content="The full ARMA Electric Company catalogue — galvanised line hardware manufactured in-house, KOCOS Messtechnik test and measurement systems, and imported protection, insulation and instrumentation equipment.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/css/theme-switch.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#FAFBFC;
+  --steel:#FFFFFF;
+  --steel2:#EEF1F4;
+  --steel3:#E2E7EC;
+  --electric:#7F6200;
+  --electric-fill:#F5C400;
+  --electric2:#FFD740;
+  --ink-on-fill:#0A0A0A;
+  --red:#C0392B;
+  --white:#14171B;
+  --muted:#5A6470;
+  --border:rgba(20,22,26,.10);
+  --green:#008000;
+}
+html[data-theme="night"]{
+  --black:#0A0A0A;
+  --steel:#111418;
+  --steel2:#1A1F26;
+  --steel3:#242B33;
+  --electric:#F5C400;
+  --electric-fill:#F5C400;
+  --electric2:#FFD740;
+  --ink-on-fill:#0A0A0A;
+  --red:#E84040;
+  --white:#F0F2F4;
+  --muted:#8A95A0;
+  --border:rgba(255,255,255,.07);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;cursor:none;transition:background .45s ease,color .45s ease}
+a{color:inherit;text-decoration:none}
+
+/* Browser surfaces carry the design too */
+::selection{background:var(--electric-fill);color:var(--ink-on-fill)}
+:focus-visible{outline:2px solid var(--electric);outline-offset:3px}
+html{scrollbar-color:var(--electric-fill) var(--steel2);scrollbar-width:thin}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--steel2)}
+::-webkit-scrollbar-thumb{background:rgba(127,98,0,.45);border:3px solid var(--steel2)}
+html[data-theme="night"] ::-webkit-scrollbar-thumb{background:rgba(245,196,0,.45)}
+::-webkit-scrollbar-thumb:hover{background:var(--electric-fill)}
+
+/* CURSOR — crosshair, matching index.html */
+#cur-ring{position:fixed;width:32px;height:32px;border:1px solid var(--electric);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+#cur-dot{position:fixed;width:4px;height:4px;background:var(--electric-fill);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-ring::before,#cur-ring::after{content:'';position:absolute;background:var(--electric-fill)}
+#cur-ring::before{width:8px;height:1px;top:50%;left:-10px;margin-top:-.5px}
+#cur-ring::after{width:1px;height:8px;left:50%;top:-10px;margin-left:-.5px}
+body.ch #cur-ring{width:48px;height:48px;border-color:var(--electric2)}
+
+/* NAV — matches index.html */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid rgba(127,98,0,.18);background:rgba(255,255,255,.92);backdrop-filter:blur(18px);transition:background .45s ease,border-color .45s ease}
+html[data-theme="night"] nav{border-bottom-color:rgba(245,196,0,.22);background:rgba(6,7,8,.92)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-img{height:64px;width:auto;display:block;transition:filter .15s linear}
+.nav-logo-img.on-dark{filter:invert(1) hue-rotate(180deg) saturate(1.1) brightness(.95)}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--electric)}
+.nav-links a.is-here{color:var(--electric)}
+.nav-back{border:1px solid var(--border)!important;color:var(--white)!important;padding:6px 14px;font-size:10px!important}
+.nav-back:hover{border-color:var(--electric)!important;color:var(--electric)!important}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:none;padding:4px}
+.hamburger span{display:block;width:20px;height:1px;background:var(--white)}
+
+/* MASTHEAD */
+.pc-masthead{padding:150px 5% 0;background:var(--steel);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.pc-masthead::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(127,98,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(127,98,0,.045) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+html[data-theme="night"] .pc-masthead::after{background-image:linear-gradient(rgba(245,196,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,196,0,.05) 1px,transparent 1px)}
+.pc-masthead-inner{position:relative;z-index:1;padding-bottom:56px}
+.pc-crumb{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+.pc-crumb a:hover{color:var(--electric)}
+.pc-crumb span{opacity:.4;margin:0 8px}
+.pc-masthead h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,7vw,92px);line-height:.92;letter-spacing:2px;color:var(--white);max-width:14ch;margin-bottom:24px}
+.pc-masthead h1 em{font-style:normal;color:var(--electric)}
+.pc-lede{font-size:15.5px;line-height:1.85;color:var(--muted);max-width:66ch;font-weight:300}
+.pc-lede strong{color:var(--white);font-weight:500}
+
+/* the ledger strip — what is actually in the catalogue */
+.pc-ledger{display:grid;grid-template-columns:repeat(3,1fr);margin-top:48px;border-top:1px solid var(--border)}
+.pc-ledger div{padding:22px 26px 0 0}
+.pc-ledger dt{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.pc-ledger dd{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;color:var(--electric);letter-spacing:1px}
+.pc-ledger dd small{display:block;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted);margin-top:7px;line-height:1.5}
+
+/* FILTER BAR — sticks under the nav while the catalogue scrolls */
+.pc-toolbar{
+  position:sticky;top:78px;z-index:400;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);padding:14px 5%;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  transition:background .45s ease;
+}
+html[data-theme="night"] .pc-toolbar{background:rgba(6,7,8,.94)}
+.pc-filter{display:flex;gap:8px;flex-wrap:wrap}
+.pc-chip{
+  padding:7px 15px;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);
+  cursor:none;transition:color .2s,border-color .2s,background .2s;
+  clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));
+}
+.pc-chip:hover{color:var(--electric);border-color:rgba(127,98,0,.4)}
+html[data-theme="night"] .pc-chip:hover{border-color:rgba(245,196,0,.4)}
+.pc-chip.active{background:var(--electric-fill);border-color:var(--electric-fill);color:var(--ink-on-fill)}
+.pc-count{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+/* CATALOGUE */
+.pc-catalogue{padding:64px 5% 100px;background:var(--black)}
+.pc-cat{margin-bottom:72px;scroll-margin-top:150px}
+.pc-cat:last-child{margin-bottom:0}
+.pc-cat[hidden]{display:none}
+.pc-cat-head{display:flex;align-items:baseline;gap:16px;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.pc-cat-tag{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--electric);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.pc-cat-tag::before{content:'// '}
+.pc-cat-title{font-size:16px;font-weight:600;color:var(--white);letter-spacing:.3px}
+.pc-cat-desc{font-size:12.5px;color:var(--muted);margin-left:auto;text-align:right;max-width:400px;line-height:1.65}
+.pc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+
+.pc-card{
+  background:var(--steel2);border:1px solid var(--border);overflow:hidden;
+  display:flex;flex-direction:column;text-align:left;width:100%;font:inherit;color:inherit;
+  cursor:none;opacity:0;transform:translateY(16px);
+  transition:opacity .4s ease,transform .4s cubic-bezier(.16,1,.3,1),border-color .3s;
+}
+.pc-card.visible{opacity:1;transform:translateY(0)}
+.pc-card:hover,.pc-card:focus-visible{border-color:rgba(245,196,0,.5);transform:translateY(-3px)}
+.pc-card[hidden]{display:none}
+.pc-img-wrap{position:relative;height:210px;background:var(--steel2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pc-img-wrap img{width:100%;height:100%;object-fit:contain;padding:10px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.pc-card:hover .pc-img-wrap img{transform:scale(1.06)}
+.pc-sku{position:absolute;top:8px;left:8px;z-index:2;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--ink-on-fill);background:var(--electric-fill);padding:2px 6px;letter-spacing:1px}
+.pc-origin{
+  position:absolute;top:8px;right:8px;z-index:2;
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;
+  color:#F0F2F4;background:rgba(10,10,10,.82);border:1px solid rgba(245,196,0,.45);padding:2px 6px;
+}
+.pc-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.pc-name{font-size:13.5px;font-weight:600;color:var(--white);margin-bottom:5px;letter-spacing:.2px;line-height:1.4}
+.pc-desc{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px;line-height:1.6;flex:1}
+.pc-more{
+  margin-top:14px;font-family:'Share Tech Mono',monospace;font-size:9.5px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--electric);display:flex;align-items:center;gap:6px;
+}
+.pc-more svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.pc-card:hover .pc-more svg{transform:translateX(3px)}
+.pc-empty{padding:64px 0;text-align:center;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1.5px;color:var(--muted)}
+.pc-empty[hidden]{display:none}
+
+/* PRODUCT MODAL */
+.pm-backdrop{
+  position:fixed;inset:0;z-index:9000;background:rgba(6,7,8,.78);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;padding:5vh 5vw;
+  opacity:0;pointer-events:none;transition:opacity .28s ease;
+}
+.pm-backdrop.open{opacity:1;pointer-events:auto}
+.pm-backdrop[hidden]{display:none}
+.pm-dialog{
+  background:var(--steel);border:1px solid var(--border);width:min(980px,100%);max-height:90vh;
+  overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;position:relative;
+  transform:translateY(14px) scale(.985);transition:transform .28s cubic-bezier(.16,1,.3,1);
+}
+.pm-backdrop.open .pm-dialog{transform:translateY(0) scale(1)}
+.pm-close{
+  position:absolute;top:12px;right:12px;z-index:5;width:34px;height:34px;
+  border:1px solid var(--border);background:var(--steel);display:flex;align-items:center;justify-content:center;
+  cursor:none;transition:border-color .2s,background .2s;
+}
+.pm-close:hover{border-color:var(--electric);background:var(--steel2)}
+.pm-close svg{width:16px;height:16px;stroke:var(--white);fill:none;stroke-width:2;stroke-linecap:round}
+.pm-media{background:#fff;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:32px;min-height:340px}
+.pm-media img{width:100%;height:100%;min-height:300px;max-height:62vh;object-fit:contain;display:block}
+.pm-info{padding:36px 32px;overflow-y:auto;display:flex;flex-direction:column;background:var(--steel)}
+.pm-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pm-tag{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border:1px solid var(--border);color:var(--muted)}
+.pm-tag.fill{background:var(--electric-fill);border-color:var(--electric-fill);color:var(--ink-on-fill)}
+.pm-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.4vw,42px);letter-spacing:1.5px;color:var(--white);line-height:1.05;margin-bottom:14px}
+.pm-lead{font-size:13.5px;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.pm-specs{border-top:1px solid var(--border);margin-bottom:24px}
+.pm-specs div{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid var(--border)}
+.pm-specs dt{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);flex-shrink:0}
+.pm-specs dd{font-size:12.5px;color:var(--white);font-weight:500;text-align:right}
+.pm-cta{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+body.pm-open{overflow:hidden}
+
+.btn-elec{background:var(--electric-fill);color:var(--ink-on-fill);padding:12px 26px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border:none;cursor:none;transition:background .2s,transform .2s;display:inline-block;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.btn-elec:hover{background:var(--electric2);transform:translateY(-2px)}
+.btn-outline-elec{background:transparent;color:var(--electric);padding:12px 26px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border:1px solid rgba(127,98,0,.4);cursor:none;transition:border-color .2s,background .2s;display:inline-block;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+html[data-theme="night"] .btn-outline-elec{border-color:rgba(245,196,0,.4)}
+.btn-outline-elec:hover{border-color:var(--electric);background:rgba(245,196,0,.06)}
+
+/* CLOSING CTA */
+.pc-cta{padding:88px 5%;background:var(--steel);border-top:2px solid var(--electric)}
+.pc-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:2px;color:var(--white);line-height:1;margin-bottom:18px}
+.pc-cta h2 span{color:var(--electric)}
+.pc-cta p{font-size:14px;color:var(--muted);line-height:1.85;max-width:60ch;margin-bottom:30px;font-weight:300}
+.pc-cta-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--black);padding:40px 5% 24px;border-top:1px solid var(--border)}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;margin-bottom:32px}
+.footer-brand{display:flex;align-items:center;gap:10px}
+.footer-brand-sq{width:28px;height:28px;background:var(--electric-fill);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:14px;color:var(--ink-on-fill)}
+.footer-brand-text strong{display:block;font-family:'Bebas Neue';font-size:16px;letter-spacing:2px;color:var(--white)}
+.footer-brand-text small{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1.5px}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap}
+.footer-links a{font-size:11px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;transition:color .2s}
+.footer-links a:hover{color:var(--electric)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.footer-bottom p{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px}
+.iso-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--electric);border:1px solid rgba(127,98,0,.3);padding:4px 10px;letter-spacing:1px}
+html[data-theme="night"] .iso-tag{border-color:rgba(245,196,0,.3)}
+
+@media(max-width:1100px){.pc-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){
+  body{cursor:auto}#cur-ring,#cur-dot{display:none}
+  .pc-grid{grid-template-columns:repeat(2,1fr)}
+  .pc-ledger{grid-template-columns:1fr;gap:0}
+  .pc-ledger div{padding:18px 0;border-bottom:1px solid var(--border)}
+  .pc-cat-desc{margin-left:0;text-align:left;max-width:none}
+  .pm-dialog{grid-template-columns:1fr;max-height:88vh;overflow-y:auto}
+  .pm-media{border-right:0;border-bottom:1px solid var(--border);min-height:0;padding:24px}
+  .pm-media img{min-height:0;height:auto;max-height:38vh}
+  .pm-info{padding:26px 22px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:78px;left:0;right:0;background:var(--steel);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}
+  .hamburger{display:flex}
+  .nav-logo-img{height:50px}
+  .pc-masthead{padding-top:120px}
+  .pc-grid{grid-template-columns:1fr}
+  .pc-toolbar{justify-content:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .pc-card{opacity:1;transform:none}
+}
+</style>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+</head>
+<body>
+<div id="cur-ring"></div>
+<div id="cur-dot"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.png" alt="ARMA Electric Company" class="nav-logo-img">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">ABOUT</a></li>
+    <li><a href="index.html#services">SERVICES</a></li>
+    <li><a href="products.html" class="is-here" aria-current="page">PRODUCTS</a></li>
+    <li><a href="index.html#clients">CLIENTS</a></li>
+    <li><a href="index.html#partners">PARTNERS</a></li>
+    <li><a href="certifications.html">CERTIFICATIONS</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+    <li><a href="../group/index.html" class="nav-back">← GROUP</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MASTHEAD -->
+<header class="pc-masthead">
+  <div class="pc-masthead-inner">
+    <nav class="pc-crumb" aria-label="Breadcrumb">
+      <a href="index.html">ARMA Electric</a><span>/</span>Product Catalogue
+    </nav>
+    <h1>PRODUCT<br><em>CATALOGUE</em></h1>
+    <p class="pc-lede">Everything we manufacture, represent and import for Bangladesh's power sector — <strong>galvanised line hardware produced in-house</strong>, KOCOS Messtechnik test and measurement systems supplied under our Germany partnership, and protection, insulation and instrumentation equipment sourced from vetted manufacturers across the EU, Japan, China, India and Türkiye.</p>
+    <dl class="pc-ledger">
+      <div><dt>Catalogue items</dt><dd>28<small>Across three supply lines, each with its origin stated</small></dd></div>
+      <div><dt>Manufactured in-house</dt><dd>8<small>Hot-dip galvanised, under ISO 9001:2015 scope</small></dd></div>
+      <div><dt>Sourcing countries</dt><dd>9<small>Germany, Spain, Poland, UK, France, Japan, China, India, Türkiye</small></dd></div>
+    </dl>
+  </div>
+</header>
+
+<!-- FILTER -->
+<div class="pc-toolbar">
+  <div class="pc-filter" id="pcFilter" role="tablist" aria-label="Filter catalogue by supply line">
+    <button type="button" class="pc-chip active" data-filter="all" role="tab" aria-selected="true">All Products</button>
+    <button type="button" class="pc-chip" data-filter="manufactured" role="tab" aria-selected="false">Own Manufacture</button>
+    <button type="button" class="pc-chip" data-filter="kocos" role="tab" aria-selected="false">Test &amp; Measurement</button>
+    <button type="button" class="pc-chip" data-filter="imported" role="tab" aria-selected="false">Imported Supply</button>
+  </div>
+  <p class="pc-count" id="pcCount" role="status" aria-live="polite"></p>
+</div>
+
+<!-- CATALOGUE -->
+<main class="pc-catalogue" id="catalogue">
+  <section class="pc-cat" id="cat-manufactured" data-cat="manufactured">
+    <div class="pc-cat-head">
+      <div class="pc-cat-tag">CAT.01 — OWN MANUFACTURE</div>
+      <div class="pc-cat-title">Line Hardware &amp; Pole Fittings</div>
+      <div class="pc-cat-desc">Galvanised hardware manufactured in-house — pole fittings, cross-arms, brackets, clamps and accessories under BSCIC/WQS ISO 9001:2015 scope.</div>
+    </div>
+    <div class="pc-grid" data-grid="manufactured"></div>
+  </section>
+
+  <section class="pc-cat" id="cat-kocos" data-cat="kocos">
+    <div class="pc-cat-head">
+      <div class="pc-cat-tag">CAT.02 — KOCOS MESSTECHNIK AG</div>
+      <div class="pc-cat-title">Test &amp; Measurement Systems</div>
+      <div class="pc-cat-desc">Precision testing instruments supplied exclusively for Bangladesh under our Germany partnership.</div>
+    </div>
+    <div class="pc-grid" data-grid="kocos"></div>
+  </section>
+
+  <section class="pc-cat" id="cat-imported" data-cat="imported">
+    <div class="pc-cat-head">
+      <div class="pc-cat-tag">CAT.03 — IMPORTED &amp; SUPPLIED</div>
+      <div class="pc-cat-title">Protection, Insulation &amp; Instrumentation</div>
+      <div class="pc-cat-desc">Line protection, insulation and diagnostic equipment sourced from vetted manufacturers across the EU, Japan, China, India and Türkiye.</div>
+    </div>
+    <div class="pc-grid" data-grid="imported"></div>
+  </section>
+
+  <p class="pc-empty" id="pcEmpty" hidden>No products in this supply line yet.</p>
+</main>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="pm-backdrop" id="productModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" hidden>
+  <div class="pm-dialog" role="document">
+    <button type="button" class="pm-close" id="pmClose" aria-label="Close product details">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="pm-media" id="pmMedia"></div>
+    <div class="pm-info">
+      <div class="pm-tags" id="pmTags"></div>
+      <h2 class="pm-title" id="pmTitle"></h2>
+      <p class="pm-lead" id="pmLead"></p>
+      <dl class="pm-specs" id="pmSpecs"></dl>
+      <div class="pm-cta">
+        <a href="index.html#contact" class="btn-elec">Enquire about this</a>
+        <a href="certifications.html" class="btn-outline-elec">View certifications</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING CTA -->
+<section class="pc-cta">
+  <h2>NEED A SPEC,<br>QUOTE OR <span>SAMPLE?</span></h2>
+  <p>Tell us the item, quantity and delivery window — including tender references and e-GP requirements — and our supply team will come back with specifications, origin documentation and pricing.</p>
+  <div class="pc-cta-actions">
+    <a href="index.html#contact" class="btn-elec">Request a quote</a>
+    <a href="certifications.html" class="btn-outline-elec">Certificates &amp; test reports</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-sq">A</div>
+      <div class="footer-brand-text"><strong>ARMA ELECTRIC CO.</strong><small>SISTER CONCERN // ARMA GROUP OF COMPANIES // EST. 1985</small></div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="../group/index.html">← GROUP HOME</a></li>
+      <li><a href="index.html#about">ABOUT</a></li>
+      <li><a href="index.html#services">SERVICES</a></li>
+      <li><a href="products.html">PRODUCTS</a></li>
+      <li><a href="certifications.html">CERTIFICATIONS</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ARMA ELECTRIC COMPANY // ARMA GROUP OF COMPANIES // DHAKA, BANGLADESH</p>
+    <div class="iso-tag">Powered by "Interlink"</div>
+  </div>
+</footer>
+
+<script>
+function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
+</script>
+
+<script>
+(function(){
+  const overlay=document.createElement('div');
+  overlay.className='page-transition-overlay';
+  document.documentElement.appendChild(overlay);
+  function revealPage(){
+    overlay.classList.remove('active');
+    document.body.classList.add('page-loaded');
+  }
+  window.addEventListener('pageshow',function(){ revealPage(); });
+  if(document.readyState==='complete'||document.readyState==='interactive'){revealPage();}
+  else{document.addEventListener('DOMContentLoaded',revealPage);}
+  document.addEventListener('click',function(e){
+    const link=e.target.closest('a');
+    if(!link) return;
+    const href=link.getAttribute('href');
+    if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || link.target==='_blank') return;
+    if(href.indexOf('.html')>-1){
+      e.preventDefault();
+      overlay.classList.add('active');
+      setTimeout(function(){ window.location.href=href; },380);
+    }
+  });
+})();
+</script>
+
+<!-- CATALOGUE — data, filtering, and the detail modal -->
+<script>
+(function(){
+  /* ── Add products here — drop the photo in images/products/<line>/ and
+        reference it as `img` (path relative to images/products/). ── */
+  const PRODUCTS = [
+    /* ── CAT.01 — manufactured in-house ── */
+    {sku:'AEC-C001', line:'manufactured', name:'Cross-Arm (Angle Type)', img:'line-hardware/cross-arm-angle-type.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // POLE MOUNT',
+     lead:'Hot-dip galvanised angle-type cross-arm — the primary conductor support member, holding phase spacing clear of the pole on HT and LT runs.',
+     specs:{'Material':'Hot-dip galvanised steel','Type':'Angle section','Application':'Conductor support','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    {sku:'AEC-C002', line:'manufactured', name:'Cross-Arm Tie', img:'line-hardware/cross-arm-tie.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // SUPPORT BRACE',
+     lead:'Hot-dip galvanised bracing member stiffening the cross-arm against vertical and transverse line loading.',
+     specs:{'Material':'Hot-dip galvanised steel','Application':'Cross-arm bracing','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    {sku:'AEC-C003', line:'manufactured', name:'Cross-Arm (Tension Type)', img:'line-hardware/cross-arm-tension-type.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // POLE MOUNT',
+     lead:'Hot-dip galvanised tension-type cross-arm for dead-end and angle structures, where conductor pull is carried into the pole.',
+     specs:{'Material':'Hot-dip galvanised steel','Type':'Tension / dead-end','Application':'Angle & terminal structures','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    {sku:'AEC-C004', line:'manufactured', name:'Extension Strap', img:'line-hardware/extension-strap.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // POLE ACCESSORY',
+     lead:'Hot-dip galvanised strap extending the mounting reach of pole hardware where additional standoff is required.',
+     specs:{'Material':'Hot-dip galvanised steel','Application':'Pole accessory / standoff','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    {sku:'AEC-C005', line:'manufactured', name:'Side Mount Bracket', img:'line-hardware/side-mount-bracket.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // POLE MOUNT',
+     lead:'Hot-dip galvanised bracket for insulator and fitting attachment along the pole shaft.',
+     specs:{'Material':'Hot-dip galvanised steel','Application':'Pole side mounting','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    {sku:'AEC-C006', line:'manufactured', name:'Top Mount Bracket', img:'line-hardware/top-mount-bracket.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // POLE MOUNT',
+     lead:'Hot-dip galvanised bracket carrying insulators and line fittings at the pole head.',
+     specs:{'Material':'Hot-dip galvanised steel','Application':'Pole top mounting','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    {sku:'AEC-C007', line:'manufactured', name:'2 Way Clamp', img:'line-hardware/2-way-clamp.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // POLE BAND',
+     lead:'Hot-dip galvanised two-way clamp securing brackets and fittings around the pole circumference.',
+     specs:{'Material':'Hot-dip galvanised steel','Type':'Two-way pole band','Application':'Pole clamping','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    {sku:'AEC-C008', line:'manufactured', name:'Square Base Plate', img:'line-hardware/square-base-plate.jpg',
+     origin:'In-House', short:'GALVANISED STEEL // FOUNDATION PLATE',
+     lead:'Hot-dip galvanised square base plate distributing structural load into the foundation at the base of a mounted assembly.',
+     specs:{'Material':'Hot-dip galvanised steel','Application':'Foundation / load distribution','Quality scope':'ISO 9001:2015','Origin':'Manufactured in Bangladesh'}},
+
+    /* ── CAT.02 — KOCOS Messtechnik AG, Germany ── */
+    {sku:'KOC-01', line:'kocos', name:'ACTAS P360 Switchgear Test System', img:'kocos/actas-p360-switchgear-test-system.png',
+     origin:'Germany', short:'KOCOS // PORTABLE TEST SET',
+     lead:'Portable switchgear test system for circuit-breaker timing, travel and contact-resistance analysis in the field.',
+     specs:{'Manufacturer':'KOCOS Messtechnik AG','Category':'Switchgear test system','Format':'Portable, carry case','Origin':'Germany'}},
+
+    {sku:'KOC-02', line:'kocos', name:'ARTES-600 Relay Test System', img:'kocos/artes-600-relay-test-system.png',
+     origin:'Germany', short:'KOCOS // AUTOMATIC RELAY TEST',
+     lead:'Automatic protection-relay test system for commissioning and periodic verification of protection schemes.',
+     specs:{'Manufacturer':'KOCOS Messtechnik AG','Category':'Protection relay test','Mode':'Automatic test sequences','Origin':'Germany'}},
+
+    {sku:'KOC-03', line:'kocos', name:'PROMET L100 Ohm Meter', img:'kocos/promet-l100-ohm-meter.png',
+     origin:'Germany', short:'KOCOS // HIGH-PRECISION OHM METER',
+     lead:'High-precision micro-ohm meter for contact and joint resistance measurement on switchgear and busbar connections.',
+     specs:{'Manufacturer':'KOCOS Messtechnik AG','Category':'Resistance measurement','Format':'Portable, carry case','Origin':'Germany'}},
+
+    {sku:'KOC-04', line:'kocos', name:'EPPE PX Power Quality Analyser', img:'kocos/eppe-px-power-quality-analyser.png',
+     origin:'Germany', short:'KOCOS // POWER QUALITY ANALYSER',
+     lead:'Power quality analyser recording voltage, harmonic and disturbance data against network quality standards.',
+     specs:{'Manufacturer':'KOCOS Messtechnik AG','Category':'Power quality analysis','Format':'Portable, carry case','Origin':'Germany'}},
+
+    {sku:'KOC-05', line:'kocos', name:'METES 340 REF Meter Test System', img:'kocos/metes-340-ref-meter-test-system.png',
+     origin:'Germany', short:'KOCOS // HIGH-PRECISION METER TEST',
+     lead:'Reference-grade meter test system for calibration and accuracy verification of energy meters.',
+     specs:{'Manufacturer':'KOCOS Messtechnik AG','Category':'Energy meter testing','Class':'Reference standard','Origin':'Germany'}},
+
+    {sku:'KOC-06', line:'kocos', name:'SHERLOG CRX Fault Recorder', img:'kocos/sherlog-crx-fault-recorder.png',
+     origin:'Germany', short:'KOCOS // FAULT RECORDER SYSTEM',
+     lead:'Digital fault recorder capturing transient disturbance records for post-event network analysis.',
+     specs:{'Manufacturer':'KOCOS Messtechnik AG','Category':'Fault recording','Application':'Substation permanent install','Origin':'Germany'}},
+
+    {sku:'KOC-07', line:'kocos', name:'EPOS CV Voltage Source', img:'kocos/epos-cv-voltage-source.png',
+     origin:'Germany', short:'KOCOS // VOLTAGE SOURCE',
+     lead:'Electronic voltage source providing a stable, precisely controlled output for calibration and test benches.',
+     specs:{'Manufacturer':'KOCOS Messtechnik AG','Category':'Calibration voltage source','Origin':'Germany'}},
+
+    /* ── CAT.03 — imported & supplied ── */
+    {sku:'AEC-I001', line:'imported', name:'Lightning Arrestor (LA)', img:'imported/lightning-arrestor.jpg',
+     origin:'Spain', short:'SPAIN (EU) // SURGE PROTECTION',
+     lead:'Polymer-housed lightning arrestor diverting surge energy to earth, protecting overhead line and substation equipment from transient overvoltage.',
+     specs:{'Category':'Surge protection','Housing':'Polymer','Application':'Overhead line & substation','Origin':'Spain (EU)'}},
+
+    {sku:'AEC-I002', line:'imported', name:'Drop Out Fuse Cutout (DOFC)', img:'imported/dropout-fuse-cutout.jpg',
+     origin:'Spain', short:'SPAIN (EU) // LINE PROTECTION',
+     lead:'Drop-out fuse cutout providing overcurrent protection and a visible isolation point on overhead distribution lines.',
+     specs:{'Category':'Overcurrent protection','Function':'Fusing + visible isolation','Application':'Overhead distribution','Origin':'Spain (EU)'}},
+
+    {sku:'AEC-I003', line:'imported', name:'MCCB', img:'imported/mccb.jpg',
+     origin:'Türkiye', short:'TÜRKIYE // MOULDED CASE BREAKER',
+     lead:'Three-pole moulded case circuit breaker for overload and short-circuit protection in LT distribution boards.',
+     specs:{'Category':'Circuit protection','Poles':'Three-pole','Application':'LT distribution boards','Origin':'Türkiye'}},
+
+    {sku:'AEC-I004', line:'imported', name:'PIN Insulator', img:'imported/pin-insulator.jpg',
+     origin:'China', short:'CHINA // OVERHEAD INSULATION',
+     lead:'Porcelain pin insulator supporting the conductor on straight runs of overhead distribution line.',
+     specs:{'Category':'Overhead insulation','Material':'Porcelain','Application':'Straight-run distribution','Origin':'China'}},
+
+    {sku:'AEC-I005', line:'imported', name:'Line Post Insulator', img:'imported/line-post-insulator.jpg',
+     origin:'China', short:'CHINA // OVERHEAD INSULATION',
+     lead:'Line post insulator carrying the conductor rigidly clear of the structure on distribution lines.',
+     specs:{'Category':'Overhead insulation','Type':'Line post','Application':'Distribution lines','Origin':'China'}},
+
+    {sku:'AEC-I006', line:'imported', name:'DISC Insulator', img:'imported/disc-insulator.jpg',
+     origin:'China', short:'CHINA // SUSPENSION INSULATION',
+     lead:'Disc suspension insulator, strung in units to the required voltage class for transmission line suspension and tension sets.',
+     specs:{'Category':'Suspension insulation','Type':'Disc, strung in units','Application':'Transmission lines','Origin':'China'}},
+
+    {sku:'AEC-I007', line:'imported', name:'Thermal Imaging Camera', img:'imported/thermal-imaging-camera.png',
+     origin:'Poland', short:'POLAND // THERMOGRAPHIC SURVEY',
+     lead:'Handheld thermal imaging camera for hotspot detection on live connections, joints and switchgear during condition surveys.',
+     specs:{'Category':'Diagnostic instrument','Method':'Infrared thermography','Application':'Live hotspot survey','Origin':'Poland'}},
+
+    {sku:'AEC-I008', line:'imported', name:'Temperature Gun', img:'imported/temperature-gun.png',
+     origin:'Poland', short:'POLAND // INFRARED PYROMETER',
+     lead:'Non-contact infrared pyrometer for spot temperature readings on energised equipment.',
+     specs:{'Category':'Diagnostic instrument','Method':'Infrared, non-contact','Application':'Spot temperature checks','Origin':'Poland'}},
+
+    {sku:'AEC-I009', line:'imported', name:'Protection Relay', img:'imported/protection-relay.jpg',
+     origin:'UK / France', short:'UK & FRANCE (EU) // NUMERICAL RELAY',
+     lead:'Numerical protection relay with digital display and keypad, providing configurable protection functions for feeders and transformers.',
+     specs:{'Category':'Protection & control','Type':'Numerical relay','Application':'Feeder & transformer protection','Origin':'UK & France (EU)'}},
+
+    {sku:'AEC-I010', line:'imported', name:'AVO Meter', img:'imported/avo-meter.jpg',
+     origin:'Japan', short:'JAPAN // MULTIMETER',
+     lead:'AVO multimeter for voltage, current and resistance measurement in field and workshop use.',
+     specs:{'Category':'Measurement instrument','Measures':'Voltage, current, resistance','Origin':'Japan'}},
+
+    {sku:'AEC-I011', line:'imported', name:'PIN Insulator Fittings', img:'imported/pin-insulator-fittings.jpg',
+     origin:'India', short:'INDIA // INSULATOR HARDWARE',
+     lead:'Hardware fittings mating pin insulators to the supporting cross-arm or bracket.',
+     specs:{'Category':'Insulator hardware','Application':'PIN insulator mounting','Origin':'India'}},
+
+    {sku:'AEC-I012', line:'imported', name:'DISC Insulator Fittings', img:'imported/disc-insulator-fittings.jpg',
+     origin:'India', short:'INDIA // INSULATOR HARDWARE',
+     lead:'Ball-and-socket and clevis hardware assembling disc insulator strings into suspension and tension sets.',
+     specs:{'Category':'Insulator hardware','Application':'DISC string assembly','Origin':'India'}},
+
+    {sku:'AEC-I013', line:'imported', name:'Conductor Accessories', img:'imported/conductor-accessories.jpg',
+     origin:'India', short:'INDIA // LINE ACCESSORIES',
+     lead:'Clamps, connectors and joint hardware used in overhead line construction and conductor termination.',
+     specs:{'Category':'Line accessories','Includes':'Clamps, connectors, joints','Application':'Overhead line construction','Origin':'India'}}
+  ];
+
+  const filter  = document.getElementById('pcFilter');
+  const countEl = document.getElementById('pcCount');
+  const emptyEl = document.getElementById('pcEmpty');
+  const sections= Array.from(document.querySelectorAll('.pc-cat'));
+  if (!sections.length) return;
+
+  const esc = s => String(s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  /* ── Build the grids ── */
+  PRODUCTS.forEach(p => {
+    const grid = document.querySelector(`.pc-grid[data-grid="${p.line}"]`);
+    if (!grid) return;
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'pc-card';
+    card.dataset.line = p.line;
+    card.setAttribute('aria-label', `View details for ${p.name}`);
+    card.innerHTML =
+      `<div class="pc-img-wrap">
+         <span class="pc-sku">${esc(p.sku)}</span>
+         <span class="pc-origin">${esc(p.origin).toUpperCase()}</span>
+         <img src="images/products/${esc(p.img)}" alt="${esc(p.name)} — ${esc(p.origin)}" loading="lazy">
+       </div>
+       <div class="pc-body">
+         <div class="pc-name">${esc(p.name)}</div>
+         <div class="pc-desc">${esc(p.short)}</div>
+         <div class="pc-more">View details
+           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+         </div>
+       </div>`;
+    card.addEventListener('click', () => openModal(p));
+    grid.appendChild(card);
+  });
+
+  const cards = Array.from(document.querySelectorAll('.pc-card'));
+
+  /* ── Filtering — whole supply-line sections show or hide together ── */
+  function applyFilter(key){
+    let shown = 0;
+    sections.forEach(sec => {
+      const match = key === 'all' || sec.dataset.cat === key;
+      sec.hidden = !match;
+      if (match) shown += sec.querySelectorAll('.pc-card').length;
+    });
+    emptyEl.hidden = shown > 0;
+    countEl.textContent = shown === 1 ? '1 product' : shown + ' products';
+    // Sections revealed by a filter change start hidden; make them visible now
+    cards.forEach(c => { if (!c.closest('.pc-cat').hidden) c.classList.add('visible'); });
+  }
+
+  filter.addEventListener('click', e => {
+    const chip = e.target.closest('.pc-chip');
+    if (!chip) return;
+    filter.querySelectorAll('.pc-chip').forEach(x => {
+      const on = x === chip;
+      x.classList.toggle('active', on);
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    applyFilter(chip.dataset.filter);
+  });
+
+  /* Deep links from the landing page: products.html?line=kocos or #cat-kocos */
+  (function presetFromURL(){
+    const param = new URLSearchParams(location.search).get('line');
+    const hash  = (location.hash || '').replace('#cat-', '');
+    const key   = param || (hash && document.getElementById('cat-' + hash) ? hash : '');
+    if (!key) return;
+    const chip = filter.querySelector(`.pc-chip[data-filter="${key}"]`);
+    if (!chip) return;
+    filter.querySelectorAll('.pc-chip').forEach(x => {
+      const on = x === chip;
+      x.classList.toggle('active', on);
+      x.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    applyFilter(key);
+  })();
+
+  /* ── Detail modal ── */
+  const modal   = document.getElementById('productModal');
+  const pmMedia = document.getElementById('pmMedia');
+  const pmTags  = document.getElementById('pmTags');
+  const pmTitle = document.getElementById('pmTitle');
+  const pmLead  = document.getElementById('pmLead');
+  const pmSpecs = document.getElementById('pmSpecs');
+  let lastFocus = null;
+
+  function openModal(p){
+    lastFocus = document.activeElement;
+    pmMedia.innerHTML = `<img src="images/products/${esc(p.img)}" alt="${esc(p.name)} — enlarged product photograph">`;
+    pmTags.innerHTML  = `<span class="pm-tag fill">${esc(p.sku)}</span><span class="pm-tag">${esc(p.origin)}</span>`;
+    pmTitle.textContent = p.name;
+    pmLead.textContent  = p.lead;
+    pmSpecs.innerHTML = Object.entries(p.specs || {})
+      .map(([k,v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
+    modal.hidden = false;
+    requestAnimationFrame(() => modal.classList.add('open'));
+    document.body.classList.add('pm-open');
+    document.getElementById('pmClose').focus();
+  }
+
+  function closeModal(){
+    if (modal.hidden) return;
+    modal.classList.remove('open');
+    document.body.classList.remove('pm-open');
+    setTimeout(() => { modal.hidden = true; }, 280);
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.getElementById('pmClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  // The enquiry CTA leaves the page, so the dialog has to get out of the way
+  modal.querySelectorAll('.pm-cta a').forEach(a => a.addEventListener('click', closeModal));
+
+  /* ── Reveal on scroll ── */
+  if (!countEl.textContent) applyFilter('all');
+  if (window.gsap && window.ScrollTrigger && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cards.forEach(c => c.classList.remove('visible'));
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll('.pc-grid').forEach(grid => {
+      const gridCards = Array.from(grid.querySelectorAll('.pc-card'));
+      ScrollTrigger.create({
+        trigger: grid, start:'top 90%', once:true,
+        onEnter: () => gridCards.forEach((c,i) => setTimeout(() => c.classList.add('visible'), (i%8)*55))
+      });
+    });
+  } else {
+    cards.forEach(c => c.classList.add('visible'));
+  }
+
+  /* Safety net: never leave a card stranded invisible if the scroll trigger
+     misses (short viewports, restored scroll position, print, or no JS event). */
+  function revealInView(){
+    cards.forEach(c => {
+      if (c.classList.contains('visible')) return;
+      const r = c.getBoundingClientRect();
+      if (r.top < window.innerHeight + 200 && r.bottom > -200) c.classList.add('visible');
+    });
+  }
+  revealInView();
+  window.addEventListener('scroll', revealInView, { passive:true });
+  window.addEventListener('resize', revealInView);
+  setTimeout(() => cards.forEach(c => c.classList.add('visible')), 4000);
+
+  /* ── Custom cursor — the crosshair grows over interactive elements ── */
+  const ring = document.getElementById('cur-ring'), dot = document.getElementById('cur-dot');
+  let mx=0,my=0,ox=0,oy=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px';
+  });
+  (function animC(){ ox+=(mx-ox)*.1; oy+=(my-oy)*.1; ring.style.left=ox+'px'; ring.style.top=oy+'px'; requestAnimationFrame(animC); })();
+  function bindHover(root){
+    (root||document).querySelectorAll('a,button,.pc-card,.pc-chip').forEach(el => {
+      if (el.dataset.curBound) return;
+      el.dataset.curBound = '1';
+      el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+    });
+  }
+  bindHover();
+
+  /* ── Nav border reacts to scroll, as on index.html ── */
+  window.addEventListener('scroll',()=>{
+    const night=document.documentElement.getAttribute('data-theme')==='night';
+    document.getElementById('nav').style.borderBottomColor =
+      window.scrollY>40 ? (night?'rgba(245,196,0,.3)':'rgba(127,98,0,.25)') : 'transparent';
+  });
+})();
+</script>
+<script src="../shared/js/nav-contrast.js"></script>
+</body>
+</html>

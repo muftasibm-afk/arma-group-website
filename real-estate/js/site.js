@@ -3,8 +3,11 @@
   'use strict';
 
   const CFG = window.ARMA_CONFIG || {};
-  const PROJECTS = window.ARMA_PROJECTS || [];
   const THEME_KEY = 'arma-re-theme';
+
+  function getProjects() {
+    return window.ARMA_PROJECTS || [];
+  }
 
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme === 'night' ? 'night' : 'day');
@@ -191,9 +194,10 @@
   /* ── PROJECT CARD HTML ── */
   function projectCardHTML(p) {
     const statusLabel = p.status.replace('-', ' ');
+    const img = p.image || 'images/projects/_cover-fallback.webp';
     return `
       <a href="project.html?id=${p.id}" class="proj-card" data-id="${p.id}">
-        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=70'">
+        <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.src='images/projects/_cover-fallback.webp'">
         <div class="proj-card-overlay"></div>
         <div class="proj-card-body">
           <span class="proj-status">${statusLabel}</span>
@@ -208,16 +212,20 @@
   function renderFeaturedProjects() {
     const grid = document.getElementById('featuredProjects');
     if (!grid) return;
-    const featured = PROJECTS.filter((p) => p.featured).slice(0, 3);
+    const PROJECTS = getProjects();
+    const featured = PROJECTS.filter((p) => p.featured).slice(0, 6);
     grid.innerHTML = featured.map(projectCardHTML).join('');
   }
 
   /* ── PROJECTS PAGE FILTERS ── */
   function initProjectsPage() {
     const grid = document.getElementById('projectsGrid');
-    if (!grid) return;
+    if (!grid || grid.dataset.bound === '1') return;
+    grid.dataset.bound = '1';
 
-    let statusFilter = 'all';
+    const params = new URLSearchParams(window.location.search);
+    const allowedStatus = ['all', 'upcoming', 'ongoing', 'handed-over'];
+    let statusFilter = allowedStatus.includes(params.get('status')) ? params.get('status') : 'all';
     let categoryFilter = 'all';
 
     const statusTabs = document.querySelectorAll('[data-status-filter]');
@@ -227,7 +235,7 @@
     const countEl = document.getElementById('projectCount');
 
     function render() {
-      let list = PROJECTS.slice();
+      let list = getProjects().slice();
       if (statusFilter !== 'all') list = list.filter((p) => p.status === statusFilter);
       if (categoryFilter !== 'all') list = list.filter((p) => p.category === categoryFilter);
 
@@ -244,6 +252,7 @@
     }
 
     statusTabs.forEach((tab) => {
+      tab.classList.toggle('active', tab.dataset.statusFilter === statusFilter);
       tab.addEventListener('click', () => {
         statusTabs.forEach((t) => t.classList.remove('active'));
         tab.classList.add('active');
@@ -285,7 +294,7 @@
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    const project = PROJECTS.find((p) => p.id === id);
+    const project = getProjects().find((p) => p.id === id);
 
     if (!project) {
       root.innerHTML = '<div class="section"><p class="section-sub">Project not found. <a href="projects.html">View all projects</a></p></div>';
@@ -311,18 +320,41 @@
     set('#pdDesc', project.description);
 
     const mapLink = document.getElementById('pdMapLink');
+    const mapQuery = project.mapUrl && !String(project.mapUrl).includes('PLACEHOLDER') && project.mapUrl
+      ? project.mapUrl
+      : (project.mapCoords && !String(project.mapCoords).includes('PLACEHOLDER') && project.mapCoords
+        ? 'https://www.google.com/maps?q=' + encodeURIComponent(project.mapCoords)
+        : (project.address
+          ? 'https://www.google.com/maps?q=' + encodeURIComponent(project.address + ', Dhaka, Bangladesh')
+          : ''));
     if (mapLink) {
-      mapLink.href = project.mapUrl && !project.mapUrl.includes('PLACEHOLDER')
-        ? project.mapUrl
-        : (project.mapCoords && !project.mapCoords.includes('PLACEHOLDER')
-          ? 'https://www.google.com/maps?q=' + project.mapCoords
-          : '#');
-      if (mapLink.href === '#') mapLink.textContent = 'Map link — add coordinates in projects.js';
+      if (mapQuery) {
+        mapLink.href = mapQuery;
+        mapLink.hidden = false;
+      } else {
+        mapLink.hidden = true;
+      }
+    }
+
+    const videoBlock = document.getElementById('pdVideoBlock');
+    const videoFrame = document.getElementById('pdVideoFrame');
+    const videoUrl = project.video && !String(project.video).includes('PLACEHOLDER') ? project.video : '';
+    if (videoBlock && videoFrame) {
+      if (videoUrl) {
+        videoBlock.hidden = false;
+        const embed = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]+)/.exec(videoUrl);
+        videoFrame.innerHTML = embed
+          ? `<iframe src="https://www.youtube.com/embed/${embed[1]}" title="${project.name} video" allowfullscreen loading="lazy"></iframe>`
+          : `<a class="btn-primary" href="${videoUrl}" target="_blank" rel="noopener">Watch project video</a>`;
+      } else {
+        videoBlock.hidden = true;
+      }
     }
 
     const gallery = document.getElementById('pdGallery');
     if (gallery) {
-      gallery.innerHTML = project.gallery.map((src, i) => `
+      const images = (project.gallery && project.gallery.length) ? project.gallery : (project.image ? [project.image] : []);
+      gallery.innerHTML = images.map((src, i) => `
         <div class="gallery-item">
           <img src="${src}" alt="${project.name} — image ${i + 1}" loading="lazy"
             onerror="this.parentElement.style.display='none'">
@@ -381,7 +413,7 @@
         a.target = '_blank';
         a.click();
       } else {
-        alert('Brochure file not uploaded yet. Add PLACEHOLDER_BROCHURE_PDF_URL in projects.js');
+        alert('Thank you — a brochure is not online for this project yet. Our team will follow up at the details you provided.');
       }
       close();
       form.reset();
@@ -396,7 +428,7 @@
     const relatedIds = (project.related || []).filter((id) => id !== project.id);
     const unique = [...new Set(relatedIds)];
     const related = unique
-      .map((id) => PROJECTS.find((p) => p.id === id))
+      .map((id) => getProjects().find((p) => p.id === id))
       .filter(Boolean)
       .slice(0, 6);
 
@@ -455,6 +487,12 @@
   }
 
   /* ── INIT ── */
+  function initProjectSurfaces() {
+    renderFeaturedProjects();
+    initProjectsPage();
+    initProjectDetail();
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initLoader();
     initPageTransitions();
@@ -463,9 +501,9 @@
     initNav();
     initContactBubble();
     initFooter();
-    renderFeaturedProjects();
-    initProjectsPage();
-    initProjectDetail();
     initContactForm();
+
+    if (window.ARMA_PROJECTS) initProjectSurfaces();
+    else document.addEventListener('armaProjectsReady', initProjectSurfaces, { once: true });
   });
 })();

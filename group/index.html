@@ -24,6 +24,7 @@ body.page-loaded{opacity:1;transition:opacity .45s ease}
   --green-mid:#00a800; --green-pale:#e6f2e6; --gold:#C9A84C;
   --gold-light:#F7EDD4; --off:#F4F6F4; --white:#FFFFFF;
   --muted:#336633; --border:#b3d9b3;
+  --hero-img:url('images/hero/hero.jpg');
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--off);color:var(--ink);overflow-x:hidden;line-height:1.6;cursor:none}
@@ -70,19 +71,20 @@ body.cursor-click #cur-outer{width:28px;height:28px;background:rgba(201,168,76,.
 nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 5%;height:64px;
-  transition:background .4s,border-color .4s,transform .4s;
+  padding:0 5%;height:78px;
+  background:linear-gradient(to bottom,rgba(6,18,8,.55),transparent);
+  transition:background .4s,border-color .4s,transform .4s,backdrop-filter .4s;
   border-bottom:1px solid transparent;
 }
-nav.scrolled{background:rgba(0,77,0,0.97);border-color:rgba(201,168,76,0.18);backdrop-filter:blur(14px)}
+nav.scrolled{background:rgba(6,18,8,0.92);border-color:rgba(201,168,76,0.22);backdrop-filter:blur(18px)}
 nav.hidden{transform:translateY(-100%)}
 .nav-logo{display:flex;align-items:center;gap:9px}
-.nav-logo-img{height:40px;width:auto;display:block;filter:drop-shadow(0 0 4px rgba(255,255,255,.55)) drop-shadow(0 0 1px rgba(255,255,255,.9));}
+.nav-logo-img{height:56px;width:auto;display:block}
 .nav-logo-limited{
   display:inline-flex;align-items:center;align-self:stretch;
   margin-left:-2px;padding-left:10px;
   border-left:1px solid rgba(201,168,76,.55);
-  font-family:'Bebas Neue',sans-serif;font-size:15px;line-height:1;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;line-height:1;
   letter-spacing:2.4px;color:var(--gold);text-transform:uppercase;
   text-shadow:0 0 4px rgba(0,0,0,.35),0 0 1px rgba(255,255,255,.65);
 }
@@ -96,11 +98,14 @@ nav.hidden{transform:translateY(-100%)}
 .nav-logo-words strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:var(--white)}
 .nav-logo-words small{font-size:9px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-.nav-links a{font-size:12px;font-weight:500;letter-spacing:.5px;color:rgba(255,255,255,.65);transition:color .2s;text-transform:uppercase;position:relative}
+/* .65 alpha over the transparent top gradient drops to ~3.5:1 against a
+   bright hero. .9 holds AA regardless of what scrolls under the bar. */
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.5px;color:rgba(255,255,255,.9);transition:color .2s;text-transform:uppercase;position:relative;text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
 .nav-links a:hover{color:var(--gold)}
 .nav-links a:hover::after{width:100%}
-.nav-cta{background:var(--gold)!important;color:var(--ink)!important;padding:8px 18px;border-radius:2px;font-weight:600!important;letter-spacing:.5px;transition:background .2s!important}
+/* --ink (#004d00) on --gold was 4.46:1, marginally under AA. #002d00 → 6.1:1. */
+.nav-cta{background:var(--gold)!important;color:#002d00!important;padding:8px 18px;border-radius:2px;font-weight:600!important;letter-spacing:.5px;transition:background .2s!important;text-shadow:none}
 .nav-cta:hover{background:#dbb94f!important}
 .nav-cta::after{display:none!important}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px}
@@ -115,8 +120,10 @@ nav.hidden{transform:translateY(-100%)}
 #hero-canvas{position:absolute;inset:0;z-index:1}
 .hero-bg{
   position:absolute;inset:0;z-index:0;
-  background:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&auto=format&fit=crop&q=80') center/cover no-repeat;
+  background:var(--hero-img) center/cover no-repeat;
+  transition:opacity .5s ease;
 }
+
 .hero-overlay{
   position:absolute;inset:0;z-index:2;
   background:linear-gradient(to top,rgba(6,18,8,0.96) 0%,rgba(6,18,8,.6) 45%,rgba(6,18,8,.25) 100%);
@@ -356,23 +363,44 @@ nav.hidden{transform:translateY(-100%)}
 .chairman-sig strong{display:block;font-size:15px;font-weight:600;color:var(--white);margin-bottom:2px}
 .chairman-sig span{font-size:12px;color:rgba(255,255,255,.4)}
 
-/* ── CERTS ── */
-.certs-section{background:var(--white);padding:80px 5%}
-.certs-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:48px;align-items:stretch}
-.cert{
-  display:flex;align-items:center;gap:14px;border:1px solid var(--border);
-  border-radius:2px;padding:16px 22px;background:var(--off);
-  transition:all .3s;transform:translateX(-20px);opacity:0;cursor:none;
-  flex:1;min-width:200px;
+/* ── CERTS — summary block; the register lives on certifications.html ── */
+.certs-section{background:var(--white);padding:88px 5%}
+.certs-teaser{
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:64px;align-items:end;
 }
-.cert.visible{transform:translateX(0);opacity:1}
-.cert:hover{border-color:var(--green);box-shadow:0 4px 24px rgba(0,128,0,.12);transform:translateX(4px) !important}
-.cert-icon-box{width:40px;height:40px;background:var(--gold-light);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .3s}
-.cert:hover .cert-icon-box{background:var(--gold)}
-.cert-icon-box svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
-.cert:hover .cert-icon-box svg{stroke:var(--ink)}
-.cert strong{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
-.cert span{font-size:11px;color:var(--muted)}
+.certs-teaser-text h2{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);
+  letter-spacing:1px;color:var(--ink);line-height:1;margin-bottom:20px;
+}
+.certs-teaser-text p{
+  font-size:14px;line-height:1.85;color:var(--muted);
+  font-weight:300;max-width:60ch;margin-bottom:28px;
+}
+.certs-teaser-link{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 24px;border:1px solid var(--gold);border-radius:2px;
+  color:var(--gold);font-size:12px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;
+  transition:background .25s,color .25s;
+}
+.certs-teaser-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.certs-teaser-link:hover{background:var(--gold);color:var(--ink)}
+.certs-teaser-link:hover svg{transform:translateX(4px)}
+.certs-teaser-link:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.certs-teaser-figures{display:grid;gap:0;border-top:1px solid var(--border)}
+.certs-teaser-figures > div{
+  display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  padding:15px 0;border-bottom:1px solid var(--border);
+}
+.certs-teaser-figures dt{font-size:12px;color:var(--muted);letter-spacing:.02em}
+.certs-teaser-figures dd{
+  font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;
+  color:var(--gold);letter-spacing:1px;
+}
+@media(max-width:900px){
+  .certs-teaser{grid-template-columns:1fr;gap:36px;align-items:start}
+}
 
 /* ── CLIENT MARQUEE ── */
 .client-marquee{background:var(--ink);padding:48px 0;overflow:hidden;border-top:2px solid var(--gold);position:relative}
@@ -463,8 +491,9 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
 }
 @media(max-width:640px){
   .nav-links{display:none}
-  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(0,77,0,.97);padding:24px 5%;gap:18px;border-bottom:1px solid rgba(201,168,76,.15)}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:78px;left:0;right:0;background:rgba(6,18,8,.94);padding:24px 5%;gap:18px;border-bottom:1px solid rgba(201,168,76,.22)}
   .hamburger{display:flex}
+  .nav-logo-img{height:44px}
   .statbar{grid-template-columns:1fr 1fr}
   .sectors-grid{grid-template-columns:1fr}
   .sector-panel:nth-child(1){grid-column:auto}
@@ -503,6 +532,7 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
     <li><a href="#about">About</a></li>
     <li><a href="#sectors">Our Concerns</a></li>
     <li><a href="#clients">Clients</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
     <li><a href="#chairman">Leadership</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -732,15 +762,24 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
   </div>
 </section>
 
-<!-- CERTS -->
+<!-- CERTS — summary; the full register lives on certifications.html -->
 <section class="certs-section" id="certifications">
-  <span class="eyebrow">Standards &amp; Credentials</span>
-  <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,4vw,56px);letter-spacing:1px;color:var(--ink);line-height:1">RECOGNISED FOR<br>QUALITY</h2>
-  <div class="certs-row" id="certsRow">
-    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div><strong>ISO 9001:2015</strong><span>Quality Management System</span></div></div>
-    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg></div><div><strong>DCCI Member</strong><span>Dhaka Chamber of Commerce &amp; Industry</span></div></div>
-    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div><div><strong>Test Certified</strong><span>Product &amp; Equipment Test Reports</span></div></div>
-    <div class="cert"><div class="cert-icon-box"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div><strong>BPDB Registered</strong><span>Approved Contractor</span></div></div>
+  <div class="certs-teaser">
+    <div class="certs-teaser-text">
+      <h2>RECOGNISED FOR<br>QUALITY</h2>
+      <p>Quality management certification across three group companies, chamber and association
+         memberships, and independent material testing from BUET and BSTI — six documents in all,
+         each reproduced as a full scan with what it verifies set out beside it.</p>
+      <a href="certifications.html" class="certs-teaser-link">
+        View the certification register
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <dl class="certs-teaser-figures">
+      <div><dt>Documents on file</dt><dd>6</dd></div>
+      <div><dt>Companies certified</dt><dd>3</dd></div>
+      <div><dt>Independently tested since</dt><dd>2009</dd></div>
+    </dl>
   </div>
 </section>
 
@@ -845,8 +884,8 @@ footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168
 <footer>
   <div class="footer-top">
     <div class="f-brand"><strong>ARMA GROUP LTD.</strong><p>A leading conglomerate of Bangladesh — building the nation across Power, Real Estate, Agriculture, Infrastructure, and Education since 1985.</p></div>
-    <div class="f-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#chairman">Leadership</a></li><li><a href="#certifications">Certifications</a></li><li><a href="#career">Career</a></li><li><a href="#contact">Contact</a></li></ul></div>
-    <div class="f-col"><h4>Concerns</h4><ul><li><a href="#sectors">ARMA Electric Co.</a></li><li><a href="#sectors">ARMA Real Estate</a></li><li><a href="#sectors">ARMA Line Hardware</a></li><li><a href="#sectors">ARMA Agriculture</a></li><li><a href="#sectors">ESHA Holdings</a></li><li><a href="#sectors">ARSC School</a></li></ul></div>
+    <div class="f-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#chairman">Leadership</a></li><li><a href="certifications.html">Certifications</a></li><li><a href="#career">Career</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="f-col"><h4>Concerns</h4><ul><li><a href="#sectors">ARMA Electric Company</a></li><li><a href="#sectors">ARMA Real Estate</a></li><li><a href="#sectors">ARMA Line Hardware</a></li><li><a href="#sectors">ARMA Agriculture</a></li><li><a href="#sectors">ESHA Holdings</a></li><li><a href="#sectors">ARSC School</a></li></ul></div>
     <div class="f-col"><h4>Sectors</h4><ul><li><a href="#">Power &amp; Energy</a></li><li><a href="#">Real Estate</a></li><li><a href="#">Agriculture</a></li><li><a href="#">Infrastructure</a></li><li><a href="#">Education</a></li></ul></div>
   </div>
   <div class="footer-bottom">
@@ -1061,15 +1100,6 @@ ScrollTrigger.create({
   }
 });
 
-// Cert cards slide in
-const certs = document.querySelectorAll('.cert');
-ScrollTrigger.create({
-  trigger:'#certsRow', start:'top 80%', once:true,
-  onEnter: () => {
-    certs.forEach((c,i) => setTimeout(() => c.classList.add('visible'), i*120));
-  }
-});
-
 // Chairman quote word-by-word
 const qEl = document.querySelector('.chairman-q');
 if (qEl) {
@@ -1205,6 +1235,8 @@ document.querySelectorAll('.sector-panel').forEach(panel => {
 })();
 </script>
 <script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
 <script>ARMATheme.init({ site: 'group', placement: 'inline' });</script>
+
 </body>
 </html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('arma-electric-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','electric');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
+<style>
+html{background:#FAFBFC}
+html[data-theme="night"]{background:#0A0A0A}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FAFBFC;opacity:0;pointer-events:none;transition:opacity .38s ease}
+html[data-theme="night"] .page-transition-overlay{background:#0A0A0A}
+.page-transition-overlay.active{opacity:1;pointer-events:all}
+body{opacity:0}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certifications &amp; Test Reports — ARMA Electric Company</title>
+<meta name="description" content="ISO 9001 quality certification, DCCI membership and independent BUET and BSTI material test reports held by ARMA Electric Company — original scans with full technical detail.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/css/theme-switch.css">
+<link rel="stylesheet" href="../shared/css/cert-viewer.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#FAFBFC;
+  --steel:#FFFFFF;
+  --steel2:#EEF1F4;
+  --steel3:#E2E7EC;
+  --electric:#7F6200;
+  --electric-fill:#F5C400;
+  --electric2:#FFD740;
+  --ink-on-fill:#0A0A0A;
+  --red:#C0392B;
+  --white:#14171B;
+  --muted:#5A6470;
+  --border:rgba(20,22,26,.10);
+}
+html[data-theme="night"]{
+  --black:#0A0A0A;
+  --steel:#111418;
+  --steel2:#1A1F26;
+  --steel3:#242B33;
+  --electric:#F5C400;
+  --electric-fill:#F5C400;
+  --electric2:#FFD740;
+  --ink-on-fill:#0A0A0A;
+  --red:#E84040;
+  --white:#F0F2F4;
+  --muted:#8A95A0;
+  --border:rgba(255,255,255,.07);
+}
+
+/* the shared viewer resolves its palette from these */
+:root{
+  --cv-bg:var(--steel);
+  --cv-surface:var(--steel2);
+  --cv-surface-2:var(--black);
+  --cv-ink:var(--white);
+  --cv-ink-2:#5A6470;
+  --cv-ink-3:var(--muted);
+  --cv-line:var(--border);
+  --cv-accent:var(--electric);
+  --cv-accent-ink:#F0F2F4;
+  --cv-display:'Bebas Neue',sans-serif;
+  --cv-body:'Inter',sans-serif;
+  --cv-label:'Share Tech Mono',monospace;
+}
+html[data-theme="night"]{
+  --cv-ink-2:#A8B2BC;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;cursor:none;transition:background .45s ease,color .45s ease}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--electric-fill);color:var(--ink-on-fill)}
+
+/* CURSOR — crosshair, matching index.html */
+#cur-ring{position:fixed;width:32px;height:32px;border:1px solid var(--electric-fill);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+#cur-dot{position:fixed;width:4px;height:4px;background:var(--electric-fill);pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-ring::before,#cur-ring::after{content:'';position:absolute;background:var(--electric-fill)}
+#cur-ring::before{width:8px;height:1px;top:50%;left:-10px;margin-top:-.5px}
+#cur-ring::after{width:1px;height:8px;left:50%;top:-10px;margin-left:-.5px}
+body.ch #cur-ring{width:48px;height:48px;border-color:var(--electric2)}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid rgba(127,98,0,.18);background:rgba(255,255,255,.92);backdrop-filter:blur(18px);transition:background .45s ease,border-color .45s ease}
+html[data-theme="night"] #nav{border-bottom-color:rgba(245,196,0,.22);background:rgba(6,7,8,.92)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-img{height:64px;width:auto;display:block;transition:filter .15s linear}
+/* Logo is dark ink on transparency. In day mode the nav is near-white, so
+   the logo needs no correction; nav-contrast.js adds .on-dark only when
+   the measured backdrop is actually dark (night mode's near-black nav). */
+.nav-logo-img.on-dark{filter:invert(1) hue-rotate(180deg) saturate(1.1) brightness(.95)}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--electric)}
+.nav-links a.is-here{color:var(--electric)}
+.nav-back{border:1px solid var(--border)!important;color:var(--white)!important;padding:6px 14px;font-size:10px!important}
+.nav-back:hover{border-color:var(--electric)!important;color:var(--electric)!important}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:none;padding:4px}
+.hamburger span{display:block;width:20px;height:1px;background:var(--white)}
+
+/* MASTHEAD */
+.ct-masthead{
+  position:relative;padding:150px 5% 64px;background:var(--black);
+  border-bottom:1px solid var(--border);overflow:hidden;
+}
+.ct-masthead-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(245,196,0,.04) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(245,196,0,.04) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:linear-gradient(to bottom,#000,transparent 78%);
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 78%);
+  pointer-events:none;
+}
+.ct-masthead > *:not(.ct-masthead-grid){position:relative;z-index:1}
+.ct-crumb{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
+.ct-crumb a:hover{color:var(--electric)}
+.ct-crumb span{opacity:.4;margin:0 8px}
+.ct-masthead h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(44px,7.4vw,92px);
+  line-height:.92;letter-spacing:1px;color:var(--white);
+  max-width:15ch;margin-bottom:28px;
+}
+.ct-masthead h1 em{font-style:normal;color:var(--electric)}
+.ct-lede{font-size:16px;line-height:1.82;color:var(--muted);max-width:64ch;font-weight:300}
+.ct-lede strong{color:var(--white);font-weight:500}
+
+.ct-ledger{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px;border-top:1px solid var(--border)}
+.ct-ledger div{padding:24px 28px 0 0}
+.ct-ledger dt{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--electric);margin-bottom:10px}
+.ct-ledger dd{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;color:var(--white);letter-spacing:1px}
+.ct-ledger dd small{display:block;font-family:'Inter',sans-serif;font-size:12px;font-weight:300;letter-spacing:0;color:var(--muted);margin-top:8px;line-height:1.6}
+
+/* REGISTER */
+.ct-register-section{padding:80px 5% 104px;background:var(--steel)}
+.ct-section-head{margin-bottom:40px;max-width:66ch}
+.ct-section-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,3.8vw,46px);letter-spacing:1px;color:var(--white);line-height:1.02;margin-bottom:14px}
+.ct-section-head h2 span{color:var(--electric)}
+.ct-section-head p{font-size:14px;line-height:1.8;color:var(--muted);font-weight:300}
+
+.ct-standing{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:20px 22px;margin-bottom:40px;
+  background:var(--steel2);border:1px solid var(--border);border-radius:10px;
+}
+.ct-standing svg{width:19px;height:19px;flex-shrink:0;margin-top:1px;stroke:var(--electric);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ct-standing p{font-size:13.5px;line-height:1.78;color:var(--muted);margin:0;max-width:76ch;font-weight:300}
+.ct-standing strong{color:var(--white);font-weight:500}
+
+/* CTA */
+.ct-cta{padding:80px 5%;background:var(--black);text-align:center;border-top:1px solid var(--border)}
+.ct-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4.2vw,50px);letter-spacing:1px;line-height:1.02;margin-bottom:16px;color:var(--white)}
+.ct-cta h2 span{color:var(--electric)}
+.ct-cta p{font-size:14px;line-height:1.8;color:var(--muted);max-width:56ch;margin:0 auto 32px;font-weight:300}
+.ct-cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-elec{background:var(--electric-fill);color:var(--ink-on-fill);padding:14px 30px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:background .25s}
+.btn-elec:hover{background:var(--electric2)}
+.btn-outline-elec{border:1px solid var(--border);color:var(--white);padding:14px 30px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;transition:border-color .25s,color .25s}
+.btn-outline-elec:hover{border-color:var(--electric);color:var(--electric)}
+
+/* FOOTER */
+footer{background:var(--black);padding:44px 5% 26px;border-top:1px solid var(--border)}
+.footer-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;margin-bottom:26px}
+.footer-brand{display:flex;align-items:center;gap:12px}
+.footer-brand-sq{width:36px;height:36px;background:var(--electric-fill);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:20px;color:var(--ink-on-fill)}
+.footer-brand-text strong{display:block;font-family:'Bebas Neue';font-size:17px;letter-spacing:2px;color:var(--white)}
+.footer-brand-text small{display:block;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);margin-top:3px}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap}
+.footer-links a{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--electric)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom p{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted)}
+.iso-tag{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted)}
+
+@media(max-width:900px){
+  body{cursor:auto}#cur-ring,#cur-dot{display:none}
+  .ct-ledger{grid-template-columns:1fr}
+  .ct-ledger div{padding:20px 0;border-bottom:1px solid var(--border)}
+  .ct-ledger div:last-child{border-bottom:none}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:78px;left:0;right:0;background:var(--black);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}
+  .hamburger{display:flex}
+  .nav-logo-img{height:50px}
+  .ct-masthead{padding:120px 5% 48px}
+}
+</style>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+</head>
+<body>
+<div id="cur-ring"></div>
+<div id="cur-dot"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.png" alt="ARMA Electric Company" class="nav-logo-img">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">ABOUT</a></li>
+    <li><a href="index.html#services">SERVICES</a></li>
+    <li><a href="index.html#products">PRODUCTS</a></li>
+    <li><a href="index.html#clients">CLIENTS</a></li>
+    <li><a href="certifications.html" class="is-here">CERTIFICATIONS</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+    <li><a href="../group/index.html" class="nav-back">← GROUP</a></li>
+  </ul>
+  <div id="themeSwitchMount" class="nav-theme-slot"></div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<header class="ct-masthead">
+  <div class="ct-masthead-grid" aria-hidden="true"></div>
+  <nav class="ct-crumb" aria-label="Breadcrumb">
+    <a href="index.html">ARMA Electric</a><span>//</span>Certifications
+  </nav>
+  <h1>Credentials,<br>with the <em>paperwork</em></h1>
+  <p class="ct-lede">
+    Utility tendering runs on documentation. Every certificate and test report ARMA Electric
+    holds is reproduced here as a full scan — <strong>audited quality certification, chamber
+    membership, and independent material testing from BUET and BSTI</strong> — with the figures
+    printed on each document transcribed beside it and the accreditation behind each issuer
+    set out in full.
+  </p>
+
+  <dl class="ct-ledger">
+    <div>
+      <dt>On file</dt>
+      <dd>4<small>Certificates, memberships and test reports</small></dd>
+    </div>
+    <div>
+      <dt>Certified scope</dt>
+      <dd>33/11<small>kV transmission and distribution lines, grid substations and pole fittings</small></dd>
+    </div>
+    <div>
+      <dt>Verified tensile strength</dt>
+      <dd>485<small>MPa measured by BUET, against a 450 MPa minimum</small></dd>
+    </div>
+  </dl>
+</header>
+
+<section class="ct-register-section">
+  <div class="ct-section-head">
+    <h2>CERTIFICATES &amp; <span>TEST REPORTS</span></h2>
+    <p>Each document opens to its full scan alongside what it verifies, who issued it,
+       the accreditation chain behind that issuer, and the figures exactly as printed.</p>
+  </div>
+
+  <div class="ct-standing">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+    <p><strong>On dates and standing.</strong> Certification and membership terms are reproduced
+       exactly as printed, expiry dates included, and any term that has ended is labelled as such.
+       Material test reports are different in kind: they certify the samples tested on the date
+       tested and carry no expiry, so they remain valid evidence of material performance
+       regardless of age.</p>
+  </div>
+
+  <div class="cv-register" id="certRegister"></div>
+</section>
+
+<section class="ct-cta">
+  <h2>NEED DOCUMENTS FOR A <span>TENDER?</span></h2>
+  <p>We supply certification copies, test reports and compliance documentation for
+     prequalification and e-GP submissions on request.</p>
+  <div class="ct-cta-actions">
+    <a href="index.html#contact" class="btn-elec">Request documentation</a>
+    <a href="index.html#products" class="btn-outline-elec">View products</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-sq">A</div>
+      <div class="footer-brand-text"><strong>ARMA ELECTRIC CO.</strong><small>SISTER CONCERN // ARMA GROUP OF COMPANIES // EST. 1985</small></div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="../group/index.html">← GROUP HOME</a></li>
+      <li><a href="index.html#about">ABOUT</a></li>
+      <li><a href="index.html#services">SERVICES</a></li>
+      <li><a href="certifications.html">CERTIFICATIONS</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ARMA ELECTRIC COMPANY // ARMA GROUP OF COMPANIES // DHAKA, BANGLADESH</p>
+    <div class="iso-tag">Powered by "Interlink"</div>
+  </div>
+</footer>
+
+<script src="../shared/js/certifications.js"></script>
+<script src="../shared/js/cert-viewer.js"></script>
+<script>
+ARMACertViewer.init({
+  site: 'electric',
+  mount: '#certRegister',
+  basePath: '../group/images/certificates',
+  order: ['iso-9001-electric', 'dcci-membership', 'test-report-buet', 'test-report-bsti']
+});
+
+function toggleNav(){ document.getElementById('navLinks').classList.toggle('open'); }
+
+(function(){
+  var ring = document.getElementById('cur-ring'), dot = document.getElementById('cur-dot');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  (function loop(){
+    rx += (mx - rx) * .16; ry += (my - ry) * .16;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+  function bindHover(){
+    document.querySelectorAll('a,button,.cv-plate-btn').forEach(function(el){
+      if (el.dataset.curBound) return;
+      el.dataset.curBound = '1';
+      el.addEventListener('mouseenter', function(){ document.body.classList.add('ch'); });
+      el.addEventListener('mouseleave', function(){ document.body.classList.remove('ch'); });
+    });
+  }
+  bindHover();
+  setTimeout(bindHover, 400);
+})();
+
+document.body.classList.add('page-loaded');
+</script>
+<script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
+<script>ARMATheme.init({ site: 'electric', placement: 'inline' });</script>
+</body>
+</html>
