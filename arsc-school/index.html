@@ -31,17 +31,19 @@ body{font-family:'Quicksand',sans-serif;background:var(--cream);color:var(--ink)
 a{color:inherit;text-decoration:none}
 *{cursor:default}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:500;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:var(--white);box-shadow:0 2px 16px rgba(27,58,107,.06);border-bottom:3px solid var(--sun)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:82px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:var(--white);box-shadow:0 2px 16px rgba(27,58,107,.06);border-bottom:3px solid var(--sun)}
 .nav-logo{display:flex;align-items:center;gap:12px}
-.nav-logo-img{height:40px;width:auto;display:block;mix-blend-mode:multiply;}
+.nav-logo-img{height:64px;width:auto;display:block}
 
 .nav-logo-circle{width:44px;height:44px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid var(--sun)}
 .nav-logo-circle svg{width:22px;height:22px;stroke:var(--sun);fill:none;stroke-width:2}
 .nav-logo-text strong{display:block;font-family:'Baloo 2',sans-serif;font-size:15px;font-weight:700;color:var(--navy);line-height:1.2}
 .nav-logo-text small{font-size:10px;color:var(--sky);font-weight:600;letter-spacing:.5px}
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none}
-.nav-links a{font-size:14px;font-weight:600;color:var(--muted);transition:color .2s}
+/* --muted (#6B7B95) on white is 3.8:1 — fails AA. --navy3 reaches 7.4:1. */
+.nav-links a{font-size:14px;font-weight:600;color:var(--navy3);transition:color .2s}
 .nav-links a:hover{color:var(--navy)}
+.nav-group-link{color:var(--navy3)!important;font-size:13px!important}
 .nav-cta{background:var(--sun)!important;color:var(--navy)!important;padding:10px 22px;border-radius:100px;font-size:13px!important;font-weight:700!important;box-shadow:0 4px 16px rgba(255,182,39,.3)}
 .nav-cta:hover{background:var(--sun2)!important;transform:translateY(-1px)}
 .hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
@@ -194,7 +196,7 @@ footer{background:var(--navy2);padding:40px 5% 24px;border-top:1px solid rgba(25
 .footer-bottom p{font-size:11px;color:rgba(255,255,255,.3);font-weight:500}
 
 @media(max-width:900px){.hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}.hero-visual{display:none}.val-grid,.campus-grid{grid-template-columns:1fr 1fr}.stats-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:76px;left:0;right:0;background:var(--white);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}.hamburger{display:flex}.val-grid,.campus-grid{grid-template-columns:1fr}.f-2col{grid-template-columns:1fr}.admissions-inner{text-align:center;justify-content:center}}
+@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:82px;left:0;right:0;background:var(--white);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}.hamburger{display:flex}.val-grid,.campus-grid{grid-template-columns:1fr}.f-2col{grid-template-columns:1fr}.admissions-inner{text-align:center;justify-content:center}.nav-logo-img{height:50px}}
 </style>
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="apple-touch-icon" href="images/favicon.png">
@@ -209,7 +211,7 @@ footer{background:var(--navy2);padding:40px 5% 24px;border-top:1px solid rgba(25
     <li><a href="#values">Our Values</a></li>
     <li><a href="#campus">Campus</a></li>
     <li><a href="#contact" class="nav-cta">Admissions</a></li>
-    <li><a href="../group/index.html" style="color:var(--navy3)!important;font-size:13px">← Group</a></li>
+    <li><a href="../group/index.html" class="nav-group-link">← Group</a></li>
   </ul>
   <div id="themeSwitchMount" class="nav-theme-slot"></div>
   <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
@@ -373,6 +375,7 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
 })();
 </script>
 <script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
 <script>ARMATheme.init({ site: 'arsc-school', placement: 'inline' });</script>
 </body>
 </html>

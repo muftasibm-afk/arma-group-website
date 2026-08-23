@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('arma-line-hardware-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','line-hardware');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
+<style>
+html{background:#FFFFFF}
+.page-transition-overlay{position:fixed;inset:0;z-index:99999;background:#FFFFFF;opacity:0;pointer-events:none;transition:opacity .38s ease}
+.page-transition-overlay.active{opacity:1;pointer-events:all}
+body{opacity:0}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certifications &amp; Test Reports — ARMA Line Hardware &amp; Accessories Ltd.</title>
+<meta name="description" content="Quality management certification and independent material test reports from BUET and BSTI for ARMA Line Hardware &amp; Accessories Ltd. — original scans with full technical detail.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/css/theme-switch.css">
+<link rel="stylesheet" href="../shared/css/cert-viewer.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;--off:#F8F9FA;--light:#EEF0F3;--mid:#D0D5DD;
+  --ink:#0D1117;--ink2:#1C2333;--ink3:#2D3748;
+  --amber:#E8820C;--amber2:#F59E0B;--amber-pale:#FFF7ED;
+  --blue:#1E40AF;--muted:#64748B;--border:#E2E8F0;
+  --green:#008000;
+}
+
+/* the shared viewer reads these — mapped onto the site's own tokens so the
+   day/night switch drives the register without a second palette */
+:root{
+  --cv-bg:var(--off);
+  --cv-surface:var(--white);
+  --cv-surface-2:var(--off);
+  --cv-ink:var(--ink);
+  --cv-ink-2:var(--muted);
+  --cv-ink-3:#8A94A6;
+  --cv-line:var(--border);
+  --cv-accent:var(--amber);
+  --cv-accent-ink:#FFFFFF;
+  --cv-display:'Bebas Neue',sans-serif;
+  --cv-body:'DM Sans',sans-serif;
+  --cv-label:'DM Mono',monospace;
+}
+html[data-theme="night"][data-site="line-hardware"]{
+  --cv-surface:#1a1f28;
+  --cv-surface-2:#12161c;
+  --cv-ink-3:#8a95a0;
+  --cv-accent-ink:#12161c;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);overflow-x:hidden;line-height:1.6;cursor:none}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--amber);color:#fff}
+
+#cur{position:fixed;width:28px;height:28px;border:2px solid var(--amber);border-radius:4px;pointer-events:none;z-index:9999;transform:translate(-50%,-50%) rotate(0deg);transition:width .2s,height .2s,border-radius .2s;animation:spin 8s linear infinite}
+@keyframes spin{0%{transform:translate(-50%,-50%) rotate(0deg)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
+#cur-d{position:fixed;width:5px;height:5px;background:var(--amber);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+body.ch #cur{width:44px;height:44px;border-radius:50%;animation:none;transform:translate(-50%,-50%);border-color:var(--amber2)}
+
+/* NAV — matches index.html */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:var(--white);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s,border-color .3s}
+#nav.scrolled{background:rgba(13,17,23,0.94);border-color:rgba(232,130,12,0.22);box-shadow:0 2px 20px rgba(0,0,0,.2);backdrop-filter:blur(18px)}
+#nav.scrolled .nav-links a{color:rgba(255,255,255,.7)}
+#nav.scrolled .nav-links a:hover{color:var(--white)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-img{height:64px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+/* --amber on white is 2.75:1 and white on --amber is 2.75:1 — both fail AA.
+   #9a5200 gives 5.9:1 as text; dark ink on amber gives 6.9:1 in the pill. */
+.nav-links a.is-here{color:#9a5200}
+.nav-group-link{color:#9a5200!important;font-size:11px!important;font-weight:600}
+/* Literal #0D1117, not var(--ink): --ink inverts to a light tone in night
+   mode, which would drop this pill to 1.8:1. Fixed ink stays 6.9-8.8:1. */
+.nav-enquire{background:var(--amber);color:#0D1117!important;padding:9px 18px;border-radius:6px;font-size:12px!important;font-weight:600}
+.nav-enquire:hover{background:var(--amber2);color:#0D1117!important}
+nav.scrolled .nav-links a.is-here,nav.scrolled .nav-group-link{color:var(--amber2)!important}
+.nav-theme-slot{display:flex;align-items:center}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:none}
+.hamburger span{width:22px;height:2px;background:var(--ink);transition:.3s}
+
+/* MASTHEAD */
+.ct-masthead{padding:150px 5% 60px;background:var(--white);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.ct-crumb{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+.ct-crumb a:hover{color:var(--amber)}
+.ct-crumb span{opacity:.4;margin:0 8px}
+.ct-masthead h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(44px,7vw,88px);
+  line-height:.94;letter-spacing:.01em;color:var(--ink);
+  max-width:16ch;margin-bottom:26px;
+}
+.ct-masthead h1 em{font-style:normal;color:var(--amber)}
+.ct-lede{font-size:16px;line-height:1.8;color:var(--muted);max-width:64ch;font-weight:300}
+.ct-lede strong{color:var(--ink);font-weight:500}
+
+/* the ledger strip — what is actually on file, at a glance */
+.ct-ledger{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:52px;border-top:1px solid var(--border);
+}
+.ct-ledger div{padding:22px 26px 0 0}
+.ct-ledger dt{
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;
+}
+.ct-ledger dd{font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;color:var(--ink);letter-spacing:.02em}
+.ct-ledger dd small{display:block;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;letter-spacing:0;color:var(--muted);margin-top:7px;line-height:1.5}
+
+/* REGISTER */
+.ct-register-section{padding:76px 5% 100px;background:var(--off)}
+.ct-section-head{margin-bottom:40px;max-width:66ch}
+.ct-section-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.4vw,40px);letter-spacing:.02em;color:var(--ink);line-height:1.05;margin-bottom:14px}
+.ct-section-head p{font-size:14px;line-height:1.8;color:var(--muted);font-weight:300}
+
+/* the honesty note — expired terms stated plainly, not buried */
+.ct-standing{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:20px 22px;margin-bottom:40px;
+  background:var(--white);border:1px solid var(--border);border-radius:10px;
+}
+.ct-standing svg{width:19px;height:19px;flex-shrink:0;margin-top:1px;stroke:var(--amber);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ct-standing p{font-size:13.5px;line-height:1.75;color:var(--muted);margin:0;max-width:76ch}
+.ct-standing strong{color:var(--ink);font-weight:500}
+
+/* CONTACT CTA */
+.ct-cta{padding:76px 5%;background:var(--ink);color:#fff;text-align:center}
+.ct-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4vw,46px);letter-spacing:.02em;line-height:1.05;margin-bottom:16px}
+.ct-cta p{font-size:14px;line-height:1.8;color:rgba(255,255,255,.55);max-width:56ch;margin:0 auto 30px;font-weight:300}
+.ct-cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-amber{background:var(--amber);color:#fff;padding:14px 28px;border-radius:6px;font-size:13px;font-weight:600;transition:background .25s}
+.btn-amber:hover{background:var(--amber2)}
+.btn-ghost{border:1px solid rgba(255,255,255,.24);color:#fff;padding:14px 28px;border-radius:6px;font-size:13px;font-weight:600;transition:border-color .25s,background .25s}
+.btn-ghost:hover{border-color:var(--amber);background:rgba(232,130,12,.12)}
+
+footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:24px}
+.footer-brand strong{font-family:'Bebas Neue';font-size:18px;letter-spacing:1.5px;color:#fff}
+.footer-brand span{display:block;font-size:11px;color:rgba(255,255,255,.3);margin-top:2px}
+.footer-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.35);transition:color .2s}
+.footer-links a:hover{color:var(--amber)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,.2)}
+
+@media(max-width:900px){
+  body{cursor:auto}#cur,#cur-d{display:none}
+  .ct-ledger{grid-template-columns:1fr;gap:0}
+  .ct-ledger div{padding:18px 0;border-bottom:1px solid var(--border)}
+  .ct-ledger div:last-child{border-bottom:none}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:78px;left:0;right:0;background:var(--white);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}
+  .hamburger{display:flex}
+  .nav-logo-img{height:50px}
+  .ct-masthead{padding:120px 5% 46px}
+}
+</style>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-d"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.png" alt="ARMA Line Hardware &amp; Accessories Ltd." class="nav-logo-img">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#catalogue">Products</a></li>
+    <li><a href="index.html#manufactured">Manufacturing</a></li>
+    <li><a href="certifications.html" class="is-here">Certifications</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html#contact" class="nav-enquire">Get a Quote</a></li>
+    <li><a href="../group/index.html" class="nav-group-link">← Group</a></li>
+  </ul>
+  <div id="themeSwitchMount" class="nav-theme-slot"></div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<header class="ct-masthead">
+  <nav class="ct-crumb" aria-label="Breadcrumb">
+    <a href="index.html">ARMA Line Hardware</a><span>/</span>Certifications
+  </nav>
+  <h1>The documents<br>behind the <em>steel</em></h1>
+  <p class="ct-lede">
+    Galvanised pole fittings either meet their specification or they corrode in the field.
+    Everything on this page is a scan of an original document — <strong>audited quality
+    certification and independent material testing from BUET and BSTI</strong> — reproduced
+    in full, with the figures printed on each one transcribed alongside it.
+  </p>
+
+  <dl class="ct-ledger">
+    <div>
+      <dt>On file</dt>
+      <dd>3<small>Certificates and test reports covering the plant and its output</small></dd>
+    </div>
+    <div>
+      <dt>Measured coating weight</dt>
+      <dd>720<small>g/m² of galvanising, against the 610 g/m² BS 729 minimum</small></dd>
+    </div>
+    <div>
+      <dt>Independently tested since</dt>
+      <dd>2009<small>BSTI yield-strength testing, followed by BUET in 2017</small></dd>
+    </div>
+  </dl>
+</header>
+
+<section class="ct-register-section">
+  <div class="ct-section-head">
+    <h2>Certificates &amp; test reports</h2>
+    <p>Each document opens to its full scan alongside what it verifies, who issued it,
+       the accreditation behind that issuer, and the figures as printed.</p>
+  </div>
+
+  <div class="ct-standing">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+    <p><strong>On dates and standing.</strong> Certification terms are shown exactly as printed,
+       including expiry. Where a term has ended it is labelled, and the ISO 9001:2008 certificate
+       is against a revision superseded by ISO 9001:2015 — it stands as evidence of a long-running
+       quality programme at the plant, not as a certification currently in force. Material test
+       reports do not expire: they certify the samples tested on the date tested, and remain valid
+       evidence of what the steel did.</p>
+  </div>
+
+  <div class="cv-register" id="certRegister"></div>
+</section>
+
+<section class="ct-cta">
+  <h2>Need a document for a tender?</h2>
+  <p>We supply certification copies, mill certificates and test reports for prequalification
+     and e-GP submissions on request.</p>
+  <div class="ct-cta-actions">
+    <a href="index.html#contact" class="btn-amber">Request documentation</a>
+    <a href="index.html#catalogue" class="btn-ghost">Browse the catalogue</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-row">
+    <div class="footer-brand"><strong>ARMA LINE HARDWARE &amp; ACCESSORIES LTD.</strong><span>A Sister Concern of ARMA Group of Companies · Est. 2006</span></div>
+    <ul class="footer-links">
+      <li><a href="../group/index.html">← ARMA Group</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#catalogue">Products</a></li>
+      <li><a href="certifications.html">Certifications</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom"><p>© 2025 ARMA Line Hardware &amp; Accessories Ltd. Dhaka, Bangladesh.</p></div>
+</footer>
+
+<script src="../shared/js/certifications.js"></script>
+<script src="../shared/js/cert-viewer.js"></script>
+<script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
+<script>
+ARMATheme.init({ site: 'line-hardware', placement: 'inline' });
+
+ARMACertViewer.init({
+  site: 'line-hardware',
+  mount: '#certRegister',
+  basePath: '../group/images/certificates',
+  order: ['iso-9001-line-hardware', 'test-report-buet', 'test-report-bsti']
+});
+
+function toggleNav(){ document.getElementById('navLinks').classList.toggle('open'); }
+
+/* cursor + nav chrome, matching index.html */
+(function(){
+  var cur = document.getElementById('cur'), curd = document.getElementById('cur-d');
+  var mx = 0, my = 0, ox = 0, oy = 0;
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    curd.style.left = mx + 'px'; curd.style.top = my + 'px';
+  });
+  (function animC(){
+    ox += (mx - ox) * .12; oy += (my - oy) * .12;
+    cur.style.left = ox + 'px'; cur.style.top = oy + 'px';
+    requestAnimationFrame(animC);
+  })();
+  function bindHover(){
+    document.querySelectorAll('a,button,.cv-plate-btn').forEach(function(el){
+      if (el.dataset.curBound) return;
+      el.dataset.curBound = '1';
+      el.addEventListener('mouseenter', function(){ document.body.classList.add('ch'); });
+      el.addEventListener('mouseleave', function(){ document.body.classList.remove('ch'); });
+    });
+  }
+  bindHover();
+  setTimeout(bindHover, 400);
+  window.addEventListener('scroll', function(){
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+})();
+
+document.body.classList.add('page-loaded');
+</script>
+</body>
+</html>

@@ -34,10 +34,18 @@ a{color:inherit;text-decoration:none}
 #cur-d{position:fixed;width:5px;height:5px;background:var(--amber);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
 body.ch #cur{width:44px;height:44px;border-radius:50%;animation:none;transform:translate(-50%,-50%);border-color:var(--amber2)}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:500;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:var(--white);border-bottom:1px solid var(--border);transition:box-shadow .3s}
-nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:var(--white);border-bottom:1px solid var(--border);transition:box-shadow .3s,background .3s,border-color .3s}
+nav.scrolled{background:rgba(13,17,23,0.94);border-color:rgba(232,130,12,0.22);box-shadow:0 2px 20px rgba(0,0,0,.2);backdrop-filter:blur(18px)}
+nav.scrolled .nav-logo-text strong{color:var(--white)}
+nav.scrolled .nav-logo-text small{color:rgba(255,255,255,.6)}
+nav.scrolled .nav-links a{color:rgba(255,255,255,.7)}
+nav.scrolled .nav-links a:hover{color:var(--white)}
+nav.scrolled .hamburger span{background:var(--white)}
+/* When scrolled, .nav-links a is white — so the open mobile panel must be
+   dark too, or it renders white-on-white (2.1:1). */
+nav.scrolled .nav-links.open{background:rgba(13,17,23,.97);border-bottom:1px solid rgba(232,130,12,.22)}
 .nav-logo{display:flex;align-items:center;gap:10px}
-.nav-logo-img{height:40px;width:auto;display:block;mix-blend-mode:multiply;}
+.nav-logo-img{height:64px;width:auto;display:block}
 
 .nav-logo-sq{width:32px;height:32px;background:var(--amber);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:18px;color:var(--white);border-radius:4px}
 .nav-logo-text{line-height:1.2}
@@ -46,8 +54,16 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .nav-links{display:flex;align-items:center;gap:24px;list-style:none}
 .nav-links a{font-size:13px;font-weight:500;color:var(--muted);transition:color .2s}
 .nav-links a:hover{color:var(--ink)}
-.nav-enquire{background:var(--amber)!important;color:var(--white)!important;padding:8px 18px;border-radius:6px;font-size:12px!important;font-weight:600!important}
-.nav-enquire:hover{background:#d4730b!important}
+/* White on --amber (#E8820C) is 2.75:1 — fails AA. Dark ink on the same
+   amber reaches 6.9:1 and keeps the brand fill. */
+/* Literal #0D1117, not var(--ink): --ink inverts to a light tone in night
+   mode, which would drop this pill to 1.8:1. Fixed ink stays 6.9-8.8:1. */
+.nav-enquire{background:var(--amber)!important;color:#0D1117!important;padding:8px 18px;border-radius:6px;font-size:12px!important;font-weight:600!important}
+.nav-enquire:hover{background:#d4730b!important;color:#0D1117!important}
+/* --amber on white is only 2.75:1; #9a5200 reaches 5.9:1. On the scrolled
+   dark bar the lighter --amber2 is used instead (7.7:1). */
+.nav-group-link{color:#9a5200!important;font-size:11px!important;font-weight:600}
+nav.scrolled .nav-group-link{color:var(--amber2)!important}
 .hamburger{display:none;flex-direction:column;gap:4px;cursor:none;padding:4px}
 .hamburger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px}
 
@@ -132,22 +148,108 @@ nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .cat-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:20px}
 .cat-title-area .eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:2px;margin-bottom:12px;display:block}
 .cat-title-area h2{font-family:'Bebas Neue';font-size:clamp(36px,4vw,54px);letter-spacing:1px;color:var(--ink);line-height:1}
-.cat-filter{display:flex;gap:8px;flex-wrap:wrap}
-.cat-chip{
-  padding:6px 14px 6px 11px;font-size:11px;font-weight:500;
-  border:1.5px solid var(--border);border-left:3px solid var(--border);
-  color:var(--muted);cursor:none;transition:all .2s;font-family:'DM Mono',monospace;
-}
-.cat-chip:hover,.cat-chip.active{border-color:var(--amber);border-left-color:var(--amber);color:var(--amber);background:var(--amber-pale)}
 .catalogue-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.cat-card{background:var(--off);border:1.5px solid var(--border);border-radius:10px;padding:24px;transition:all .3s;position:relative;overflow:hidden}
-.cat-card:hover{border-color:var(--amber);box-shadow:0 8px 32px rgba(232,130,12,.1);transform:translateY(-3px);background:var(--white)}
-.cat-card-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
-.cat-icon{width:44px;height:44px;background:var(--white);border:1.5px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:all .3s}
-.cat-card:hover .cat-icon{border-color:var(--amber);background:var(--amber-pale)}
-.cat-icon svg{width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.cat-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
-.cat-desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* PRODUCT CARD — one card type for both supplied and manufactured lines */
+.cat-card{
+  background:var(--white);border:1.5px solid var(--border);border-radius:10px;
+  overflow:hidden;transition:opacity .35s,transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s;
+  display:flex;flex-direction:column;text-align:left;width:100%;color:inherit;
+  cursor:none;opacity:0;transform:translateY(16px);
+}
+.cat-card.visible{opacity:1;transform:translateY(0)}
+.cat-card:hover,.cat-card:focus-visible{border-color:var(--amber);box-shadow:0 8px 32px rgba(232,130,12,.12);transform:translateY(-3px)}
+.cat-card:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+.cat-media{position:relative;height:190px;background:var(--off);display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--border)}
+/* Source photos vary in size; fill the tile and crop rather than leaving gaps */
+.cat-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.cat-card:hover .cat-media img{transform:scale(1.05)}
+.cat-card-tag{
+  position:absolute;top:10px;left:10px;z-index:2;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;
+  background:var(--white);border:1px solid var(--border);color:var(--muted);
+  padding:3px 7px;border-radius:3px;
+}
+.cat-badge{
+  position:absolute;top:10px;right:10px;z-index:2;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;
+  background:var(--amber-pale);border:1px solid var(--amber);color:#9a5200;
+  padding:3px 7px;border-radius:3px;
+}
+.cat-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column}
+.cat-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.35}
+.cat-desc{font-size:12px;color:var(--muted);line-height:1.6;flex:1}
+.cat-more{
+  margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;
+  text-transform:uppercase;color:#9a5200;display:flex;align-items:center;gap:6px;
+}
+.cat-more svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.cat-card:hover .cat-more svg{transform:translateX(3px)}
+
+/* SHOWCASE — the landing page samples the catalogue, then hands off */
+.cat-lede{font-size:14px;color:var(--muted);line-height:1.85;font-weight:300;max-width:58ch;margin-top:14px}
+/* The catalogue hand-off is a primary action, not a footnote — solid fill, top of the section */
+.cat-viewall{
+  display:inline-flex;align-items:center;gap:9px;padding:15px 28px;flex-shrink:0;
+  border:1.5px solid var(--amber);border-radius:6px;
+  background:var(--amber);color:var(--white);
+  font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  transition:background .25s,border-color .25s,transform .25s,box-shadow .25s;
+}
+.cat-viewall svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.cat-viewall:hover{background:#d4730b;border-color:#d4730b;transform:translateY(-1px);box-shadow:0 8px 22px rgba(230,126,15,.28)}
+.cat-viewall:hover svg{transform:translateX(4px)}
+.cat-outro{
+  margin-top:52px;padding-top:36px;border-top:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:32px 56px;align-items:flex-end;justify-content:space-between;
+}
+.cat-lines{display:grid;gap:0;border-top:1px solid var(--border);flex:1 1 420px;max-width:560px}
+.cat-lines a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  padding:14px 0;border-bottom:1px solid var(--border);
+  transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s;
+}
+.cat-lines a:hover{transform:translateX(10px);border-bottom-color:var(--amber)}
+.cat-lines dt{font-size:13px;color:var(--muted);transition:color .2s}
+.cat-lines a:hover dt{color:var(--ink)}
+.cat-lines dd{font-family:'Bebas Neue';font-size:26px;line-height:1;color:var(--amber);letter-spacing:.5px}
+@media(max-width:900px){
+  .cat-outro{grid-template-columns:1fr;gap:28px;align-items:start}
+  .cat-lines{max-width:none}
+}
+@media(max-width:640px){
+  .cat-viewall{width:100%;justify-content:center}
+}
+
+@media(max-width:1024px){.catalogue-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.catalogue-grid{grid-template-columns:repeat(2,1fr)}.cat-media{height:150px}}
+@media(max-width:480px){.catalogue-grid{grid-template-columns:1fr}}
+
+/* CERTIFICATIONS — view-only scans */
+.certs{padding:100px 5%;background:var(--off)}
+.certs-header{margin-bottom:12px}
+.certs-header .eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:2px;margin-bottom:12px;display:block}
+.certs-header h2{font-family:'Bebas Neue';font-size:clamp(36px,4vw,54px);letter-spacing:1px;color:var(--ink);line-height:1}
+.certs-sub{font-size:13px;color:var(--muted);line-height:1.7;max-width:560px;margin-top:14px}
+.certs-teaser{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:60px;align-items:end;margin-top:44px}
+.certs-teaser-text h2{font-family:'Bebas Neue';font-size:clamp(36px,4vw,54px);letter-spacing:1px;color:var(--ink);line-height:1;margin-bottom:18px}
+.certs-teaser-text p{font-size:14px;line-height:1.85;color:var(--muted);font-weight:300;max-width:58ch;margin-bottom:26px}
+.certs-teaser-link{
+  display:inline-flex;align-items:center;gap:10px;padding:13px 24px;
+  border:1px solid var(--amber);border-radius:6px;color:var(--amber);
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  transition:background .25s,color .25s;
+}
+.certs-teaser-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.certs-teaser-link:hover{background:var(--amber);color:#fff}
+.certs-teaser-link:hover svg{transform:translateX(4px)}
+.certs-teaser-link:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.certs-teaser-figures{display:grid;gap:0;border-top:1px solid var(--border)}
+.certs-teaser-figures > div{display:flex;align-items:baseline;justify-content:space-between;gap:18px;padding:15px 0;border-bottom:1px solid var(--border)}
+.certs-teaser-figures dt{font-size:12px;color:var(--muted)}
+.certs-teaser-figures dd{font-family:'Bebas Neue';font-size:28px;line-height:1;color:var(--amber);letter-spacing:.5px;white-space:nowrap}
+@media(max-width:900px){.certs-teaser{grid-template-columns:1fr;gap:32px;align-items:start}}
 
 /* CONTACT */
 .contact{padding:100px 5%;background:var(--ink)}
@@ -184,7 +286,7 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
     width: 100%; 
     justify-content: center;
   }}
-@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--white);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}.hamburger{display:flex}.catalogue-grid{grid-template-columns:1fr}.f-2col{grid-template-columns:1fr}}
+@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:fixed;top:78px;left:0;right:0;background:var(--white);padding:24px 5%;gap:18px;border-bottom:1px solid var(--border)}.hamburger{display:flex}.catalogue-grid{grid-template-columns:1fr}.f-2col{grid-template-columns:1fr}.nav-logo-img{height:50px}}
 </style>
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="apple-touch-icon" href="images/favicon.png">
@@ -199,10 +301,12 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
     </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
-    <li><a href="#catalogue">Products</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="products.html?line=manufactured">Manufacturing</a></li>
+    <li><a href="certifications.html">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#contact" class="nav-enquire">Get a Quote</a></li>
-    <li><a href="../group/index.html" style="color:var(--amber)!important;font-size:11px">← Group</a></li>
+    <li><a href="../group/index.html" class="nav-group-link">← Group</a></li>
   </ul>
   <div id="themeSwitchMount" class="nav-theme-slot"></div>
   <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
@@ -214,7 +318,7 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
     <h1>LINE<br>HARD<span>WARE</span><br>& ACCS.</h1>
     <p class="hero-sub">Supplying quality line hardware, insulators, transformers, and power accessories to Bangladesh's growing power sector — since 2006.</p>
     <div class="hero-actions">
-      <a href="#catalogue" class="btn-amber">Browse Products</a>
+      <a href="products.html" class="btn-amber">Browse Products</a>
       <a href="#contact" class="btn-outline">Request Quote</a>
     </div>
     <div class="hero-trust">
@@ -275,23 +379,48 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
 
 <section class="catalogue" id="catalogue">
   <div class="cat-header">
-    <div class="cat-title-area"><span class="eyebrow">Product Catalogue</span><h2>What We Supply</h2></div>
-    <div class="cat-filter">
-      <div class="cat-chip active">All Products</div>
-      <div class="cat-chip">HT/LT Lines</div>
-      <div class="cat-chip">Protection</div>
-      <div class="cat-chip">Distribution</div>
+    <div class="cat-title-area">
+      <span class="eyebrow">Product Catalogue</span>
+      <h2>What We Supply</h2>
+      <p class="cat-lede">Everything here is hot-dip galvanised and produced at our own Gazaria,
+         Munshiganj plant — nothing is factored in. Five of the thirteen items are shown below;
+         the full catalogue carries all of them with specifications and test provenance.</p>
     </div>
+    <a href="products.html" class="cat-viewall">View all 13 products
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </div>
-  <div class="catalogue-grid">
-    <div class="cat-card"><div class="cat-card-tag">CAT-01</div><div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="cat-name">HT/LT Line Hardware</div><div class="cat-desc">High and low tension line hardware and accessories for transmission and distribution networks.</div></div>
-    <div class="cat-card"><div class="cat-card-tag">CAT-02</div><div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div><div class="cat-name">Insulators</div><div class="cat-desc">All types of insulators for overhead lines, substations, and distribution systems.</div></div>
-    <div class="cat-card"><div class="cat-card-tag">CAT-03</div><div class="cat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div><div class="cat-name">MCCBs</div><div class="cat-desc">Moulded Case Circuit Breakers for industrial and power sector switching applications.</div></div>
-    <div class="cat-card"><div class="cat-card-tag">CAT-04</div><div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="cat-name">LA & DOFC</div><div class="cat-desc">Lightning Arresters and Drop-Out Fuse Cutouts for overhead line protection.</div></div>
-    <div class="cat-card"><div class="cat-card-tag">CAT-05</div><div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div><div class="cat-name">Power Transformers</div><div class="cat-desc">Distribution and power transformers across a wide range of capacity requirements.</div></div>
-    <div class="cat-card"><div class="cat-card-tag">CAT-06</div><div class="cat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div class="cat-name">Measuring Instruments</div><div class="cat-desc">Precision electrical measuring instruments for power sector monitoring and testing.</div></div>
-    <div class="cat-card"><div class="cat-card-tag">CAT-07</div><div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><div class="cat-name">SPC Poles</div><div class="cat-desc">Spun Pre-stressed Concrete Poles for overhead line infrastructure across Bangladesh.</div></div>
-    <div class="cat-card"><div class="cat-card-tag">CAT-08</div><div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="cat-name">e-GP Procurement</div><div class="cat-desc">Full electronic government procurement support for all product categories and tender requirements.</div></div>
+  <div class="catalogue-grid" id="showcaseGrid"></div>
+  <div class="cat-outro">
+    <dl class="cat-lines">
+      <a href="products.html?line=htlt"><dt>HT/LT line hardware</dt><dd>8</dd></a>
+      <a href="products.html?line=distribution"><dt>Distribution &amp; connectors</dt><dd>4</dd></a>
+      <a href="products.html?line=protection"><dt>Earthing &amp; protection</dt><dd>1</dd></a>
+    </dl>
+    <a href="products.html" class="cat-viewall">Browse all 13 products
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS — summary; the full register lives on certifications.html -->
+<section class="certs" id="certifications">
+  <div class="certs-teaser">
+    <div class="certs-teaser-text">
+      <h2>Independently Verified</h2>
+      <p>Quality management certification for the Gazaria plant, plus independent material
+         testing from BUET and BSTI — measured tensile strength, yield strength and galvanising
+         coating weight, every result against the specification it was tested to.</p>
+      <a href="certifications.html" class="certs-teaser-link">
+        View certificates &amp; test reports
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <dl class="certs-teaser-figures">
+      <div><dt>Measured coating weight</dt><dd>720 g/m&sup2;</dd></div>
+      <div><dt>Average tensile strength</dt><dd>485 MPa</dd></div>
+      <div><dt>Documents on file</dt><dd>3</dd></div>
+    </dl>
   </div>
 </section>
 
@@ -317,7 +446,7 @@ footer{background:var(--ink2);padding:40px 5% 24px;border-top:1px solid rgba(255
 <footer>
   <div class="footer-row">
     <div class="footer-brand"><strong>ARMA LINE HARDWARE & ACCESSORIES LTD.</strong><span>A Sister Concern of ARMA Group of Companies · Est. 2006</span></div>
-    <ul class="footer-links"><li><a href="../group/index.html">← ARMA Group</a></li><li><a href="#about">About</a></li><li><a href="#catalogue">Products</a></li><li><a href="#contact">Contact</a></li></ul>
+    <ul class="footer-links"><li><a href="../group/index.html">← ARMA Group</a></li><li><a href="#about">About</a></li><li><a href="products.html">Products</a></li><li><a href="certifications.html">Certifications</a></li><li><a href="#contact">Contact</a></li></ul>
   </div>
   <div class="footer-bottom"><p>© 2025 ARMA Line Hardware & Accessories Ltd. Dhaka, Bangladesh.</p></div>
 </footer>
@@ -329,15 +458,14 @@ let mx=0,my=0,ox=0,oy=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;curd.style.left=mx+'px';curd.style.top=my+'px';});
 function animC(){ox+=(mx-ox)*.12;oy+=(my-oy)*.12;cur.style.left=ox+'px';cur.style.top=oy+'px';requestAnimationFrame(animC);}
 animC();
-document.querySelectorAll('a,button,.cat-card,.loc-chip,.cat-chip').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));});
+document.querySelectorAll('a,button,.loc-chip').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));});
 window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);});
 gsap.to('#aboutImg',{yPercent:15,ease:'none',scrollTrigger:{trigger:'.about',start:'top bottom',end:'bottom top',scrub:true}});
 function cnt(el,t,d,s=''){gsap.to({v:0},{v:t,duration:d,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(this.targets()[0].v)+s;}});}
 ScrollTrigger.create({trigger:'.stats-row',start:'top 80%',once:true,onEnter:()=>{cnt(document.getElementById('s1'),2006,1.2);cnt(document.getElementById('s2'),8,0.8);cnt(document.getElementById('s3'),2,0.5);}});
 gsap.to({v:0},{v:8,duration:1.5,delay:.5,ease:'power2.out',onUpdate:function(){const el=document.getElementById('hscNum');if(el)el.textContent=Math.round(this.targets()[0].v);}});
-document.querySelectorAll('.cat-card').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.5,delay:(i%4)*.08,scrollTrigger:{trigger:el,start:'top 88%',once:true}});});
+/* .cat-card reveal is owned by the showcase script below. */
 document.querySelectorAll('h2,.eyebrow').forEach(el=>{gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.7,scrollTrigger:{trigger:el,start:'top 86%',once:true}});});
-document.querySelectorAll('.cat-chip').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.cat-chip').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
 function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
 async function submitForm(e){e.preventDefault();const btn=document.getElementById('submitBtn');btn.textContent='Sending...';btn.disabled=true;try{const r=await fetch(e.target.action,{method:'POST',body:new FormData(e.target),headers:{Accept:'application/json'}});if(r.ok){btn.textContent='Enquiry Sent ✓';btn.style.background='#008000';e.target.reset();setTimeout(()=>{btn.textContent='Submit Enquiry';btn.style.background='';btn.disabled=false;},4000);}else{btn.textContent='Error — Try Again';btn.disabled=false;}}catch{btn.textContent='Error — Try Again';btn.disabled=false;}}
 </script>
@@ -362,7 +490,7 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
     if(!link) return;
     const href=link.getAttribute('href');
     if(!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto') || link.target==='_blank') return;
-    if(href.endsWith('.html')){
+    if(href.indexOf('.html')>-1){
       e.preventDefault();
       overlay.classList.add('active');
       setTimeout(function(){ window.location.href=href; },380);
@@ -371,6 +499,72 @@ async function submitForm(e){e.preventDefault();const btn=document.getElementByI
 })();
 </script>
 <script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
 <script>ARMATheme.init({ site: 'line-hardware', placement: 'inline' });</script>
+
+<!-- PRODUCT SHOWCASE — a sample of the catalogue; the full list lives on products.html -->
+<script src="js/products-data.js"></script>
+<script>
+(function(){
+  const grid = document.getElementById('showcaseGrid');
+  if (!grid) return;
+  const FEATURED = (window.ARMA_LH_PRODUCTS || []).filter(p => p.feature);
+
+  const esc = s => String(s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  FEATURED.forEach(p => {
+    const card = document.createElement('a');
+    card.className = 'cat-card';
+    card.href = 'products.html?line=' + encodeURIComponent(p.cats[1] || 'manufactured');
+    card.innerHTML =
+      `<div class="cat-media">
+         <span class="cat-card-tag">${esc(p.sku)}</span>
+         <span class="cat-badge">${esc(p.origin)}</span>
+         <img src="images/products/${esc(p.img)}" alt="${esc(p.name)} — ${esc(p.desc)}" loading="lazy">
+       </div>
+       <div class="cat-body">
+         <div class="cat-name">${esc(p.name)}</div>
+         <div class="cat-desc">${esc(p.desc)}</div>
+         <div class="cat-more">View in catalogue
+           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+         </div>
+       </div>`;
+    grid.appendChild(card);
+  });
+
+  const cards = Array.from(grid.querySelectorAll('.cat-card'));
+
+  /* Reveal on scroll */
+  if (window.ScrollTrigger && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    ScrollTrigger.create({
+      trigger: grid, start:'top 88%', once:true,
+      onEnter: () => cards.forEach((c,i) => setTimeout(() => c.classList.add('visible'), i*70))
+    });
+  } else {
+    cards.forEach(c => c.classList.add('visible'));
+  }
+
+  /* Safety net: never leave a card stranded invisible if the scroll trigger
+     misses (short viewports, restored scroll position, print, or no JS event). */
+  function revealInView(){
+    cards.forEach(c => {
+      if (c.classList.contains('visible')) return;
+      const r = c.getBoundingClientRect();
+      if (r.top < window.innerHeight + 200 && r.bottom > -200) c.classList.add('visible');
+    });
+  }
+  revealInView();
+  window.addEventListener('scroll', revealInView, { passive:true });
+  window.addEventListener('resize', revealInView);
+  setTimeout(() => cards.forEach(c => c.classList.add('visible')), 4000);
+
+  // The custom cursor grows over interactive elements; new cards need the same hooks
+  cards.forEach(el => {
+    el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+  });
+})();
+</script>
 </body>
 </html>

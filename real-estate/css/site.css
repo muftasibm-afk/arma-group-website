@@ -111,21 +111,35 @@ body.page-enter.page-loaded{opacity:1;transition:opacity .45s ease}
 /* ── NAV ── */
 nav.site-nav{
   position:fixed;top:0;left:0;right:0;z-index:900;
-  height:76px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 5%;transition:background .45s,border-color .45s,box-shadow .45s;
+  height:78px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;transition:background .45s,border-color .45s,box-shadow .45s,backdrop-filter .45s;
   border-bottom:1px solid transparent;
 }
 nav.site-nav.scrolled,nav.site-nav.light{
-  background:var(--nav-bg);
-  border-color:var(--border);
-  backdrop-filter:blur(14px);
+  background:rgba(20,20,20,0.92);
+  border-color:rgba(184,150,62,.22);
+  backdrop-filter:blur(18px);
   box-shadow:0 4px 24px var(--shadow);
 }
+nav.site-nav.scrolled .nav-logo-text strong,nav.site-nav.light .nav-logo-text strong{color:var(--white)}
+nav.site-nav.scrolled .nav-menu>li>a,nav.site-nav.light .nav-menu>li>a,
+nav.site-nav.scrolled .nav-menu>li>button.nav-link,nav.site-nav.light .nav-menu>li>button.nav-link{color:rgba(255,255,255,.92)}
+nav.site-nav.scrolled .nav-menu>li>a:hover,nav.site-nav.light .nav-menu>li>a:hover{color:var(--gold2)}
+/* --gold (#B8963E) on the dark bar is ~4.0:1 — under AA for 10px text.
+   --gold2 (#D4AF6A) reaches ~6.4:1. */
+nav.site-nav.scrolled .nav-cta,nav.site-nav.light .nav-cta,
+nav.site-nav.dark-top:not(.scrolled) .nav-cta{
+  color:var(--gold2)!important;border-color:rgba(212,175,106,.6)!important;
+}
+nav.site-nav.scrolled .nav-menu>li>a.active,
+nav.site-nav.light .nav-menu>li>a.active,
+nav.site-nav.dark-top:not(.scrolled) .nav-menu>li>a.active{color:var(--gold2)}
+nav.site-nav.scrolled .hamburger span,nav.site-nav.light .hamburger span{background:var(--white)}
 nav.site-nav.dark-top:not(.scrolled){
-  background:linear-gradient(to bottom,rgba(28,28,28,.45),transparent);
+  background:linear-gradient(to bottom,rgba(20,20,20,.55),transparent);
 }
 .nav-logo{display:flex;align-items:center;gap:12px}
-.nav-logo-img{height:38px;width:auto}
+.nav-logo-img{height:62px;width:auto}
 .nav-logo-text strong{
   display:block;font-family:'Cormorant Garamond',serif;
   font-size:15px;font-weight:600;letter-spacing:2px;
@@ -134,18 +148,17 @@ nav.site-nav.dark-top:not(.scrolled){
   font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
 }
 nav.site-nav.dark-top:not(.scrolled) .nav-logo-text strong{color:var(--white)}
-nav.site-nav.scrolled .nav-logo-text strong,nav.site-nav.light .nav-logo-text strong{color:var(--text)}
 
 .nav-menu{display:flex;align-items:center;gap:6px;list-style:none}
 .nav-menu>li{position:relative}
 .nav-menu>li>a,.nav-menu>li>button.nav-link{
   display:flex;align-items:center;gap:5px;
   padding:10px 12px;font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  background:none;border:none;cursor:pointer;color:var(--muted);
+  background:none;border:none;cursor:pointer;color:var(--text);
   transition:color .25s;white-space:nowrap;
 }
 nav.site-nav.dark-top:not(.scrolled) .nav-menu>li>a,
-nav.site-nav.dark-top:not(.scrolled) .nav-menu>li>button.nav-link{color:rgba(255,255,255,.75)}
+nav.site-nav.dark-top:not(.scrolled) .nav-menu>li>button.nav-link{color:rgba(255,255,255,.92)}
 .nav-menu>li>a:hover,.nav-menu>li>button.nav-link:hover{color:var(--gold)}
 .nav-menu>li>a.active{color:var(--gold)}
 .nav-caret{font-size:8px;opacity:.6;transition:transform .25s}
@@ -160,9 +173,11 @@ nav.site-nav.dark-top:not(.scrolled) .nav-menu>li>button.nav-link{color:rgba(255
   padding:8px 0;list-style:none;
 }
 .nav-menu>li:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+/* --muted on --surface is 3.0:1 in day and 4.0:1 in night — both under AA
+   for 10px text. --text tracks the surface in either theme (>= 12:1). */
 .nav-dropdown a{
   display:block;padding:10px 20px;font-size:10px;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--muted);transition:color .2s,background .2s;
+  text-transform:uppercase;color:var(--text);transition:color .2s,background .2s;
 }
 .nav-dropdown a:hover{color:var(--text);background:var(--gold-pale)}
 
@@ -171,7 +186,9 @@ nav.site-nav.dark-top:not(.scrolled) .nav-menu>li>button.nav-link{color:rgba(255
   color:var(--gold)!important;padding:8px 18px!important;
 }
 .nav-cta:hover{background:var(--gold)!important;color:var(--white)!important}
-.nav-group-link{font-size:9px!important;opacity:.55}
+/* opacity:.55 compounded with the .75-alpha link colour to ~41% white
+   (≈2.6:1) — well under AA. .85 keeps it secondary but readable. */
+.nav-group-link{font-size:9px!important;opacity:.85}
 
 .nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
 
@@ -265,6 +282,41 @@ nav.site-nav.dark-top:not(.scrolled) .hamburger span{background:var(--white)}
 .section-sub{font-size:13px;color:var(--muted);max-width:520px;margin-top:16px;line-height:1.85;font-weight:300}
 .section-header.center .section-sub{margin-left:auto;margin-right:auto}
 
+/* ── SHOWCASE HEADER — the section leads with its own way through to the full list ── */
+.showcase-header{
+  display:flex;flex-wrap:wrap;gap:28px 48px;align-items:flex-end;justify-content:space-between;
+}
+.showcase-header-text{flex:1 1 460px}
+.showcase-cta{flex-shrink:0;padding:16px 34px;font-size:11px;letter-spacing:2.5px}
+.showcase-cta svg{
+  width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform .25s;
+}
+.showcase-cta:hover svg{transform:translateX(4px)}
+.showcase-outro{
+  margin-top:56px;padding-top:40px;border-top:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:32px 56px;align-items:flex-end;justify-content:space-between;
+}
+.showcase-lines{flex:1 1 420px;max-width:560px;border-top:1px solid var(--border)}
+.showcase-lines a{
+  display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  padding:14px 0;border-bottom:1px solid var(--border);
+  transition:transform .25s cubic-bezier(.16,1,.3,1),border-color .25s;
+}
+.showcase-lines a:hover{transform:translateX(10px);border-bottom-color:var(--gold)}
+.showcase-lines dt{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.showcase-lines a:hover dt{color:var(--text)}
+.showcase-lines dd{
+  font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1;
+  font-weight:300;color:var(--gold);white-space:nowrap;
+  font-variant-numeric:lining-nums;/* the serif's default old-style figures render 1 as a small-cap I */
+}
+@media(max-width:768px){
+  .showcase-header,.showcase-outro{align-items:flex-start}
+  .showcase-cta{width:100%}
+  .showcase-lines{max-width:none}
+}
+
 /* ── FEATURED PROJECTS (home preview) ── */
 .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
 .proj-card{
@@ -305,7 +357,7 @@ nav.site-nav.dark-top:not(.scrolled) .hamburger span{background:var(--white)}
 
 /* ── ABOUT / TEAM / NEWS BLOCKS ── */
 .split-section{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
-.split-media{min-height:480px;background:center/cover no-repeat;position:relative}
+.split-media{min-height:600px;background:center 75%/cover no-repeat;position:relative}
 .split-media::after{content:'';position:absolute;inset:0;background:rgba(28,28,28,.12)}
 .split-content{padding:80px 8%;display:flex;flex-direction:column;justify-content:center;background:var(--warm)}
 .split-content p{font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:24px;font-weight:300}
@@ -331,8 +383,8 @@ nav.site-nav.dark-top:not(.scrolled) .hamburger span{background:var(--white)}
 .projects-hero{padding:140px 5% 60px;background:var(--ink);position:relative;overflow:hidden}
 .projects-hero::before{
   content:'';position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&auto=format&fit=crop&q=60') center/cover;
-  opacity:.1;
+  background:url('../images/hero/hero-2.webp') center/cover;
+  opacity:.18;
 }
 .projects-hero-inner{position:relative;z-index:2;max-width:700px}
 .projects-hero h1{
@@ -344,7 +396,7 @@ nav.site-nav.dark-top:not(.scrolled) .hamburger span{background:var(--white)}
 
 .filter-panel{
   background:var(--surface);border-bottom:1px solid var(--border);
-  padding:20px 5%;position:sticky;top:76px;z-index:800;
+  padding:20px 5%;position:sticky;top:78px;z-index:800;
   box-shadow:0 4px 20px var(--shadow);
   transition:background .45s;
 }
@@ -432,8 +484,66 @@ nav.site-nav.dark-top:not(.scrolled) .hamburger span{background:var(--white)}
 .gallery-section{padding:0 5% 80px}
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
 .gallery-item{aspect-ratio:4/3;overflow:hidden;position:relative}
-.gallery-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:filter .5s}
-.gallery-item:hover img{filter:grayscale(0%)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:filter .5s,transform .6s cubic-bezier(.16,1,.3,1)}
+.gallery-item:hover img{filter:grayscale(0%);transform:scale(1.03)}
+@media (prefers-reduced-motion:reduce){
+  .gallery-item img{transition:filter .3s}
+  .gallery-item:hover img{transform:none}
+}
+
+/* Mission / values */
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:40px}
+.mission-block{
+  background:var(--surface);border:1px solid var(--border);padding:36px 32px;
+}
+.mission-block h3{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,32px);
+  font-weight:400;margin-bottom:14px;text-wrap:balance;
+}
+.mission-block p{font-size:14px;color:var(--muted);line-height:1.75;max-width:65ch;margin-bottom:18px}
+.mission-subhead{margin-top:28px}
+.mission-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.mission-list li{
+  position:relative;padding-left:18px;font-size:13px;line-height:1.65;color:var(--text);
+}
+.mission-list li::before{
+  content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--gold);
+}
+.values-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.value-item{background:var(--surface);border:1px solid var(--border);padding:28px 22px}
+.value-item h4{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:10px;
+}
+.value-item p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* Chairman */
+.chairman-section{display:grid;grid-template-columns:minmax(280px,.9fr) 1.1fr;min-height:560px}
+.chairman-media{background:var(--warm) center/cover no-repeat;min-height:360px}
+.chairman-content{
+  padding:clamp(48px,6vw,88px) clamp(28px,5vw,64px);
+  background:var(--surface);display:flex;flex-direction:column;justify-content:center;
+}
+.chairman-content .section-title{margin-bottom:24px}
+.chairman-content p{
+  font-size:15px;line-height:1.8;color:var(--muted);max-width:65ch;margin-bottom:16px;
+  text-wrap:pretty;
+}
+.chairman-content strong{color:var(--text);font-weight:500}
+.chairman-signoff{margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}
+.chairman-name{font-family:'Cormorant Garamond',serif;font-size:24px}
+.chairman-role{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-top:4px}
+
+/* Certifications */
+.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+.cert-card{
+  display:flex;flex-direction:column;gap:14px;background:var(--surface);
+  border:1px solid var(--border);padding:16px;transition:border-color .3s,transform .3s;
+}
+.cert-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.cert-card img{width:100%;aspect-ratio:4/3;object-fit:contain;background:var(--cream);padding:12px}
+.cert-card span{
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;text-align:center;color:var(--text);
+}
 
 /* Map schematic */
 .map-section{padding:80px 5%;background:var(--warm)}
@@ -619,7 +729,8 @@ footer.site-footer{background:var(--ink);padding:60px 5% 32px;border-top:1px sol
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  .featured-grid,.gallery-grid,.team-grid,.news-grid{grid-template-columns:repeat(2,1fr)}
+  .featured-grid,.gallery-grid,.team-grid,.news-grid,.cert-grid,.values-row{grid-template-columns:repeat(2,1fr)}
+  .mission-grid,.chairman-section{grid-template-columns:1fr}
   .stats-strip{grid-template-columns:repeat(2,1fr)}
   .stat-item:nth-child(2){border-right:none}
   .split-section,.project-body,.map-schematic,.contact-grid{grid-template-columns:1fr}
@@ -635,17 +746,19 @@ footer.site-footer{background:var(--ink);padding:60px 5% 32px;border-top:1px sol
   .nav-menu{display:none}
   .nav-menu.open{
     display:flex;flex-direction:column;position:fixed;
-    top:76px;left:0;right:0;background:var(--nav-bg);
-    padding:20px 5%;gap:4px;border-bottom:1px solid var(--border);
-    max-height:calc(100vh - 76px);overflow-y:auto;
+    top:78px;left:0;right:0;background:rgba(20,20,20,0.96);
+    padding:20px 5%;gap:4px;border-bottom:1px solid rgba(184,150,62,.22);
+    max-height:calc(100vh - 78px);overflow-y:auto;
   }
+  .nav-menu.open>li>a,.nav-menu.open>li>button.nav-link{color:rgba(255,255,255,.75)}
   .nav-menu.open .nav-dropdown{
     position:static;opacity:1;visibility:visible;transform:none;
     box-shadow:none;border:none;padding-left:12px;background:transparent;
   }
   .hamburger{display:flex}
-  .featured-grid,.projects-grid,.gallery-grid,.team-grid,.news-grid{grid-template-columns:1fr}
-  .filter-panel{top:76px}
+  .featured-grid,.projects-grid,.gallery-grid,.team-grid,.news-grid,.cert-grid,.values-row{grid-template-columns:1fr}
+  .filter-panel{top:78px}
+  .nav-logo-img{height:50px}
   .filter-row{flex-direction:column;align-items:stretch}
   .filter-dropdowns{flex-direction:column}
   .filter-select{width:100%}
@@ -655,3 +768,20 @@ footer.site-footer{background:var(--ink);padding:60px 5% 32px;border-top:1px sol
   .related-track .proj-card{flex:0 0 85%}
   .contact-bubble-wrap{bottom:20px;right:20px}
 }
+
+/* ── CERTIFICATIONS TEASER — links to certifications.html ─────────────── */
+.cert-cta-wrap{display:flex;justify-content:center;margin-top:36px}
+.cert-cta-link{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 30px;border:1px solid var(--gold);color:var(--gold);
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  transition:background .25s,color .25s;
+}
+.cert-cta-link svg{
+  width:15px;height:15px;fill:none;stroke:currentColor;
+  stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform .25s;
+}
+.cert-cta-link:hover{background:var(--gold);color:#fff}
+.cert-cta-link:hover svg{transform:translateX(4px)}
+.cert-cta-link:focus-visible{outline:2px solid var(--gold);outline-offset:3px}

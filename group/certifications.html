@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('arma-group-theme');document.documentElement.setAttribute('data-theme',t==='night'?'night':'day');document.documentElement.setAttribute('data-site','group');}catch(e){document.documentElement.setAttribute('data-theme','day');}})();</script>
+<style>
+html{background:#F4F6F4}
+body{opacity:0}
+body.page-loaded{opacity:1;transition:opacity .45s ease}
+</style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certifications &amp; Test Reports — ARMA Group</title>
+<meta name="description" content="The complete certification register for ARMA Group — ISO 9001 quality certification across three companies, chamber and association memberships, and independent material test reports from BUET and BSTI.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/css/theme-switch.css">
+<link rel="stylesheet" href="../shared/css/cert-viewer.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#004d00; --ink2:#004d00; --green:#008000;
+  --green-mid:#00a800; --green-pale:#e6f2e6; --gold:#C9A84C;
+  --gold-light:#F7EDD4; --off:#F4F6F4; --white:#FFFFFF;
+  --muted:#336633; --border:#b3d9b3;
+}
+
+/* the shared viewer resolves its palette from these */
+:root{
+  --cv-bg:var(--off);
+  --cv-surface:var(--white);
+  --cv-surface-2:var(--off);
+  --cv-ink:var(--ink);
+  --cv-ink-2:var(--muted);
+  --cv-ink-3:#5c8a5c;
+  --cv-line:var(--border);
+  --cv-accent:var(--gold);
+  --cv-accent-ink:#3a2f0e;
+  --cv-display:'Bebas Neue',sans-serif;
+  --cv-body:'Inter',sans-serif;
+  --cv-label:'Inter',sans-serif;
+}
+html[data-theme="night"][data-site="group"]{
+  --cv-surface:#0d2410;
+  --cv-surface-2:#061208;
+  --cv-ink-3:#7fa87f;
+}
+
+/* group's display face is condensed — give the register titles its rhythm */
+.cv-plate-title,.cv-panel-title{letter-spacing:.02em}
+.cv-plate-title{font-size:clamp(23px,2.3vw,30px)}
+.cv-panel-title{font-size:clamp(25px,2.6vw,33px)}
+.cv-plate-kind,.cv-panel-kind{letter-spacing:.2em;font-size:10px;font-weight:600}
+
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--off);color:var(--ink);overflow-x:hidden;line-height:1.6;cursor:none}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--ink)}
+
+#cur-outer{position:fixed;width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s}
+#cur-inner{position:fixed;width:5px;height:5px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+body.ch #cur-outer{width:64px;height:64px;background:rgba(201,168,76,.06)}
+
+/* NAV */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:78px;
+  background:rgba(6,18,8,0.92);border-bottom:1px solid rgba(201,168,76,0.22);
+  backdrop-filter:blur(18px);
+  transition:background .4s,border-color .4s;
+}
+.nav-logo{display:flex;align-items:center;gap:9px}
+.nav-logo-img{height:56px;width:auto;display:block}
+.nav-logo-limited{
+  display:inline-flex;align-items:center;align-self:stretch;
+  margin-left:-2px;padding-left:10px;
+  border-left:1px solid rgba(201,168,76,.55);
+  font-family:'Bebas Neue',sans-serif;font-size:18px;line-height:1;
+  letter-spacing:2.4px;color:var(--gold);text-transform:uppercase;
+}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none}
+/* .65 alpha on the dark bar was ~4.4:1 — under AA for 12px text. */
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.5px;color:rgba(255,255,255,.9);transition:color .2s;text-transform:uppercase;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-links a.is-here{color:var(--gold)}
+.nav-links a.is-here::after{width:100%}
+/* --ink (#004d00) on --gold was 4.46:1, marginally under AA. #002d00 → 6.1:1. */
+.nav-cta{background:var(--gold)!important;color:#002d00!important;padding:8px 18px;border-radius:2px;font-weight:600!important;letter-spacing:.5px}
+.nav-cta:hover{background:#dbb94f!important}
+.nav-cta::after{display:none!important}
+.nav-theme-slot{display:flex;align-items:center}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--white)}
+
+/* MASTHEAD — the group page carries the darker register header */
+.ct-masthead{
+  position:relative;padding:158px 5% 68px;
+  background:linear-gradient(160deg,#062008 0%,#0a2e0d 58%,#0d3510 100%);
+  color:var(--white);overflow:hidden;
+}
+.ct-masthead::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 90% at 88% 0%,rgba(201,168,76,.15),transparent 62%);
+  pointer-events:none;
+}
+.ct-masthead > *{position:relative;z-index:1}
+.ct-crumb{
+  display:flex;align-items:center;
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin-bottom:28px;
+}
+.ct-crumb a{transition:color .2s}
+.ct-crumb a:hover{color:var(--gold)}
+.ct-crumb span{opacity:.35;margin:0 10px}
+.ct-masthead h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(46px,7.2vw,92px);line-height:.95;letter-spacing:1px;
+  color:var(--white);max-width:15ch;margin-bottom:26px;
+}
+.ct-masthead h1 em{font-style:normal;color:var(--gold)}
+.ct-lede{font-size:16px;line-height:1.85;color:rgba(255,255,255,.6);max-width:66ch;font-weight:300}
+.ct-lede strong{color:var(--white);font-weight:500}
+
+.ct-ledger{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid rgba(255,255,255,.14)}
+.ct-ledger div{padding:24px 28px 0 0}
+.ct-ledger dt{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.ct-ledger dd{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;color:var(--white);letter-spacing:1px}
+.ct-ledger dd small{display:block;font-family:'Inter',sans-serif;font-size:12px;font-weight:300;letter-spacing:0;color:rgba(255,255,255,.5);margin-top:9px;line-height:1.6}
+
+/* REGISTER */
+.ct-register-section{padding:80px 5% 100px;background:var(--off)}
+.ct-section-head{margin-bottom:38px;max-width:66ch}
+.ct-section-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,3.8vw,46px);letter-spacing:1px;color:var(--ink);line-height:1.02;margin-bottom:14px}
+.ct-section-head h2 em{font-style:normal;color:var(--gold)}
+.ct-section-head p{font-size:14px;line-height:1.85;color:var(--muted);font-weight:300}
+
+.ct-standing{
+  display:flex;gap:16px;align-items:flex-start;padding:22px 24px;margin-bottom:40px;
+  background:var(--white);border:1px solid var(--border);border-radius:8px;
+}
+.ct-standing svg{width:19px;height:19px;flex-shrink:0;margin-top:2px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ct-standing p{font-size:13.5px;line-height:1.8;color:var(--muted);margin:0;max-width:78ch;font-weight:300}
+.ct-standing strong{color:var(--ink);font-weight:500}
+
+/* how to read a certificate — the group page is where this belongs */
+.ct-primer{padding:80px 5%;background:var(--white);border-top:1px solid var(--border)}
+.ct-primer-inner{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:60px;align-items:start}
+.ct-primer h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.4vw,42px);letter-spacing:1px;color:var(--ink);line-height:1.04;margin-bottom:16px}
+.ct-primer h2 em{font-style:normal;color:var(--gold)}
+.ct-primer-intro{font-size:14px;line-height:1.85;color:var(--muted);font-weight:300}
+.ct-chain-steps{list-style:none;counter-reset:pstep;margin:0;padding:0}
+.ct-chain-steps li{position:relative;counter-increment:pstep;padding:0 0 26px 46px}
+.ct-chain-steps li:last-child{padding-bottom:0}
+.ct-chain-steps li::before{
+  content:counter(pstep);position:absolute;left:0;top:-2px;
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;border:1px solid var(--gold);color:var(--gold);
+  font-size:12px;font-weight:600;
+}
+.ct-chain-steps li:not(:last-child)::after{
+  content:'';position:absolute;left:15px;top:32px;bottom:6px;width:1px;
+  background:linear-gradient(to bottom,rgba(201,168,76,.5),var(--border));
+}
+.ct-chain-steps h3{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.ct-chain-steps p{font-size:13.5px;line-height:1.8;color:var(--muted);font-weight:300;max-width:58ch}
+
+/* CTA */
+.ct-cta{padding:80px 5%;background:var(--ink);color:var(--white);text-align:center}
+.ct-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4vw,48px);letter-spacing:1px;line-height:1.04;margin-bottom:16px}
+.ct-cta h2 em{font-style:normal;color:var(--gold)}
+.ct-cta p{font-size:14px;line-height:1.85;color:rgba(255,255,255,.55);max-width:56ch;margin:0 auto 32px;font-weight:300}
+.ct-cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ct-btn{padding:14px 30px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-radius:2px;transition:all .25s}
+.ct-btn-gold{background:var(--gold);color:var(--ink)}
+.ct-btn-gold:hover{background:#dbb94f}
+.ct-btn-ghost{border:1px solid rgba(255,255,255,.24);color:var(--white)}
+.ct-btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FOOTER */
+footer{background:#003300;padding:60px 5% 32px;border-top:1px solid rgba(201,168,76,.12)}
+.footer-top{display:grid;grid-template-columns:2.5fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.f-brand strong{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--white);display:block;margin-bottom:10px}
+.f-brand p{font-size:13px;color:rgba(255,255,255,.35);line-height:1.75;max-width:260px}
+.f-col h4{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.f-col ul{list-style:none}
+.f-col li{margin-bottom:10px}
+.f-col a{font-size:13px;color:rgba(255,255,255,.35);transition:color .2s}
+.f-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,.25)}
+
+@media(max-width:980px){
+  .ct-ledger{grid-template-columns:repeat(2,1fr)}
+  .ct-primer-inner{grid-template-columns:1fr;gap:36px}
+  .footer-top{grid-template-columns:1fr;gap:32px}
+}
+@media(max-width:900px){body{cursor:auto}#cur-outer,#cur-inner{display:none}}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:78px;left:0;right:0;background:rgba(6,18,8,.97);padding:24px 5%;gap:18px}
+  .hamburger{display:flex}
+  .nav-logo-img{height:44px}
+  .ct-masthead{padding:124px 5% 50px}
+  .ct-ledger{grid-template-columns:1fr}
+  .ct-ledger div{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+  .ct-ledger div:last-child{border-bottom:none}
+}
+</style>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/favicon.png">
+</head>
+<body>
+
+<div id="cur-outer"></div>
+<div id="cur-inner"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.png" alt="ARMA Group" class="nav-logo-img">
+    <span class="nav-logo-limited">Limited</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#sectors">Our Concerns</a></li>
+    <li><a href="index.html#clients">Clients</a></li>
+    <li><a href="certifications.html" class="is-here">Certifications</a></li>
+    <li><a href="index.html#chairman">Leadership</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div id="themeSwitchMount" class="nav-theme-slot"></div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<header class="ct-masthead">
+  <nav class="ct-crumb" aria-label="Breadcrumb">
+    <a href="index.html">ARMA Group</a><span>/</span>Certifications
+  </nav>
+  <h1>Every document,<br>in <em>full</em></h1>
+  <p class="ct-lede">
+    A claim on a website is worth what the paperwork behind it is worth. This is the complete
+    register for the group — <strong>quality management certification across three companies,
+    chamber and association memberships, and independent material testing from BUET and
+    BSTI</strong> — each one reproduced as a full scan, with what it verifies, who issued it,
+    and the accreditation standing behind that issuer set out beside it.
+  </p>
+
+  <dl class="ct-ledger">
+    <div>
+      <dt>Documents</dt>
+      <dd>6<small>Certificates, memberships and independent test reports</small></dd>
+    </div>
+    <div>
+      <dt>Companies certified</dt>
+      <dd>3<small>Electric, Line Hardware and Real Estate</small></dd>
+    </div>
+    <div>
+      <dt>Accreditation bodies</dt>
+      <dd>4<small>UKAS, ANAB, CNAS and Inmetro stand behind the issuers</small></dd>
+    </div>
+    <div>
+      <dt>Independently tested since</dt>
+      <dd>2009<small>BSTI, followed by BUET in 2017</small></dd>
+    </div>
+  </dl>
+</header>
+
+<section class="ct-register-section">
+  <div class="ct-section-head">
+    <h2>THE COMPLETE <em>REGISTER</em></h2>
+    <p>Each document opens to its full scan alongside what it verifies, who issued it,
+       the accreditation chain behind that issuer, and every figure exactly as printed.</p>
+  </div>
+
+  <div class="ct-standing">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+    <p><strong>On dates and standing.</strong> Certification and membership terms are reproduced
+       exactly as printed, expiry dates included, and any term that has ended is labelled as such.
+       The ISO 9001:2008 certificate is against a revision superseded by ISO 9001:2015 and stands
+       as evidence of a long-running quality programme rather than a certification in force.
+       Material test reports are different in kind: they certify the samples tested on the date
+       tested, carry no expiry, and remain valid evidence of material performance.</p>
+  </div>
+
+  <div class="cv-register" id="certRegister"></div>
+</section>
+
+<section class="ct-primer">
+  <div class="ct-primer-inner">
+    <div>
+      <h2>HOW TO READ<br>A <em>CERTIFICATE</em></h2>
+      <p class="ct-primer-intro">Anyone can print a certificate. What gives one meaning is the
+        chain of independent assessment behind it — and that chain is what makes a certificate
+        issued in Dhaka acceptable to a buyer in Frankfurt.</p>
+    </div>
+    <ol class="ct-chain-steps">
+      <li>
+        <h3>The standard sets the requirements</h3>
+        <p>ISO publishes the standard — ISO 9001 for quality management — but certifies no one
+           itself. The standard defines what an organisation's systems must demonstrably do.</p>
+      </li>
+      <li>
+        <h3>An accreditation body assesses the certifier</h3>
+        <p>UKAS in the United Kingdom, ANAB in the United States, CNAS in China, Inmetro in
+           Brazil. Each is assessed against ISO/IEC 17011 and is a signatory to the international
+           mutual-recognition arrangement, which is what carries a certificate across borders.</p>
+      </li>
+      <li>
+        <h3>A certification body audits the organisation</h3>
+        <p>The accredited certifier — assessed itself against ISO/IEC 17021-1 — audits the
+           company on site, then issues a certificate for a three-year term with annual
+           surveillance audits in between.</p>
+      </li>
+      <li>
+        <h3>The chain can be checked by anyone</h3>
+        <p>Break any link — an unaccredited certifier, or an accreditation body outside the
+           arrangement — and the certificate carries no international standing. Accredited
+           management-system certificates can be verified publicly on IAF CertSearch by company
+           name or certificate number.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="ct-cta">
+  <h2>NEED DOCUMENTATION FOR A <em>TENDER?</em></h2>
+  <p>We supply certification copies, test reports and compliance documentation for
+     prequalification and procurement submissions across all group companies.</p>
+  <div class="ct-cta-actions">
+    <a href="index.html#contact" class="ct-btn ct-btn-gold">Request documentation</a>
+    <a href="index.html#sectors" class="ct-btn ct-btn-ghost">Our companies</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="f-brand">
+      <strong>ARMA GROUP LTD.</strong>
+      <p>A leading conglomerate of Bangladesh — building the nation across Power, Real Estate, Agriculture, Infrastructure, and Education since 1985.</p>
+    </div>
+    <div class="f-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="index.html#chairman">Leadership</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="index.html#career">Career</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h4>Certifications by company</h4>
+      <ul>
+        <li><a href="../electric/certifications.html">ARMA Electric Company</a></li>
+        <li><a href="../line-hardware/certifications.html">ARMA Line Hardware</a></li>
+        <li><a href="../real-estate/certifications.html">ARMA Real Estate</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ARMA Group of Companies. All rights reserved. Dhaka, Bangladesh.</p>
+  </div>
+</footer>
+
+<script src="../shared/js/certifications.js"></script>
+<script src="../shared/js/cert-viewer.js"></script>
+<script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
+<script>
+ARMATheme.init({ site: 'group', placement: 'inline' });
+
+ARMACertViewer.init({
+  site: 'group',
+  mount: '#certRegister',
+  basePath: 'images/certificates',
+  order: [
+    'iso-9001-electric',
+    'iso-9001-real-estate',
+    'iso-9001-line-hardware',
+    'test-report-buet',
+    'test-report-bsti',
+    'dcci-membership'
+  ]
+});
+
+function toggleNav(){ document.getElementById('navLinks').classList.toggle('open'); }
+
+(function(){
+  var outer = document.getElementById('cur-outer'), inner = document.getElementById('cur-inner');
+  var mx = 0, my = 0, ox = 0, oy = 0;
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    inner.style.left = mx + 'px'; inner.style.top = my + 'px';
+  });
+  (function loop(){
+    ox += (mx - ox) * .14; oy += (my - oy) * .14;
+    outer.style.left = ox + 'px'; outer.style.top = oy + 'px';
+    requestAnimationFrame(loop);
+  })();
+  function bindHover(){
+    document.querySelectorAll('a,button,.cv-plate-btn').forEach(function(el){
+      if (el.dataset.curBound) return;
+      el.dataset.curBound = '1';
+      el.addEventListener('mouseenter', function(){ document.body.classList.add('ch'); });
+      el.addEventListener('mouseleave', function(){ document.body.classList.remove('ch'); });
+    });
+  }
+  bindHover();
+  setTimeout(bindHover, 400);
+})();
+
+document.body.classList.add('page-loaded');
+</script>
+</body>
+</html>

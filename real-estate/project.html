@@ -28,15 +28,10 @@
   <ul class="nav-menu" id="navMenu">
     <li><a href="index.html#about">About</a></li>
     <li><a href="projects.html">Projects</a></li>
-    <li>
-      <button class="nav-link" type="button">Team <span class="nav-caret">▾</span></button>
-      <ul class="nav-dropdown">
-        <li><a href="index.html#team">Management</a></li>
-        <li><a href="index.html#team">Our Team</a></li>
-      </ul>
-    </li>
-    <li><a href="index.html#blogs">Blogs</a></li>
-    <li><a href="index.html#news">News & Events</a></li>
+    <li><a href="index.html#chairman">Chairman</a></li>
+    <li><a href="index.html#team">Team</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="index.html#certifications">Certifications</a></li>
     <li>
       <button class="nav-link" type="button">Query <span class="nav-caret">▾</span></button>
       <ul class="nav-dropdown">
@@ -75,18 +70,11 @@
     <div>
       <p class="project-desc" id="pdDesc">Project description.</p>
 
-      <!-- VIDEO PLACEHOLDER -->
-      <div class="video-block" style="margin:0 0 48px">
+      <!-- VIDEO (shown when a project video URL is available) -->
+      <div class="video-block" id="pdVideoBlock" hidden style="margin:0 0 48px">
         <span class="section-eyebrow">Project Film</span>
         <h3 class="section-title" style="font-size:32px;margin-bottom:20px">Video <em>Preview</em></h3>
-        <div class="video-frame">
-          <div class="video-placeholder">
-            <div class="video-placeholder-icon">
-              <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-            </div>
-            <span>PLACEHOLDER_VIDEO_URL — Add in projects.js</span>
-          </div>
-        </div>
+        <div class="video-frame" id="pdVideoFrame"></div>
       </div>
 
       <!-- GALLERY -->
@@ -125,7 +113,7 @@
       <div class="map-info">
         <span class="section-eyebrow">Location</span>
         <h3>Site <em>Coordinates</em></h3>
-        <p>View the project location on the map. Replace PLACEHOLDER_MAP_COORDINATES_URL in projects.js with your Google Maps link.</p>
+        <p id="pdMapCopy">Search this project address on Google Maps, or contact our sales office for directions and a site visit.</p>
         <a href="#" class="map-link" id="pdMapLink" target="_blank">Open in Google Maps →</a>
       </div>
     </div>
@@ -189,6 +177,7 @@
 </div>
 
 <script src="../shared/js/theme-switch.js"></script>
+<script src="../shared/js/nav-contrast.js"></script>
 <script src="js/config.js"></script>
 <script src="js/projects.js"></script>
 <script src="js/site.js"></script>
