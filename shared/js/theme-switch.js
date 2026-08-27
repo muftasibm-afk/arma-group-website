@@ -47,23 +47,39 @@
   }
 
   function playSwitchAnim(btn, onMidpoint) {
-  btn.classList.remove('is-rising', 'is-dropping');
-  void btn.offsetWidth;
-  btn.classList.add('is-rising');
+    const isHang = !!btn.closest('.theme-switch--hang');
+    window.clearTimeout(btn._riseTimer);
+    window.clearTimeout(btn._dropTimer);
 
-  window.clearTimeout(btn._riseTimer);
-  window.clearTimeout(btn._dropTimer);
-
-  btn._riseTimer = window.setTimeout(() => {
-    onMidpoint();
-    btn.classList.add('is-dropping');
-
-    btn._dropTimer = window.setTimeout(() => {
+    if (isHang) {
+      // Hang button (real estate): use is-switching so it works
+      // cleanly with the existing themeHang continuous animation
+      btn.classList.remove('is-switching');
+      void btn.offsetWidth;
+      btn.classList.add('is-switching');
+      // Theme swaps at ~40% of the 650ms reSwitch animation
+      btn._riseTimer = window.setTimeout(() => {
+        onMidpoint();
+      }, 260);
+      btn._dropTimer = window.setTimeout(() => {
+        btn.classList.remove('is-switching');
+        void btn.offsetWidth;
+      }, SWITCH_MS);
+    } else {
+      // Inline buttons: rise up, swap theme at peak, drop back down
       btn.classList.remove('is-rising', 'is-dropping');
       void btn.offsetWidth;
-    }, 430);
-  }, 320);
-}
+      btn.classList.add('is-rising');
+      btn._riseTimer = window.setTimeout(() => {
+        onMidpoint();
+        btn.classList.add('is-dropping');
+        btn._dropTimer = window.setTimeout(() => {
+          btn.classList.remove('is-rising', 'is-dropping');
+          void btn.offsetWidth;
+        }, 430);
+      }, 320);
+    }
+  }
 
   function buildWidget(site, placement) {
     const hang = placement === 'hang';

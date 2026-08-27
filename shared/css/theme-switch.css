@@ -66,10 +66,10 @@ html[data-theme="night"] .theme-switch-stars{opacity:1}
 .theme-switch-btn.is-switching .theme-icon{
   transition-duration:.45s;
 }
-.theme-icon-sun{opacity:1;transform:scale(1) rotate(0deg)}
-.theme-icon-moon{position:absolute;opacity:0;transform:scale(.35) rotate(-30deg)}
-html[data-theme="night"] .theme-icon-sun{opacity:0;transform:scale(.35) rotate(30deg)}
-html[data-theme="night"] .theme-icon-moon{opacity:1;transform:scale(1) rotate(-10deg)}
+.theme-icon-sun{opacity:0;transform:scale(.35) rotate(-30deg)}
+.theme-icon-moon{position:absolute;opacity:1;transform:scale(1) rotate(0deg)}
+html[data-theme="night"] .theme-icon-sun{opacity:1;transform:scale(1) rotate(0deg)}
+html[data-theme="night"] .theme-icon-moon{opacity:0;transform:scale(.35) rotate(30deg)}
 
 html[data-theme="day"] .theme-switch-sky--day,
 html:not([data-theme="night"]) .theme-switch-sky--day{opacity:1}
